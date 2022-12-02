@@ -1,4 +1,13 @@
 #include "PhoneBook.hpp"
+#define RED "\x1b[31m"
+#define CLEAR "\x1b[39m"
+
+void	print_usage()
+{
+	std::cout << RED << "Usage" << CLEAR << ": type ";
+	std::cout << "\"ADD\" / \"SEARCH\" / \"EXIT\"" << std::endl;
+
+}
 
 int main()
 {
@@ -14,8 +23,8 @@ int main()
 			printf("SEARCH\n");
 		} else if (line == "EXIT"){
 			break ;
-		}
-		std::cout << line << std::endl;
+		} else
+			print_usage();
 	}
 	return (0);
 }
