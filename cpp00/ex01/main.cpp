@@ -12,18 +12,21 @@ void	print_usage()
 int main()
 {
 	std::string	line;
-//	PhoneBook	phonebook;
+	PhoneBook	phonebook;
 
 	while (42)
 	{
+		std::cout << "> ";
 		std::getline(std::cin, line);
 		if (line == "ADD"){
-			printf("ADD\n");
+			phonebook.add();
 		} else if (line == "SEARCH"){
-			printf("SEARCH\n");
+			phonebook.search();
 		} else if (line == "EXIT"){
 			break ;
-		} else
+		} else if (std::cin.eof())
+			std::exit(EXIT_FAILURE);
+		else
 			print_usage();
 	}
 	return (0);
