@@ -32,17 +32,15 @@ void	PhoneBook::add() {
 	wait_input("phone number");
 	wait_input("darkest secret");
 	_num = (_num + 1) % 8;
-//	_contact[_num].
+	printf("here: [%d]\n", _num);
 	std::string tmp;
-	for (int i = 0; i < 5; i++){
-		tmp = _contact[0].get_data(i);
-		printf("[%d]: ", _contact[0].get_index());
-		std::cout << tmp << std::endl;
-	}
-	for (int i = 0; i < 5; i++){
-		tmp = _contact[1].get_data(i);
-		printf("[%d]: ", _contact[1].get_index());
-		std::cout << tmp << std::endl;
+	for (int i = 0; i < 8; i++) {
+		printf("------------------------------------\n");
+		for (int j = 0; j < 5; j++) {
+			tmp = _contact[i].get_data(j);
+			printf("[%d]: ", j);
+			std::cout << tmp << std::endl;
+		}
 	}
 }
 
