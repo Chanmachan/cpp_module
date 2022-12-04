@@ -6,12 +6,13 @@ PhoneBook::PhoneBook() : _num(0){
 	}
 }
 
-void	PhoneBook::add() {
+void	PhoneBook::wait_input(std::string type) {
 	std::string	input;
 
-//	for (int i = 0; i < 5; i++){
+	if (type == "first name")
+		_contact[_num].reset_index();
 	while (42){
-		std::cout << "first name: ";
+		std::cout << type << ": ";
 		std::getline(std::cin, input);
 		if (std::cin.eof())
 			std::exit(EXIT_FAILURE);
@@ -20,8 +21,29 @@ void	PhoneBook::add() {
 		else
 			std::cout << "Wrong info" << std::endl;
 	}
-	_contact[0].set_data(input, 0);
-//	}
+	_contact[_num].set_data(input, _contact[_num].get_index());
+	_contact[_num].increment_index();
+}
+
+void	PhoneBook::add() {
+	wait_input("first name");
+	wait_input("last name");
+	wait_input("nickname");
+	wait_input("phone number");
+	wait_input("darkest secret");
+	_num = (_num + 1) % 8;
+//	_contact[_num].
+	std::string tmp;
+	for (int i = 0; i < 5; i++){
+		tmp = _contact[0].get_data(i);
+		printf("[%d]: ", _contact[0].get_index());
+		std::cout << tmp << std::endl;
+	}
+	for (int i = 0; i < 5; i++){
+		tmp = _contact[1].get_data(i);
+		printf("[%d]: ", _contact[1].get_index());
+		std::cout << tmp << std::endl;
+	}
 }
 
 

@@ -11,6 +11,7 @@ public:
 	PhoneBook();
 	void	add();
 	void	search();
+	void	wait_input(std::string type);
 };
 
 #endif
