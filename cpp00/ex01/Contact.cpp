@@ -14,7 +14,6 @@ void	Contact::init_info(int num) {
 
 void	Contact::set_data(std::string input, int num){
 	_info[num] = input;
-//	std::cout << _info[num] << std::endl;
 }
 
 int		Contact::get_index() {
