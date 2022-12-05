@@ -15,6 +15,7 @@ bool	PhoneBook::judge_arguments(std::string type, std::string input) {
 				if (!isdigit(input[i++]))
 					return (false);
 			}
+			return (true);
 		} else
 			return (false);
 	}
