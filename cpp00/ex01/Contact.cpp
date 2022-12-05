@@ -24,6 +24,23 @@ std::string	Contact::get_data(int i) {
 	return (_info[i]);
 }
 
+std::string	Contact::get_data(int i, int len) {
+	return (_info[i].substr(0, len));
+}
+
+void	Contact::get_info_for_search(int i) {
+	std::cout << '|';
+	std::cout << std::setw(10) << i + 1;
+	std::cout << '|';
+	std::cout << std::setw(10) << get_data(FIRST_NAME, 10);
+	std::cout << '|';
+	std::cout << std::setw(10) << get_data(LAST_NAME, 10);
+	std::cout << '|';
+	std::cout << std::setw(10) << get_data(NICKNAME, 10);
+	std::cout << '|' << std::endl;
+	std::cout << "+----------+----------+----------+----------+" << std::endl;
+}
+
 void	Contact::increment_index() {
 	_num_i++;
 }

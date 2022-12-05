@@ -14,6 +14,8 @@ public:
 	void	search();
 	void	wait_input(std::string type);
 	bool	judge_arguments(std::string type, std::string input);
+	bool	output_detail(std::string input);
+	void	print_detail(int index);
 };
 
 #endif

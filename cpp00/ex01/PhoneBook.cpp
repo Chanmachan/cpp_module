@@ -52,8 +52,37 @@ void	PhoneBook::add() {
 	std::cout << "٩( ᐛ )و" << std::endl;
 }
 
+void	PhoneBook::print_detail(int index) {
+	std::cout << std::endl;
+	for (int i = 0; i < 5; i++) {
+		if (i == 0)
+			std::cout << "first name:     ";
+		else if (i == 1)
+			std::cout << "last name:      ";
+		else if (i == 2)
+			std::cout << "nickname:       ";
+		else if (i == 3)
+			std::cout << "phone number:   ";
+		else if (i == 4)
+			std::cout << "darkest secret: ";
+		std::cout << _contact[index].get_data(i) << std::endl << std::endl;
+	}
+}
+
+bool	PhoneBook::output_detail(std::string input) {
+	const char	*str = input.c_str();
+	int			index = std::atoi(str);
+
+	if (1 <= index && index <= 8){
+		print_detail(index - 1);
+		return (true);
+	}
+	return (false);
+}
 
 void	PhoneBook::search() {
+	std::string	input;
+
 	if (_input_depth == 0){
 		std::cout << "phonebook is empty" << std::endl;
 		return ;
@@ -61,17 +90,17 @@ void	PhoneBook::search() {
 	std::cout << "+----------+----------+----------+----------+" << std::endl;
 	std::cout << "|   index  |first name|last name |nick name |" << std::endl;
 	std::cout << "+----------+----------+----------+----------+" << std::endl;
-	/*for (int i = 0; i < _input_depth; i++){
-
-	}*/
-
-	std::string tmp;
-	for (int i = 0; i < 8; i++) {
-		printf("------------------------------------\n");
-		for (int j = 0; j < 5; j++) {
-			tmp = _contact[i].get_data(j);
-			printf("[%d]: ", j);
-			std::cout << tmp << std::endl;
-		}
+	for (int i = 0; i < _input_depth; i++){
+		_contact[i].get_info_for_search(i);
+	}
+	while (42){
+		std::cout << "type index to see detail > ";
+		std::getline(std::cin, input);
+		if (std::cin.eof())
+			std::exit(EXIT_FAILURE);
+		else if (!input.empty() && output_detail(input))
+			break ;
+		else
+			std::cout << "index out of range!" << std::endl;
 	}
 }
