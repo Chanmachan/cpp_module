@@ -66,8 +66,9 @@ void	PhoneBook::print_detail(int index) {
 			std::cout << "phone number:   ";
 		else if (i == 4)
 			std::cout << "darkest secret: ";
-		std::cout << _contact[index].get_data(i) << std::endl << std::endl;
+		std::cout << _contact[index].get_data(i) << std::endl;
 	}
+	std::cout << std::endl;
 }
 
 bool	PhoneBook::output_detail(std::string input) {

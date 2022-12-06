@@ -6,7 +6,6 @@ Contact::Contact() {
 
 void	Contact::init_info(int num) {
 	_num_i = num;
-//	printf("[%d]\n", _num_i);
 	for (int i = 0; i < 5; i++){
 		_info[i] = "empty";
 	}
