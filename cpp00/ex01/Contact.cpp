@@ -24,7 +24,12 @@ std::string	Contact::get_data(int i) {
 }
 
 std::string	Contact::get_data(int i, int len) {
-	return (_info[i].substr(0, len));
+	if (_info[i].size() <= 10)
+		return (_info[i].substr(0, len));
+	else
+	{
+		return (_info[i].substr(0, 9) + ".");
+	}
 }
 
 void	Contact::get_info_for_search(int i) {
