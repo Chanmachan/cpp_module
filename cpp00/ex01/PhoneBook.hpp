@@ -2,6 +2,7 @@
 #define PHONEBOOK_HPP
 
 #include "Contact.hpp"
+//const static n_contact = 8 -> magic number を扱う方法として良い
 
 class PhoneBook{
 private:
