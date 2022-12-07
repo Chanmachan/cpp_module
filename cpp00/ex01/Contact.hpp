@@ -4,16 +4,18 @@
 #include <iostream>
 #include <iomanip>
 
-#define FIRST_NAME 0
-#define LAST_NAME 1
-#define NICKNAME 2
-#define PHONE_NUMBER 3
-#define DARKEST_SECRET 4
-
 class Contact{
 private:
+	enum {
+		FIRST_NAME = 0,
+		LAST_NAME = 1,
+		NICKNAME = 2,
+		PHONE_NUMBER = 3,
+		DARKEST_SECRET = 4,
+	};
+	const static size_t	n_info = 5;
 	int			_num_i;
-	std::string	_info[5];
+	std::string	_info[n_info];
 public:
 	Contact();
 	void		init_info(int num);
