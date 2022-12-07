@@ -31,7 +31,7 @@ void	PhoneBook::wait_input(std::string type) {
 		std::cout << type << ": ";
 		std::getline(std::cin, input);
 		if (std::cin.eof())
-			std::exit(EXIT_FAILURE);
+			std::exit(EXIT_SUCCESS);
 		else if (!input.empty() && judge_arguments(type, input))
 			break ;
 		else
@@ -75,7 +75,7 @@ bool	PhoneBook::output_detail(std::string input) {
 	const char	*str = input.c_str();
 	int			index = std::atoi(str);
 
-	if (1 <= index && index <= 8){
+	if (1 <= index && index <= 8 && index - 1 < _input_depth){
 		print_detail(index - 1);
 		return (true);
 	}
@@ -99,7 +99,7 @@ void	PhoneBook::search() {
 		std::cout << "type index to see detail > ";
 		std::getline(std::cin, input);
 		if (std::cin.eof())
-			std::exit(EXIT_FAILURE);
+			std::exit(EXIT_SUCCESS);
 		else if (!input.empty() && output_detail(input))
 			break ;
 		else
