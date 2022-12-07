@@ -16,13 +16,13 @@ private:
 	const static size_t	n_info = 5;
 	int			_num_i;
 	std::string	_info[n_info];
+	std::string	get_data(int i, int len);
 public:
 	Contact();
 	void		init_info(int num);
 	void		set_data(std::string input, int num);
 	int			get_index();
 	std::string	get_data(int i);
-	std::string	get_data(int i, int len);
 	void		get_info_for_search(int i);
 	void		increment_index();
 	void		reset_index();
