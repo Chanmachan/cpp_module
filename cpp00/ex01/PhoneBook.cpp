@@ -7,11 +7,11 @@ PhoneBook::PhoneBook() : _num(0), _input_depth(0){
 }
 
 bool	PhoneBook::judge_arguments(std::string type, std::string input) {
-	size_t	i = 0;
+	size_t	i = 1;
 
 	if (type == "phone number"){
-		if (input[0] == '+' || isdigit(input[0])){
-			while (input[++i] != '\0'){
+		if ((input[0] == '+' && isdigit(input[1])) || isdigit(input[0])){
+			while (i < input.size()){
 				if (!isdigit(input[i++]))
 					return (false);
 			}
@@ -75,6 +75,8 @@ bool	PhoneBook::output_detail(std::string input) {
 	const char	*str = input.c_str();
 	int			index = std::atoi(str);
 
+	if (input.size() > 2)
+		return (false);
 	if (1 <= index && index <= 8 && index - 1 < _input_depth){
 		print_detail(index - 1);
 		return (true);
@@ -83,8 +85,6 @@ bool	PhoneBook::output_detail(std::string input) {
 }
 
 void	PhoneBook::search() {
-	std::string	input;
-
 	if (_input_depth == 0){
 		std::cout << "phonebook is empty" << std::endl;
 		return ;
@@ -95,6 +95,7 @@ void	PhoneBook::search() {
 	for (int i = 0; i < _input_depth; i++){
 		_contact[i].get_info_for_search(i);
 	}
+	std::string	input;
 	while (42){
 		std::cout << "type index to see detail > ";
 		std::getline(std::cin, input);
