@@ -1,3 +1,5 @@
-//
-// Created by 本間優之介 on 2022/12/07.
-//
+#include "Zombie.hpp"
+
+Zombie* newZombie( std::string name ){
+	return (new Zombie(name));
+}
