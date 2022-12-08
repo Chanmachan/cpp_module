@@ -4,7 +4,10 @@ int main(){
 	std::cout << "================heap================" << std::endl;
 	Zombie	*heap_zombie = newZombie("heap ");
 
-	heap_zombie->announce();
+	if (heap_zombie)
+		heap_zombie->announce();
+	else
+		return (1);
 	delete heap_zombie;
 
 	std::cout << "================stack===============" << std::endl;
