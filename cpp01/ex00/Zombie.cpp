@@ -5,14 +5,14 @@ Zombie::Zombie() {
 }
 
 Zombie::~Zombie() {
-	std::cout << name << "Destroyed" << std::endl;
+	std::cout << _name << "Destroyed" << std::endl;
 }
 
 //Use this to access members of a class object
 Zombie::Zombie(std::string name) {
-	this->name = name;
+	this->_name = name;
 }
 
 void Zombie::announce() {
-	std::cout << name <<": BraiiiiiiinnnzzzZ..." << std::endl;
+	std::cout << _name <<": BraiiiiiiinnnzzzZ..." << std::endl;
 }
