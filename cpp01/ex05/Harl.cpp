@@ -43,4 +43,5 @@ void Harl::complain(std::string level) {
 			return;
 		}
 	}
+	std::cerr << "\x1b[31m" << "Error" << "\x1b[0m" << std::endl;
 }
