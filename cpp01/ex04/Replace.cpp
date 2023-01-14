@@ -25,6 +25,8 @@ int	Replace::replacing_data() {
 	size_t	find_ret;
 	bool	nl_flag = false;
 	// read line by line
+	if (_s1.empty())
+		return (1);
 	while (getline(ifs, line)){
 		if (nl_flag)
 			ofs << std::endl;
