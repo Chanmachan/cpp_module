@@ -13,8 +13,11 @@ private:
 public:
 	Weapon();
 	Weapon(std::string type);
-//	~Weapon();
-	std::string	getType();
+	//	~Weapon();
+	// & をつけないとコピーを返しちゃう
+	// & をつけた場合書き変えちゃダメだからconst
+	const	std::string&	getType();
+	//できればsetTypeも&つけとくべき
 	void	setType(std::string type);
 };
 
