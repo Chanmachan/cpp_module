@@ -28,7 +28,7 @@ Fixed& Fixed::operator=(const Fixed& source){
 
 int Fixed::getRawBits( void ) const{
 	std::cout << "getRawBits member function called" << std::endl;
-	return (_fixed_num);
+	return _fixed_num;
 }
 
 void Fixed::setRawBits(const int raw) {
