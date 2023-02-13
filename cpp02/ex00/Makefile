@@ -3,6 +3,8 @@ NAME = fixed
 SRCS =	main.cpp \
 		Fixed.cpp
 
+INCLUDES = -I includes
+
 CXX = c++
 
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -MMD -MP
@@ -14,7 +16,7 @@ DEPS = $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDES) -o $(NAME)
 
 clean:
 	rm -f $(OBJS) $(DEPS)
