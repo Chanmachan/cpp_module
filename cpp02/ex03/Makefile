@@ -1,7 +1,9 @@
 NAME = fixed
 
 SRCS =	main.cpp \
-		Fixed.cpp
+		Fixed.cpp \
+		Point.cpp \
+		bsp.cpp
 
 INCLUDES = -I includes
 

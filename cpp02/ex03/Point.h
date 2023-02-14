@@ -14,9 +14,13 @@ private:
 public:
 	Point();
 	Point(const float a, const float b);
+	Point(const Fixed& a, const Fixed& b);
 	Point(const Point& source);
 	~Point();
 	Point& operator=(const Point& source);
+
+	Fixed get_x();
+	Fixed get_y();
 };
 
 #endif //CPP03EX02_POINT_H
