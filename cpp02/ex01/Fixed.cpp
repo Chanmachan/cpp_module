@@ -8,7 +8,7 @@
 #include <cfloat>
 #include <stdio.h>
 
-Fixed::Fixed(): _fixed_num(0) {
+Fixed::Fixed(): fixed_num(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
@@ -16,25 +16,32 @@ Fixed::Fixed(): _fixed_num(0) {
 // int,float->1.00000000 fixed->0.00000001なので揃えてあげる
 Fixed::Fixed(const int value) {
 	std::cout << "Int constructor called" << std::endl;
-	int binary_fb = 1 << _fractional_bits;
-	if (value < INT_MIN / binary_fb || INT_MAX / binary_fb < value) {
-		std::cout << "value is out of range -> 0" << std::endl;
-		this->_fixed_num = 0;
-	}
-	else {
-		this->_fixed_num = value * binary_fb;
+	int shifted_value = value << fractional_bits;
+	int overflow_check_var = shifted_value >> fractional_bits;
+	if (value != overflow_check_var) {
+		if (value > 0) {
+			std::cout << "float value is out of range -> adjusted" << std::endl;
+			this->fixed_num = INT_MAX;
+		} else {
+			std::cout << "float value is out of range -> adjusted" << std::endl;
+			this->fixed_num = INT_MIN;
+		}
+	} else {
+		this->fixed_num = shifted_value;
 	}
 }
 
 Fixed::Fixed(const float value) {
 	std::cout << "Float constructor called" << std::endl;
-	int binary_fb = 1 << _fractional_bits;
-	if (value < FLT_MIN / binary_fb || FLT_MAX / binary_fb < value) {
-		std::cout << "value is out of range -> 0" << std::endl;
-		this->_fixed_num = 0;
-	}
-	else {
-		this->_fixed_num = roundf(value * binary_fb);
+	float binary_fb = 1 << fractional_bits;
+	if (value < INT_MIN / binary_fb || INT_MAX / binary_fb < value) {
+		std::cout << "float value is out of range -> adjusted" << std::endl;
+		this->fixed_num = INT_MIN;
+	} else if (INT_MAX / binary_fb < value) {
+		std::cout << "float value is out of range -> adjusted" << std::endl;
+		this->fixed_num = INT_MAX;
+	} else {
+		this->fixed_num = roundf(value * binary_fb);
 	}
 }
 
@@ -44,30 +51,30 @@ Fixed::~Fixed() {
 
 Fixed::Fixed(const Fixed& source){
 	std::cout << "Copy constructor called" << std::endl;
-	this->_fixed_num = source._fixed_num;
+	this->fixed_num = source.fixed_num;
 }
 
 Fixed& Fixed::operator=(const Fixed& source){
 	std::cout << "Copy assignment operator called" << std::endl;
-	this->_fixed_num = source._fixed_num;
+	this->fixed_num = source.fixed_num;
 	return *this;
 }
 
 int Fixed::getRawBits( void ) const{
 	std::cout << "getRawBits member function called" << std::endl;
-	return _fixed_num;
+	return fixed_num;
 }
 
 void Fixed::setRawBits(const int raw) {
-	_fixed_num = raw;
+	fixed_num = raw;
 }
 
 float Fixed::toFloat() const {
-	return (float)_fixed_num / (1 << _fractional_bits);
+	return (float)fixed_num / (1 << fractional_bits);
 }
 
 int Fixed::toInt() const {
-	return _fixed_num / (1 << _fractional_bits);
+	return fixed_num / (1 << fractional_bits);
 }
 
 std::ostream& operator<<(std::ostream &ostream, const Fixed& Fixed) {

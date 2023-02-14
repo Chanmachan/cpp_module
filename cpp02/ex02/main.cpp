@@ -29,7 +29,7 @@ int main( void ) {
 	else
 		std::cout << "a < b: " << "false" << std::endl;
 	// 	// a(0) == b(10.1016) false
-	if (a== b)
+	if (a == b)
 		std::cout << "a < b: " << "true" << std::endl;
 	else
 		std::cout << "a < b: " << "false" << std::endl;

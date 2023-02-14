@@ -14,25 +14,30 @@ Fixed::Fixed(): fixed_num(0) {
 // int,floatの1とfixedの1は認識が違う(小数点の位置が違うイメージ)
 // int,float->1.00000000 fixed->0.00000001なので揃えてあげる
 Fixed::Fixed(const int value) {
-	// std::cout << "Int constructor called" << std::endl;
-	int binary_fb = 1 << fractional_bits;
-	if (value < INT_MIN / binary_fb || INT_MAX / binary_fb < value) {
-		std::cout << "value is out of range -> 0" << std::endl;
-		this->fixed_num = 0;
-	}
-	else {
-		this->fixed_num = value * binary_fb;
+	int shifted_value = value << fractional_bits;
+	int overflow_check_var = shifted_value >> fractional_bits;
+	if (value != overflow_check_var) {
+		if (value > 0) {
+			std::cout << "float value is out of range -> adjusted" << std::endl;
+			this->fixed_num = INT_MAX;
+		} else {
+			std::cout << "float value is out of range -> adjusted" << std::endl;
+			this->fixed_num = INT_MIN;
+		}
+	} else {
+		this->fixed_num = shifted_value;
 	}
 }
 
 Fixed::Fixed(const float value) {
-	// std::cout << "Float constructor called" << std::endl;
-	int binary_fb = 1 << fractional_bits;
-	if (value < FLT_MIN / binary_fb || FLT_MAX / binary_fb < value) {
-		std::cout << "value is out of range -> 0" << std::endl;
-		this->fixed_num = 0;
-	}
-	else {
+	float binary_fb = 1 << fractional_bits;
+	if (value < INT_MIN / binary_fb || INT_MAX / binary_fb < value) {
+		std::cout << "float value is out of range -> adjusted" << std::endl;
+		this->fixed_num = INT_MIN;
+	} else if (INT_MAX / binary_fb < value) {
+		std::cout << "float value is out of range -> adjusted" << std::endl;
+		this->fixed_num = INT_MAX;
+	} else {
 		this->fixed_num = roundf(value * binary_fb);
 	}
 }
