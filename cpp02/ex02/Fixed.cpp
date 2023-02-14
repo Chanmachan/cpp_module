@@ -123,7 +123,7 @@ Fixed Fixed::operator+(const Fixed& a) const {
 			ret.setRawBits(INT_MIN);
 		}
 	} else {
-		ret.setRawBits(fixed_˚num + a.getRawBits());
+		ret.setRawBits(fixed_num + a.getRawBits());
 	}
 	return ret;
 }
