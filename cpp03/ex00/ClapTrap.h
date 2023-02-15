@@ -13,6 +13,10 @@ private:
 	unsigned int hit_point_;
 	unsigned int energy_point_;
 	unsigned int attack_damage_;
+
+	const static unsigned int hp = 10;
+	const static unsigned int ep = 10;
+	const static unsigned int ad = 0;
 public:
 	ClapTrap();
 	ClapTrap(const std::string& name);

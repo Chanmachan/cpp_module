@@ -5,11 +5,11 @@
 #include "ClapTrap.h"
 
 // John Doe -> 英語圏だと名無しの権兵衛らしい
-ClapTrap::ClapTrap():name_("John Doe"), hit_point_(10) ,energy_point_(10), attack_damage_(0) {
+ClapTrap::ClapTrap():name_("John Doe"), hit_point_(hp) ,energy_point_(ep), attack_damage_(ad) {
 	std::cout << "name entry incomplete" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string& name):name_(name), hit_point_(10) ,energy_point_(10), attack_damage_(0) {
+ClapTrap::ClapTrap(const std::string& name):name_(name), hit_point_(hp) ,energy_point_(ep), attack_damage_(ad) {
 	std::cout << "name: " << name << " entry complete" << std::endl;
 }
 
