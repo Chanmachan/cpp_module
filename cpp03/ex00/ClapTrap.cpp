@@ -81,11 +81,7 @@ void ClapTrap::beRepaired(unsigned int amount) {
 		std::cout << "Invalid repair order" << std::endl;
 	} else {
 		energy_point_ -= 1;
-		if (hit_point_ + amount >= 10) {
-			hit_point_ = 10;
-		} else {
-			hit_point_ += amount;
-		}
+		hit_point_ += amount;
 		std::cout << "ClapTrap " << name_ <<
 		" repaired " << amount << " HP! ٩( ᐛ )و"
 		<< std::endl;
