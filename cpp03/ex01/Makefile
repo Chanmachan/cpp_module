@@ -1,7 +1,8 @@
 NAME = exe
 
 SRCS =	main.cpp \
-		ClapTrap.cpp
+		ClapTrap.cpp \
+		ScavTrap.cpp
 
 INCLUDES = -I includes
 

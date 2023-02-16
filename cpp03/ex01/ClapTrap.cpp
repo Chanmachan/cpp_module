@@ -5,11 +5,11 @@
 #include "ClapTrap.h"
 
 // John Doe -> 英語圏だと名無しの権兵衛らしい
-ClapTrap::ClapTrap():name_("John Doe"), hit_point_(hp) ,energy_point_(ep), attack_damage_(ad) {
-	std::cout << "name entry incomplete" << std::endl;
+ClapTrap::ClapTrap():name_("John Doe"), hit_point_(init_hp) ,energy_point_(init_ep), attack_damage_(init_ad) {
+	std::cout << "name entry incomplete -> set \"John Doe\"" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string& name):name_(name), hit_point_(hp) ,energy_point_(ep), attack_damage_(ad) {
+ClapTrap::ClapTrap(const std::string& name):name_(name), hit_point_(init_hp) ,energy_point_(init_ep), attack_damage_(init_ad) {
 	std::cout << "name: " << name << " entry complete" << std::endl;
 }
 
@@ -81,11 +81,7 @@ void ClapTrap::beRepaired(unsigned int amount) {
 		std::cout << "Invalid repair order" << std::endl;
 	} else {
 		energy_point_ -= 1;
-		if (hit_point_ + amount >= 10) {
-			hit_point_ = 10;
-		} else {
-			hit_point_ += amount;
-		}
+		hit_point_ += amount;
 		std::cout << "ClapTrap " << name_ <<
 		" repaired " << amount << " HP! ٩( ᐛ )و"
 		<< std::endl;
