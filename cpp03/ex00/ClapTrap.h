@@ -19,7 +19,7 @@ private:
 	const static unsigned int ad = 0;
 public:
 	ClapTrap();
-	ClapTrap(const std::string& name);
+	explicit ClapTrap(const std::string& name);
 	ClapTrap(const ClapTrap& src);
 	~ClapTrap();
 

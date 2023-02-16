@@ -8,18 +8,19 @@
 #include <iostream>
 
 class ClapTrap {
-private:
+protected:
 	std::string name_;
 	unsigned int hit_point_;
 	unsigned int energy_point_;
 	unsigned int attack_damage_;
 
-	const static unsigned int hp = 10;
-	const static unsigned int ep = 10;
-	const static unsigned int ad = 0;
+	const static unsigned int init_hp = 10;
+	const static unsigned int init_ep = 10;
+	const static unsigned int init_ad = 0;
 public:
 	ClapTrap();
-	ClapTrap(const std::string& name);
+	explicit ClapTrap(const std::string& name);
+	ClapTrap(const ClapTrap& src);
 	~ClapTrap();
 
 	ClapTrap& operator=(const ClapTrap& source);

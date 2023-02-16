@@ -13,6 +13,14 @@ ClapTrap::ClapTrap(const std::string& name):name_(name), hit_point_(hp) ,energy_
 	std::cout << "name: " << name << " entry complete" << std::endl;
 }
 
+ClapTrap::ClapTrap(const ClapTrap& src) {
+	std::cout << "name: " << src.name_ << " Copy constructor called" << std::endl;
+	this->name_ = src.name_;
+	this->hit_point_ = src.hit_point_;
+	this->energy_point_ = src.energy_point_;
+	this->attack_damage_ = src.attack_damage_;
+}
+
 ClapTrap::~ClapTrap() {
 	std::cout << name_ << "'s " << "Destructor called" << std::endl;
 }
