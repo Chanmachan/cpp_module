@@ -5,7 +5,7 @@
 #include "ScavTrap.h"
 
 ScavTrap::ScavTrap(): ClapTrap() {
-	std::cout << "ScavTrap Default Constructor called" << std::endl;
+	std::cout << "ScavTrap " << name_ << " Default Constructor called" << std::endl;
 	this->hit_point_ = init_hp;
 	this->energy_point_ = init_ep;
 	this->attack_damage_ = init_ad;
@@ -20,7 +20,7 @@ ScavTrap::ScavTrap(const std::string& name): ClapTrap(name) {
 }
 
 ScavTrap::ScavTrap(const ScavTrap &src) {
-	std::cout << "name: " << src.name_ << " Copy constructor called" << std::endl;
+	std::cout << "ScavTrap " << "name: " << src.name_ << " Copy constructor called" << std::endl;
 	this->name_ = src.name_;
 	this->hit_point_ = src.hit_point_;
 	this->energy_point_ = src.energy_point_;
@@ -28,7 +28,7 @@ ScavTrap::ScavTrap(const ScavTrap &src) {
 }
 
 ScavTrap::~ScavTrap() {
-	std::cout << "name: " << this->name_ << " Destructor called" << std::endl;
+	std::cout << "ScavTrap " << "name: " << this->name_ << " Destructor called" << std::endl;
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap &src) {
