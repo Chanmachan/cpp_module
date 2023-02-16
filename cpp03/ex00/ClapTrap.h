@@ -20,6 +20,7 @@ private:
 public:
 	ClapTrap();
 	ClapTrap(const std::string& name);
+	ClapTrap(const ClapTrap& src);
 	~ClapTrap();
 
 	ClapTrap& operator=(const ClapTrap& source);
