@@ -30,7 +30,9 @@ DiamondTrap::~DiamondTrap() {
 }
 
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap &src) {
-	this->name_ = src.name_;
+
+	name_ = src.name_;
+	ClapTrap::name_ = src.ClapTrap::name_;
 	this->hit_point_ = src.hit_point_;
 	this->energy_point_ = src.energy_point_;
 	this->attack_damage_ = src.attack_damage_;
