@@ -4,6 +4,35 @@
 
 #include "Dog.h"
 #include "Cat.h"
+#include "WrongCat.h"
+
+int main()
+{
+	{
+		const Animal *meta = new Animal();
+		const Animal *j = new Dog();
+		const Animal *i = new Cat();
+		std::cout << j->getType() << " " << std::endl;
+		std::cout << i->getType() << " " << std::endl;
+		i->makeSound(); //will output the cat sound!
+		j->makeSound();
+		meta->makeSound();
+		//...
+		delete j;
+		delete i;
+	}
+	{
+		const WrongAnimal *meta = new WrongAnimal();
+		const WrongAnimal *i = new WrongCat();
+		std::cout << i->getType() << " " << std::endl;
+		// virtualを関数につけないとオーバーライドできずに正しく関数が呼べない
+		i->makeSound(); //will output the cat sound! -> Wrong
+		meta->makeSound();
+		//...
+		delete i;
+	}
+	return 0;
+}
 
 /*std::ostream& operator<<(std::ostream& ostream, Dog& dog){
 	return ostream << dog.get_type();
@@ -40,19 +69,3 @@ int main(){
 		std::cout << std::endl;
 	}
 }*/
-
-int main()
-{
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
-	//...
-	delete j;
-	delete i;
-	return 0;
-}
