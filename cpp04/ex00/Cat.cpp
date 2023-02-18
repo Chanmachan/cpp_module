@@ -4,6 +4,24 @@
 
 #include "Cat.h"
 
-Cat::Cat(): Animal() {
-	std::cout <<
+Cat::Cat(): Animal("Cat") {
+	std::cout << "Hi Cat !" << std::endl;
+}
+
+Cat::Cat(const Cat &src)  : Animal(src) {
+	std::cout << "Cat " << this->type << " is duplicated"<< std::endl;
+	Animal::type = src.Animal::type;
+}
+
+Cat::~Cat() {
+	std::cout << "Bye Cat !" << std::endl;
+}
+
+Cat& Cat::operator=(const Cat &src) {
+	this->Animal::type = src.Animal::type;
+	return *this;
+}
+
+void Cat::makeSound() const {
+	std::cout << "Meow!" << std::endl;
 }

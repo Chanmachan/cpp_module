@@ -12,10 +12,16 @@ protected:
 	std::string type;
 public:
 	Animal();
+	explicit Animal(const std::string& type);
 	Animal(const Animal& src);
-	~Animal();
+	// new->deleteを行う場合、デストラクタをvirtualにしなければならない
+	// error: delete called on non-final 'Animal' that has virtual functions but non-virtual destructor
+	virtual ~Animal();
 
 	Animal& operator=(const Animal& src);
+
+	std::string getType() const;
+	virtual void makeSound() const;
 };
 
 #endif //CPP04EX00_ANIMAL_H

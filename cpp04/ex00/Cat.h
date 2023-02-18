@@ -14,6 +14,8 @@ public:
 	~Cat();
 
 	Cat& operator=(const Cat& src);
+
+	void makeSound() const;
 };
 
 
