@@ -5,7 +5,7 @@
 #include "Point.h"
 #include <iostream>
 
-bool bsp( Point const a, Point const b, Point const c, Point const point);
+bool bsp( Point const& a, Point const& b, Point const& c, Point const& point);
 
 int main( void ) {
 	/* 1 */
@@ -54,10 +54,10 @@ int main( void ) {
 
 	/* 5 */
 	{
-		Point p1(2.0, 2.0);
-		Point p2(2.0, 0.0);
-		Point p3(0.0, 2.0);
-		Point point(2.0, 2.0);
+		Point p1(0.0, 0.0);
+		Point p2(10.0, 0.0);
+		Point p3(5.0, 5.0);
+		Point point(2.0, 0.0);
 		bool input_bool = bsp(p1, p2, p3, point);
 		// false
 		std::cout << "[5] " << std::boolalpha << input_bool << std::endl;
