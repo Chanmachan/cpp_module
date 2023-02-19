@@ -43,7 +43,7 @@ public:
 	Fixed& operator++();
 	Fixed& operator--();
 	// postfix
-	Fixed operator++(int);
+	Fixed operator++(int); // a++
 	Fixed operator--(int);
 };
 
