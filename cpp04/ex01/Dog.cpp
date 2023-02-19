@@ -35,3 +35,11 @@ Dog& Dog::operator=(const Dog &src) {
 void Dog::makeSound() const {
 	std::cout << "Bow wow wow!" << std::endl;
 }
+
+void Dog::setBrain() const {
+	brains_->setBrain();
+}
+
+void Dog::getBrain(std::size_t i) const {
+	brains_->getBrain(i);
+}

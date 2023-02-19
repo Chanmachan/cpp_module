@@ -26,3 +26,15 @@ Brain& Brain::operator=(const Brain &src) {
 	}
 	return *this;
 }
+
+void Brain::setBrain() {
+	for (size_t i = 0; i < N; ++i) {
+		std::stringstream ss;
+		ss << i;
+		ss >> ideas[i];
+	}
+}
+
+void Brain::getBrain(std::size_t i) const {
+	std::cout << ideas[i] << std::endl;
+}

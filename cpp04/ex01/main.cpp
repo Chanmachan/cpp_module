@@ -12,9 +12,23 @@
 //}
 
 int main() {
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	delete i;
-	delete j;//should not create a leak delete i;
-	//...
-	return 0; }
+	/* CHECK MEMORY LEAKS */
+	{
+		const Animal *j = new Dog();
+		const Animal *i = new Cat();
+		delete i;
+		delete j;//should not create a leak delete i;
+	}
+
+	std::cout << std::endl << std::endl;;
+
+	/* ADDITIONAL TEST */
+	{
+		const Dog *dog = new Dog();
+		std::cout << "here" << std::endl;
+		dog->Dog::setBrain();
+		dog->Dog::getBrain(3);
+		delete dog;
+	}
+	return 0;
+}

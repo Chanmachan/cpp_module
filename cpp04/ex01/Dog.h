@@ -18,6 +18,9 @@ public:
 
 	Dog& operator=(const Dog& src);
 	void makeSound() const;
+
+	void setBrain() const;
+	void getBrain(std::size_t i) const;
 };
 
 

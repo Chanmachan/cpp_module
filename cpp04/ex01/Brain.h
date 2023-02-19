@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 class Brain {
 private:
@@ -18,6 +19,9 @@ public:
 	~Brain();
 
 	Brain& operator=(const Brain& src);
+
+	void setBrain();
+	void getBrain(std::size_t i) const;
 };
 
 #endif //CPP04EX01_BRAIN_H

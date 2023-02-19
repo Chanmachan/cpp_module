@@ -6,3 +6,4 @@ CMakeLists.txt
 cpp01/ex04/*.replace
 practice
 .idea
+*/*/Dockerfile
