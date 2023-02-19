@@ -27,6 +27,8 @@ Brain& Brain::operator=(const Brain &src) {
 	return *this;
 }
 
+// stringstreamに<<でインプット、>>でアウトプット
+// 数値とかを文字列に追加できる
 void Brain::setBrain() {
 	for (size_t i = 0; i < N; ++i) {
 		std::stringstream ss;
