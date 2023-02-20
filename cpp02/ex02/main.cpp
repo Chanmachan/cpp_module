@@ -16,8 +16,13 @@ int main( void ) {
 	std::cout << b << std::endl;
 	std::cout << Fixed::max( a, b ) << std::endl;
 	std::cout << "--------additional-------" << std::endl;
-	Fixed const c( Fixed( 5.05f ) / Fixed( 2 ) );
-	std::cout << c << std::endl;
+	Fixed c;
+	try {
+		c = Fixed( 5.05f ) / Fixed( 0 );
+		std::cout << c << std::endl;
+	} catch (std::invalid_argument&) {
+		std::cerr << "Dividing by 0" << std::endl;
+	}
 	// a(0) > b(10.1016) -> false
 	if (a > b)
 		std::cout << "a > b: " << "true" << std::endl;
