@@ -157,13 +157,10 @@ Fixed Fixed::operator*(const Fixed& a) const {
 
 Fixed Fixed::operator/(const Fixed& a) const {
 	Fixed ret;
-	try {
-		if (a.getRawBits() == 0)
-			throw std::invalid_argument("Floating point exception");
-		ret.setRawBits((this->fixed_num << fractional_bits) / a.getRawBits());
-	} catch (std::invalid_argument&) {
-		std::cout << "FPE: Dividing by 0" << std::endl;
+	if (a.getRawBits() == 0) {
+		throw std::invalid_argument("Floating point exception");
 	}
+	ret.setRawBits((this->fixed_num << fractional_bits) / a.getRawBits());
 	return ret;
 }
 
