@@ -105,7 +105,7 @@ Fixed& Fixed::operator=(const Fixed& source){
 	return *this;
 }
 
-bool Fixed::is_overflow(const Fixed& a) const {
+bool Fixed::is_overflow_plus(const Fixed& a) const {
 	int i_a = a.getRawBits();
 
 	if (0 < i_a && 0 < fixed_num && i_a > INT_MAX - fixed_num) {
@@ -116,14 +116,30 @@ bool Fixed::is_overflow(const Fixed& a) const {
 	return false;
 }
 
+//
+bool Fixed::is_overflow_minus(const Fixed &a) const {
+	int i_a = a.getRawBits();
+
+	// -10 - (a) < INT_MIN
+	if (fixed_num < 0 && 0 < i_a && fixed_num < INT_MIN + i_a) {
+		return true;
+		// 10 - (-a) > INT_MAX
+	} else if (0 < fixed_num && i_a < 0 && fixed_num > INT_MAX + i_a) {
+		return true;
+	}
+	return false;
+}
+
 // arithmetic operators
 Fixed Fixed::operator+(const Fixed& a) const {
 	Fixed ret;
 
-	if (is_overflow(a)) {
+	if (is_overflow_plus(a)) {
 		if (0 < fixed_num) {
+			std::cout << "value is overflow -> adjust to INT_MAX" << std::endl;
 			ret.setRawBits(INT_MAX);
 		} else {
+			std::cout << "value is overflow -> adjust to INT_MIN" << std::endl;
 			ret.setRawBits(INT_MIN);
 		}
 	} else {
@@ -135,10 +151,12 @@ Fixed Fixed::operator+(const Fixed& a) const {
 Fixed Fixed::operator-(const Fixed& a) const {
 	Fixed ret;
 
-	if (is_overflow(a)) {
+	if (is_overflow_minus(a)) {
 		if (0 > fixed_num) {
+			std::cout << "value is overflow -> adjust to INT_MIN" << std::endl;
 			ret.setRawBits(INT_MIN);
 		} else {
+			std::cout << "value is overflow -> adjust to INT_MAX" << std::endl;
 			ret.setRawBits(INT_MAX);
 		}
 	} else {

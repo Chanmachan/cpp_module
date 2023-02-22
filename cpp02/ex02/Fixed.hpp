@@ -27,7 +27,8 @@ public:
 	static Fixed& max(Fixed& a, Fixed& b);
 	static const Fixed& max(const Fixed& a, const Fixed& b);
 
-	bool is_overflow(const Fixed& a) const;
+	bool is_overflow_plus(const Fixed& a) const;
+	bool is_overflow_minus(const Fixed& a) const;
 	Fixed& operator=(const Fixed& source);
 	Fixed operator+(const Fixed& a) const;
 	Fixed operator-(const Fixed& a) const;
