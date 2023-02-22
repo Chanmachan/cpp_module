@@ -11,7 +11,7 @@ Fixed outer_product(Point p1, Point p2, Point p3) {
 }
 
 // 外積の符号の一致を判定する
-bool bsp( Point const& a, Point const& b, Point const& c, Point const& point) {
+bool bsp( Point const a, Point const b, Point const c, Point const point) {
 	Fixed p1, p2, p3;
 
 	p1 = outer_product(point, a, b);
