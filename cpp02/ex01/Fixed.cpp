@@ -33,11 +33,11 @@ Fixed::Fixed(const int value) {
 
 Fixed::Fixed(const float value) {
 	std::cout << "Float constructor called" << std::endl;
-	float binary_fb = 1 << fractional_bits;
-	if (value < INT_MIN / binary_fb || INT_MAX / binary_fb < value) {
+	int binary_fb = 1 << fractional_bits;
+	if ((int)value < INT_MIN / binary_fb) {
 		std::cout << "float value is out of range -> adjusted" << std::endl;
 		this->fixed_num = INT_MIN;
-	} else if (INT_MAX / binary_fb < value) {
+	} else if (INT_MAX / binary_fb < (int)value) {
 		std::cout << "float value is out of range -> adjusted" << std::endl;
 		this->fixed_num = INT_MAX;
 	} else {
@@ -61,7 +61,7 @@ Fixed& Fixed::operator=(const Fixed& source){
 }
 
 int Fixed::getRawBits( void ) const{
-	std::cout << "getRawBits member function called" << std::endl;
+	std::cout << "getRのawBits member function called" << std::endl;
 	return fixed_num;
 }
 
