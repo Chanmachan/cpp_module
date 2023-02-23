@@ -22,6 +22,8 @@ int main() {
 			std::cout << e.what() << std::endl;
 		}
 	}
+	std::cout << "getName: " << a.getName() << std::endl;
+	std::cout << "getGrade" << a.getGrade() << std::endl;
 	std::cout << b << std::endl;
 
 	/*
