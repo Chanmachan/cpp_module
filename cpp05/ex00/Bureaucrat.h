@@ -34,7 +34,7 @@ public:
 	// 定義された範囲を超えてアクセスされたことを通知
 	class GradeTooHighException: public std::out_of_range {
 	private:// privateだからコンパイルエラー
-		GradeTooHighException(const Bureaucrat& src);
+		GradeTooHighException(const GradeTooHighException& src);
 		GradeTooHighException& operator=(const GradeTooHighException& src);
 	public:
 		// std::out_of_rangeクラスはデフォルトコンストラクタ必須(ないとコンパイルエラー)
@@ -47,7 +47,7 @@ public:
 
 	class GradeTooLowException: public std::out_of_range {
 	private:
-		GradeTooLowException(const Bureaucrat& src);
+		GradeTooLowException(const GradeTooLowException& src);
 		GradeTooLowException& operator=(const GradeTooLowException& src);
 	public:
 		GradeTooLowException();
