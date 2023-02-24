@@ -38,13 +38,13 @@ const std::string& Bureaucrat::getName() const {
 	return this->name_;
 }
 
-unsigned int Bureaucrat::getGrade() const {
+int Bureaucrat::getGrade() const {
 	return this->grade_;
 }
 
 void Bureaucrat::incrementGrade() {
 	if (grade_ - 1 < highest_grade_) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 	grade_ -= 1;
 }
