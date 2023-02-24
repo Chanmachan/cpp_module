@@ -34,12 +34,12 @@ public:
 	// 定義された範囲を超えてアクセスされたことを通知
 	class GradeTooHighException: public std::out_of_range {
 	private:// privateだからコンパイルエラー
-		GradeTooHighException(const GradeTooHighException& src);
 		GradeTooHighException& operator=(const GradeTooHighException& src);
 	public:
 		// std::out_of_rangeクラスはデフォルトコンストラクタ必須(ないとコンパイルエラー)
 		// 初期化の段階でエラーメッセージを入力しておく->whatのオーバーライドは必要ない
 		GradeTooHighException();
+		GradeTooHighException(const Bureaucrat::GradeTooHighException& src);
 		// 例外を投げないことを保証するのを明示的に書く
 		~GradeTooHighException() _NOEXCEPT; //_NOEXCEPTはないとコンパイルエラー
 		// #  define _NOEXCEPT throw() -> throw()の引数なしだから何もthrowしないの意味
@@ -47,10 +47,10 @@ public:
 
 	class GradeTooLowException: public std::out_of_range {
 	private:
-		GradeTooLowException(const GradeTooLowException& src);
 		GradeTooLowException& operator=(const GradeTooLowException& src);
 	public:
 		GradeTooLowException();
+		GradeTooLowException(const Bureaucrat::GradeTooLowException& src);
 		~GradeTooLowException() _NOEXCEPT;
 	};
 };

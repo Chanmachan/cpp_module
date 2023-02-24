@@ -10,9 +10,9 @@ Bureaucrat::Bureaucrat(): name_("Jorn Doe"), grade_(150) {
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade): name_(name) {
 	if (grade < highest_grade_) {
-		throw GradeTooHighException();
+		throw Bureaucrat::GradeTooHighException();
 	} else if (grade > lowest_grade_) {
-		throw GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException();
 	} else {
 		this->grade_ = grade;
 	}
@@ -61,12 +61,20 @@ Bureaucrat::GradeTooHighException::GradeTooHighException(): std::out_of_range("G
 
 }
 
+Bureaucrat::GradeTooHighException::GradeTooHighException(const Bureaucrat::GradeTooHighException &src): std::out_of_range(src.what()) {
+
+}
+
 Bureaucrat::GradeTooHighException::~GradeTooHighException() _NOEXCEPT {
 
 }
 
 // GradeTooLowException
 Bureaucrat::GradeTooLowException::GradeTooLowException(): std::out_of_range("Grade is too low!") {
+
+}
+
+Bureaucrat::GradeTooLowException::GradeTooLowException(const Bureaucrat::GradeTooLowException &src): std::out_of_range(src.what()) {
 
 }
 
