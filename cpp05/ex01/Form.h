@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+class Bureaucrat;
+
 class Form {
 private:
 	const std::string name_;
@@ -16,27 +18,33 @@ private:
 	Form();
 public:
 	Form(const Form& src);
+	Form(std::string& name, unsigned int grade_to_sign, unsigned int grade_to_exec);
 	~Form();
 
 	Form& operator=(const Form& src);
 
-	void beSigned();
+	const std::string& getName() const;
+	unsigned int getSignedFlag() const;
+	unsigned int getGradeToSign() const;
+	unsigned int getGradeToExec() const;
+
+	void beSigned(const Bureaucrat& Bureaucrat);
 
 	class GradeTooHighException: public std::out_of_range {
 	private:
-		GradeTooHighException(const GradeTooHighException& src);
 		GradeTooHighException& operator=(const GradeTooHighException& src);
 	public:
 		GradeTooHighException();
+		GradeTooHighException(const Form::GradeTooHighException& src);
 		~GradeTooHighException() _NOEXCEPT;
 	};
 
 	class GradeTooLowException: public std::out_of_range {
 	private:
-		GradeTooLowException(const GradeTooLowException& src);
 		GradeTooLowException& operator=(const GradeTooLowException& src);
 	public:
 		GradeTooLowException();
+		GradeTooLowException(const Form::GradeTooLowException& src);
 		~GradeTooLowException() _NOEXCEPT;
 	};
 };
