@@ -21,17 +21,18 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade): name_(name) {
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& src): name_(src.name_), grade_(src.grade_) {
-	std::cout << "Copy Constructor called" << std::endl;
+	std::cout << name_ << " Copy Constructor called" << std::endl;
 }
 
 Bureaucrat::~Bureaucrat() {
-
+	std::cout << "Bureaucrat " << name_ << " byebye ٩( ᐛ )و" << std::endl;
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &src) {
 	const_cast<std::string&>(this->name_) = src.name_;
 	// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
 	this->grade_ = src.grade_;
+	std::cout << name_ << " Copy assignment operator called" << std::endl;
 	return *this;
 }
 
@@ -39,13 +40,13 @@ const std::string& Bureaucrat::getName() const {
 	return this->name_;
 }
 
-unsigned int Bureaucrat::getGrade() const {
+int Bureaucrat::getGrade() const {
 	return this->grade_;
 }
 
 void Bureaucrat::incrementGrade() {
 	if (grade_ - 1 < highest_grade_) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 	grade_ -= 1;
 }

@@ -5,9 +5,10 @@
 #include "Form.h"
 #include "Bureaucrat.h"
 
-Form::Form(std::string& name,
-		   unsigned int grade_to_sign,
-		   unsigned int grade_to_exec)
+// Formのコンストラクタは1~150の境界線は指定がなかったので無視
+Form::Form(const std::string& name,
+		   int grade_to_sign,
+		   int grade_to_exec)
 		   : name_(name),
 		   signed_flag_(false),
 		   grade_to_sign_(grade_to_sign),
@@ -24,14 +25,14 @@ Form::Form(const Form &src)
 }
 
 Form::~Form() {
-	std::cout << "From " << name_ << " was shredded" << std::endl;
+	std::cout << "Form " << name_ << " was shredded" << std::endl;
 }
 
 Form& Form::operator=(const Form& src) {
 	const_cast<std::string&>(name_) = src.name_;
 	signed_flag_ = src.signed_flag_;
-	const_cast<unsigned int&>(grade_to_sign_) = src.grade_to_sign_;
-	const_cast<unsigned int&>(grade_to_exec_) = src.grade_to_exec_;
+	const_cast<int&>(grade_to_sign_) = src.grade_to_sign_;
+	const_cast<int&>(grade_to_exec_) = src.grade_to_exec_;
 	std::cout << "Form " << name_ << " is copied (by =operator)" << std::endl;
 	return *this;
 }
@@ -40,15 +41,15 @@ const std::string& Form::getName() const {
 	return name_;
 }
 
-unsigned int Form::getSignedFlag() const {
+int Form::getSignedFlag() const {
 	return signed_flag_;
 }
 
-unsigned int Form::getGradeToSign() const {
+int Form::getGradeToSign() const {
 	return grade_to_sign_;
 }
 
-unsigned int Form::getGradeToExec() const {
+int Form::getGradeToExec() const {
 	return grade_to_exec_;
 }
 
