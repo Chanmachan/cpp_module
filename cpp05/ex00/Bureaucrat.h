@@ -11,7 +11,7 @@
 class Bureaucrat {
 private:
 	const std::string name_;
-	int grade_;
+	unsigned int grade_;
 
 	static const int highest_grade_ = 1;
 	static const int lowest_grade_ = 150;
@@ -25,7 +25,7 @@ public:
 	Bureaucrat& operator=(const Bureaucrat& src);
 
 	const std::string& getName() const;
-	int getGrade() const;
+	unsigned int getGrade() const;
 
 	void incrementGrade();
 	void decrementGrade();

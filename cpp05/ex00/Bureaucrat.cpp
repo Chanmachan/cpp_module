@@ -38,7 +38,7 @@ const std::string& Bureaucrat::getName() const {
 	return this->name_;
 }
 
-int Bureaucrat::getGrade() const {
+unsigned int Bureaucrat::getGrade() const {
 	return this->grade_;
 }
 
