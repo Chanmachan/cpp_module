@@ -58,12 +58,12 @@ void Bureaucrat::decrementGrade() {
 	grade_ += 1;
 }
 
-void Bureaucrat::signForm(Form& Form) const {
+void Bureaucrat::signForm(AForm& AForm) const {
 	try {
-		Form.beSigned(*this);
-		std::cout << name_ << " signed " << Form.getName() << std::endl;
+		AForm.beSigned(*this);
+		std::cout << name_ << " signed " << AForm.getName() << std::endl;
 	} catch (std::out_of_range& e) {
-		std::cout << name_ << " couldn't sign " << Form.getName() << " because " << e.what() << std::endl;
+		std::cout << name_ << " couldn't sign " << AForm.getName() << " because " << e.what() << std::endl;
 	}
 }
 
