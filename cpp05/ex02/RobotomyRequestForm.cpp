@@ -33,3 +33,8 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm &s
 	const_cast<std::string&>(this->target_) = src.target_;
 	return *this;
 }
+
+void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
+	AForm::isExecutable(executor);
+
+}

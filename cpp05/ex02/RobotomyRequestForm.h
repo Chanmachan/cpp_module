@@ -19,6 +19,8 @@ public:
 	~RobotomyRequestForm();
 
 	RobotomyRequestForm& operator=(const RobotomyRequestForm& src);
+
+	void execute(Bureaucrat const & executor) const;
 };
 
 
