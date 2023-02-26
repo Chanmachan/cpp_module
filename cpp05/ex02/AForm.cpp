@@ -60,7 +60,7 @@ void AForm::beSigned(const Bureaucrat& Bureaucrat) {
 	signed_flag_ = true;
 }
 
-void AForm::isExecutable(const Bureaucrat& executor) {
+void AForm::isExecutable(const Bureaucrat& executor) const {
 	if (!getSignedFlag()) {
 		throw std::logic_error("Form is not signed\n");
 	} else if (executor.getGrade() > grade_to_exec_) {

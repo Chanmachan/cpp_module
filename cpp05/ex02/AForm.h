@@ -31,7 +31,7 @@ public:
 
 	void beSigned(const Bureaucrat& Bureaucrat);
 	// 派生クラスで上書き
-	void isExecutable(const Bureaucrat& executor);
+	void isExecutable(const Bureaucrat& executor) const;
 	virtual void execute(Bureaucrat const & executor) const = 0;
 
 	class GradeTooHighException: public std::out_of_range {
