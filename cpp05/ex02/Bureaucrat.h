@@ -5,8 +5,8 @@
 #ifndef CPP05EX00_BUREAUCRAT_H
 #define CPP05EX00_BUREAUCRAT_H
 
+#include "AForm.h"
 #include <iostream>
-#include <stdexcept>
 
 class AForm;
 
@@ -31,7 +31,7 @@ public:
 	void incrementGrade();
 	void decrementGrade();
 
-	void signForm(AForm& Form) const;
+	void signForm(AForm& AForm) const;
 
 	// 例外クラスを継承することで自分が拾いたい例外が発生したときに処理を足したりできる
 	// 定義された範囲を超えてアクセスされたことを通知

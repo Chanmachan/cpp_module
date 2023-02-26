@@ -3,7 +3,6 @@
 //
 
 #include "Bureaucrat.h"
-#include "AForm.h"
 
 Bureaucrat::Bureaucrat(): name_("Jorn Doe"), grade_(150) {
 	std::cout << "Hi! I'm " << name_ << ", grade " << grade_ << std::endl;
