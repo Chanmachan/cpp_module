@@ -23,14 +23,22 @@ $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDES) -o $(NAME)
 
 clean:
-	rm -f $(OBJS) $(DEPS)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
+#delete files
+SHRUBS = $(shell ls | grep _shrubbery)
+
+del:
+	$(RM) $(SHRUBS)
+
+.PHONY: del
 
 # docker
 val: re
