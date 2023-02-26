@@ -5,6 +5,7 @@
 #ifndef CPP05EX01_FORM_H
 #define CPP05EX01_FORM_H
 
+#include "Bureaucrat.h"
 #include <iostream>
 
 class Bureaucrat;
@@ -29,6 +30,9 @@ public:
 	int getGradeToExec() const;
 
 	void beSigned(const Bureaucrat& Bureaucrat);
+	// 派生クラスで上書き
+	void isExecutable(const Bureaucrat& executor);
+	virtual void execute(Bureaucrat const & executor) const = 0;
 
 	class GradeTooHighException: public std::out_of_range {
 	private:

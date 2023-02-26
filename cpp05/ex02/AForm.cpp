@@ -3,7 +3,6 @@
 //
 
 #include "AForm.h"
-#include "Bureaucrat.h"
 
 // Formのコンストラクタは1~150の境界線は指定がなかったので無視
 AForm::AForm(const std::string& name,
@@ -59,6 +58,14 @@ void AForm::beSigned(const Bureaucrat& Bureaucrat) {
 		throw AForm::GradeTooLowException();
 	}
 	signed_flag_ = true;
+}
+
+void AForm::isExecutable(const Bureaucrat& executor) {
+	if (!getSignedFlag()) {
+		throw std::logic_error("Form is not signed\n");
+	} else if (executor.getGrade() > grade_to_exec_) {
+		throw AForm::GradeTooLowException();
+	}
 }
 
 // GradeTooHighException
