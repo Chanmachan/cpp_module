@@ -3,3 +3,33 @@
 //
 
 #include "RobotomyRequestForm.h"
+
+RobotomyRequestForm::RobotomyRequestForm()
+	: AForm("no_name",
+			required_grade_to_sign,
+			required_grade_to_exec),
+			target_("no_name") {
+
+}
+
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
+	: AForm(target,
+			required_grade_to_sign,
+			required_grade_to_exec),
+			target_(target) {
+
+}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src): AForm(src), target_(src.target_) {
+
+}
+
+RobotomyRequestForm::~RobotomyRequestForm() {
+
+}
+
+RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm &src) {
+	this->AForm::operator=(src);
+	const_cast<std::string&>(this->target_) = src.target_;
+	return *this;
+}

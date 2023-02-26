@@ -5,9 +5,20 @@
 #ifndef CPP05EX01_PRESIDENTIALPARDONFORM_H
 #define CPP05EX01_PRESIDENTIALPARDONFORM_H
 
+#include "AForm.h"
 
-class PresidentialPardonForm {
+class PresidentialPardonForm: public AForm {
+	private:
+		const std::string target_;
+		const static int required_grade_to_sign = 25;
+		const static int required_grade_to_exec = 5;
+	public:
+		PresidentialPardonForm();
+		PresidentialPardonForm(const std::string &target);
+		PresidentialPardonForm(const PresidentialPardonForm &src);
+		~PresidentialPardonForm();
 
+		PresidentialPardonForm &operator=(const PresidentialPardonForm &src);
 };
 
 
