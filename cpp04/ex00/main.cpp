@@ -8,6 +8,13 @@
 
 int main()
 {
+	/* memory leaks */
+	{
+		Cat a;
+		const Cat b;
+		a = b;
+		a = b;
+	}
 	{
 		const Animal *meta = new Animal();
 		const Animal *j = new Dog();
@@ -18,6 +25,7 @@ int main()
 		j->makeSound();
 		meta->makeSound();
 		//...
+		delete meta;
 		delete j;
 		delete i;
 	}
@@ -32,6 +40,7 @@ int main()
 		i->makeSound(); //will output the cat sound! -> Wrong
 		meta->makeSound();
 		//...
+		delete meta;
 		delete i;
 	}
 	return 0;
