@@ -26,23 +26,24 @@ int main() {
 		}
 	}
 	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
-//	{
-//		RobotomyRequestForm a("hoge");
-//		RobotomyRequestForm b(a);
-//		RobotomyRequestForm c;
-//		Bureaucrat d("Kishida", 10);
-//
-//		c = a;
+	{
+		RobotomyRequestForm a("hoge");
+		RobotomyRequestForm b(a);
+		RobotomyRequestForm c;
+		Bureaucrat d("Kishida", 10);
+		srand((unsigned int) time(NULL));
 
-//		d.signForm(c);
-//		try {
-//			c.execute(d);
-//		} catch (std::exception& e) {
-//			std::cout << "hogexception\n";
-//			std::cout << e.what() << std::endl;
-//		}
-//	}
-//	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
+		c = a;
+
+		d.signForm(c);
+		try {
+			c.execute(d);
+		} catch (std::exception& e) {
+			std::cout << "hogexception\n";
+			std::cout << e.what() << std::endl;
+		}
+	}
+	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
 	{
 		PresidentialPardonForm a("test3");
 		PresidentialPardonForm b(a);

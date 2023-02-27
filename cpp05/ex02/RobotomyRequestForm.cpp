@@ -36,5 +36,10 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm &s
 
 void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
 	AForm::isExecutable(executor);
-
+	std::cout << "[" << std::rand() << "]" << std::endl;
+	if (std::rand() % 2 == 0) {
+		std::cout << target_ << " has been robotomized successfully" << std::endl;
+	} else {
+		std::cout << "The " << target_ << " robotomy failed" << std::endl;
+	}
 }
