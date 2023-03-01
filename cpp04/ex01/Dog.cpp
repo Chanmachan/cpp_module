@@ -5,11 +5,11 @@
 #include "Dog.h"
 
 Dog::Dog(): Animal("Dog"), brains_(new (std::nothrow) Brain()) {
-	std::cout << "Hi Dog !" << std::endl;
+	std::cout << "Dog " << type << " Constructor called" << std::endl;
 }
 
 Dog::Dog(const Dog &src)  : Animal(src) {
-	std::cout << "Dog " << this->type << " is duplicated"<< std::endl;
+	std::cout << "Dog " << type << " Copy Constructor called"<< std::endl;
 	this->Animal::type = src.Animal::type;
 	// srcのbrains_を複製 -> ()必要？*(src.brains_)
 	if (src.brains_) {
@@ -18,7 +18,7 @@ Dog::Dog(const Dog &src)  : Animal(src) {
 }
 
 Dog::~Dog() {
-	std::cout << "Bye Dog !" << std::endl;
+	std::cout << "Dog " << type << " Destructor called" << std::endl;
 	// deleteはfreeと違ってNULLでも問題ない
 	delete brains_;
 }
@@ -34,12 +34,4 @@ Dog& Dog::operator=(const Dog &src) {
 
 void Dog::makeSound() const {
 	std::cout << "Bow wow wow!" << std::endl;
-}
-
-void Dog::setBrain() const {
-	brains_->setBrain();
-}
-
-void Dog::getBrain(std::size_t i) const {
-	brains_->getBrain(i);
 }
