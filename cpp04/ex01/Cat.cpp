@@ -23,8 +23,8 @@ Cat::~Cat() {
 Cat& Cat::operator=(const Cat &src) {
 	std::cout << "Cat " << this->type << " operator= called" << std::endl;
 	if (this != &src) {
-	this->type = src.type;
-	*this->brains_ = *src.brains_;
+		this->type = src.type;
+		*this->brains_ = *src.brains_;
 	}
 	return *this;
 }
