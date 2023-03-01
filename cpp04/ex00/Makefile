@@ -33,6 +33,6 @@ re: fclean all
 .PHONY: all clean fclean re
 
 val: re
-	valgrind --leak-check=full ./$(NAME)
+	valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
 -include $(DEPS)

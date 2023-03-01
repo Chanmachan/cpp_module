@@ -8,13 +8,6 @@
 
 int main()
 {
-	/* memory leaks */
-	{
-		Cat a;
-		const Cat b;
-		a = b;
-		a = b;
-	}
 	{
 		const Animal *meta = new Animal();
 		const Animal *j = new Dog();

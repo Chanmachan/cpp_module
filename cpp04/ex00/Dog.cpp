@@ -5,20 +5,22 @@
 #include "Dog.h"
 
 Dog::Dog(): Animal("Dog") {
-	std::cout << "Hi Dog !" << std::endl;
+	std::cout << "Dog " << type << " Constructor called" << std::endl;
 }
 
 Dog::Dog(const Dog &src)  : Animal(src) {
-	std::cout << "Dog " << this->type << " is duplicated"<< std::endl;
-	Animal::type = src.Animal::type;
+	std::cout << "Dog " << type << " Copy Constructor called"<< std::endl;
 }
 
 Dog::~Dog() {
-	std::cout << "Bye Dog !" << std::endl;
+	std::cout << "Dog " << type << " Destructor called" << std::endl;
 }
 
 Dog& Dog::operator=(const Dog &src) {
-	this->Animal::type = src.Animal::type;
+	std::cout << "Dog " << this->type << " operator= called" << std::endl;
+	if (this != &src) {
+		this->type = src.type;
+	}
 	return *this;
 }
 

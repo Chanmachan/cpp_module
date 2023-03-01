@@ -5,20 +5,22 @@
 #include "Cat.h"
 
 Cat::Cat(): Animal("Cat") {
-	std::cout << "Hi Cat !" << std::endl;
+	std::cout << "Cat " << type << " Constructor called" << std::endl;
 }
 
 Cat::Cat(const Cat &src)  : Animal(src) {
-	std::cout << "Cat " << this->type << " is duplicated"<< std::endl;
-	Animal::type = src.Animal::type;
+	std::cout << "Cat " << type << " Copy Constructor called"<< std::endl;
 }
 
 Cat::~Cat() {
-	std::cout << "Bye Cat !" << std::endl;
+	std::cout << "Cat " << type << " Destructor called" << std::endl;
 }
 
 Cat& Cat::operator=(const Cat &src) {
-	this->Animal::type = src.Animal::type;
+	std::cout << "Cat " << this->type << " operator= called" << std::endl;
+	if (this != &src) {
+		this->type = src.type;
+	}
 	return *this;
 }
 
