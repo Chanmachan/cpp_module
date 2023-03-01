@@ -35,7 +35,7 @@ re: fclean all
 
 # docker
 val: re
-	valgrind ./exe
+	valgrind --leak-check=full ./exe
 
 .PHONY: va;
 
