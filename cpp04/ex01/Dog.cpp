@@ -10,7 +10,7 @@ Dog::Dog(): Animal("Dog"), brains_(new (std::nothrow) Brain()) {
 
 Dog::Dog(const Dog &src)  : Animal(src) {
 	std::cout << "Dog " << type << " Copy Constructor called"<< std::endl;
-	this->Animal::type = src.Animal::type;
+	this->type = src.type;
 	// srcのbrains_を複製 -> ()必要？*(src.brains_)
 	if (src.brains_) {
 		brains_ = new (std::nothrow) Brain(*src.brains_);
@@ -25,7 +25,7 @@ Dog::~Dog() {
 
 Dog& Dog::operator=(const Dog &src) {
 	std::cout << "Dog " << this->type << " operator= called" << std::endl;
-	this->Animal::type = src.Animal::type;
+	this->type = src.type;
 	if (src.brains_) {
 		this->brains_ = new(std::nothrow) Brain(*src.brains_);
 	}
