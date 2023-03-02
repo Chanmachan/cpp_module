@@ -1,6 +1,6 @@
 //
+
 // Created by 本間優之介 on 2023/02/18.
-//
 
 #ifndef CPP04EX01_DOG_H
 #define CPP04EX01_DOG_H
@@ -17,10 +17,8 @@ public:
 	~Dog();
 
 	Dog& operator=(const Dog& src);
-	void makeSound() const;
 
-	void setBrain() const;
-	void getBrain(std::size_t i) const;
+	void makeSound() const;
 };
 
 
