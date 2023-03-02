@@ -2,8 +2,8 @@
 // Created by 本間優之介 on 2023/02/18.
 //
 
-#ifndef CPP04EX00_ANIMAL_H
-#define CPP04EX00_ANIMAL_H
+#ifndef CPP04EX02_ANIMAL_H
+#define CPP04EX02_ANIMAL_H
 
 #include <iostream>
 
@@ -25,4 +25,4 @@ public:
 	virtual void makeSound() const = 0;
 };
 
-#endif //CPP04EX00_ANIMAL_H
+#endif //CPP04EX02_ANIMAL_H

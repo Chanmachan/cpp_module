@@ -2,8 +2,8 @@
 // Created by 本間優之介 on 2023/02/19.
 //
 
-#ifndef CPP04EX01_BRAIN_H
-#define CPP04EX01_BRAIN_H
+#ifndef CPP04EX02_BRAIN_H
+#define CPP04EX02_BRAIN_H
 
 #include <iostream>
 #include <string>
@@ -24,4 +24,4 @@ public:
 	std::string getBrain(std::size_t i) const;
 };
 
-#endif //CPP04EX01_BRAIN_H
+#endif //CPP04EX02_BRAIN_H
