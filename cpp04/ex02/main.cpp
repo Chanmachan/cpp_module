@@ -12,7 +12,15 @@
 //}
 
 int main() {
+
 	/* CHECK MEMORY LEAKS */
+	{
+		Cat a;
+		Cat b;
+		a = b;
+		a = b;
+		a = a;
+	}
 	{
 		const Animal *j = new Dog();
 		const Animal *i = new Cat();
@@ -24,17 +32,21 @@ int main() {
 
 	/* ADDITIONAL TEST */
 	{
-		const Dog *dog = new Dog();
-		std::cout << "here" << std::endl;
-		dog->Dog::setBrain();
-		dog->Dog::getBrain(3);
-		delete dog;
+		Dog a;
+		a.setBrain();
+		std::cout << a.getBrain(5) << std::endl;
 	}
 
-	/* ERROR */
+	/* CAN COMPILE */
 //	{
-//		//純粋仮想関数が含まれるクラスはそのクラス単体だとインスタンス化ができない、継承専用
-//		const Animal err;
+//		WrongAnimal *a = new WrongCat();
+//		(void )a;
+//		delete a;
+//	}
+
+	/* CANNOT COMPILE */
+//	{
+//		Animal *a = new Animal();
 //	}
 
 	return 0;
