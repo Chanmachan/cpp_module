@@ -21,7 +21,7 @@ public:
 	Brain& operator=(const Brain& src);
 
 	void setBrain();
-	void getBrain(std::size_t i) const;
+	std::string getBrain(std::size_t i) const;
 };
 
 #endif //CPP04EX01_BRAIN_H

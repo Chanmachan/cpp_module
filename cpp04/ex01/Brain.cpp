@@ -37,6 +37,6 @@ void Brain::setBrain() {
 	}
 }
 
-void Brain::getBrain(std::size_t i) const {
-	std::cout << ideas[i] << std::endl;
+std::string Brain::getBrain(std::size_t i) const {
+	return ideas[i];
 }
