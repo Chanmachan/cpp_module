@@ -5,25 +5,27 @@
 #include "WrongAnimal.h"
 
 WrongAnimal::WrongAnimal(): type("no type") {
-	std::cout << "WrongAnimal type not set"<< std::endl;
+	std::cout << "WrongAnimal " << type << " Constructor called" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const std::string& type): type(type) {
-	std::cout << type << " set" << std::endl;
+	std::cout << "WrongAnimal " << type << " set" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &src) {
+	std::cout << "WrongAnimal " << type << " Copy Constructor called"<< std::endl;
 	this->type = src.type;
-	std::cout << "WrongAnimal " << this->type << " is duplicated"<< std::endl;
 }
 
 WrongAnimal::~WrongAnimal() {
-	std::cout << "WrongAnimal " << this->type << " unset" << std::endl;
+	std::cout << "WrongAnimal " << type << " Destructor called" << std::endl;
 }
 
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal &src) {
 	std::cout << "WrongAnimal " << this->type << " operator= called" << std::endl;
-	this->type = src.type;
+	if (this != &src) {
+		this->type = src.type;
+	}
 	return *this;
 }
 
