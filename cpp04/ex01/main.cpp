@@ -17,7 +17,6 @@ int main() {
 		Cat b;
 		a = b;
 		a = b;
-		a = a;
 	}
 
 	std::cout << std::endl << std::endl;;
