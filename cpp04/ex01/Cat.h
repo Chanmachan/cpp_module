@@ -2,8 +2,8 @@
 // Created by 本間優之介 on 2023/02/18.
 //
 
-#ifndef CPP04EX00_CAT_H
-#define CPP04EX00_CAT_H
+#ifndef CPP04EX01_CAT_H
+#define CPP04EX01_CAT_H
 
 #include "Animal.h"
 #include "Brain.h"
@@ -21,4 +21,4 @@ public:
 	void makeSound() const;
 };
 
-#endif //CPP04EX00_CAT_H
+#endif //CPP04EX01_CAT_H
