@@ -19,7 +19,6 @@ int main() {
 		Cat b;
 		a = b;
 		a = b;
-		a = a;
 	}
 	{
 		const Animal *j = new Dog();
