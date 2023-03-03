@@ -14,16 +14,18 @@ int main() {
 		ShrubberyCreationForm b(a);
 		ShrubberyCreationForm c;
 		Bureaucrat d("Kishida", 10);
+		ShrubberyCreationForm e;
 
 		c = a;
 
 		d.signForm(c);
-		try {
-			c.execute(d);
-		} catch (std::exception& e) {
-			std::cout << "exception: " << e.what() << std::endl;
-			std::cout << d.getName() << " (" << d.getGrade() << ")" << " has not reached " << c.getGradeToExec() << " grade_to_exec" << std::endl;
-		}
+		d.executeForm(a);
+//		try {
+//			c.execute(d);
+//		} catch (std::exception& e) {
+//			std::cout << "exception: " << e.what() << std::endl;
+//			std::cout << d.getName() << " (" << d.getGrade() << ")" << " has not reached " << c.getGradeToExec() << " grade_to_exec" << std::endl;
+//		}
 	}
 	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
 	{
@@ -36,12 +38,12 @@ int main() {
 		c = a;
 
 		d.signForm(c);
-		try {
-			c.execute(d);
-		} catch (std::exception& e) {
-			std::cout << "hogexception\n";
-			std::cout << e.what() << std::endl;
-		}
+//		try {
+//			c.execute(d);
+//		} catch (std::exception& e) {
+//			std::cout << "hogexception\n";
+//			std::cout << e.what() << std::endl;
+//		}
 	}
 	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
 	{
@@ -55,9 +57,9 @@ int main() {
 		d.signForm(c);
 		try {
 			c.execute(d);
-		} catch (std::exception& e) {
-			std::cout << "exception: " << e.what() << std::endl;
-			std::cout << d.getName() << " (" << d.getGrade() << ")" << " has not reached " << c.getGradeToExec() << " grade_to_exec" << std::endl;
-		}
+//		} catch (std::exception& e) {
+//			std::cout << "exception: " << e.what() << std::endl;
+//			std::cout << d.getName() << " (" << d.getGrade() << ")" << " has not reached " << c.getGradeToExec() << " grade_to_exec" << std::endl;
+//		}
 	}
 }

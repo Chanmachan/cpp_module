@@ -32,6 +32,7 @@ public:
 	void decrementGrade();
 
 	void signForm(AForm& AForm) const;
+	void executeForm(AForm& AForm) const;
 
 	// 例外クラスを継承することで自分が拾いたい例外が発生したときに処理を足したりできる
 	// 定義された範囲を超えてアクセスされたことを通知
