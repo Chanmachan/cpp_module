@@ -2,8 +2,8 @@
 // Created by 本間優之介 on 2023/02/20.
 //
 
-#ifndef CPP05EX00_BUREAUCRAT_H
-#define CPP05EX00_BUREAUCRAT_H
+#ifndef CPP05EX02_BUREAUCRAT_H
+#define CPP05EX02_BUREAUCRAT_H
 
 #include "AForm.h"
 #include <iostream>
@@ -61,4 +61,4 @@ public:
 
 std::ostream& operator<<(std::ostream &ostream, const Bureaucrat& Bureaucrat);
 
-#endif //CPP05EX00_BUREAUCRAT_H
+#endif //CPP05EX02_BUREAUCRAT_H
