@@ -10,8 +10,7 @@ Dog::Dog(): Animal("Dog"), brains_(new (std::nothrow) Brain()) {
 
 Dog::Dog(const Dog &src)  : Animal(src) {
 	std::cout << "Dog " << type << " Copy Constructor called"<< std::endl;
-	this->type = src.type;
-	brains_ = new(std::nothrow) Brain(*src.brains_);
+	*this = src;
 }
 
 Dog::~Dog() {
@@ -24,7 +23,11 @@ Dog& Dog::operator=(const Dog &src) {
 	std::cout << "Dog " << this->type << " operator= called" << std::endl;
 	if (this != &src) {
 		this->type = src.type;
-		*this->brains_ = *src.brains_;
+		if (this->brains_) {
+			*this->brains_ = *src.brains_;
+		} else {
+			this->brains_ = new Brain(*src.brains_);
+		}
 	}
 	return *this;
 }
