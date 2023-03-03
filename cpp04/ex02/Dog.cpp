@@ -8,7 +8,7 @@ Dog::Dog(): Animal("Dog"), brains_(new (std::nothrow) Brain()) {
 	std::cout << "Dog " << type << " Constructor called" << std::endl;
 }
 
-Dog::Dog(const Dog &src)  : Animal(src) {
+Dog::Dog(const Dog &src)  : Animal(src), brains_(NULL) {
 	std::cout << "Dog " << type << " Copy Constructor called"<< std::endl;
 	*this = src;
 }

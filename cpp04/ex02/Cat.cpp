@@ -8,7 +8,7 @@ Cat::Cat(): Animal("Cat"), brains_(new (std::nothrow) Brain()) {
 	std::cout << "Cat " << type << " Constructor called" << std::endl;
 }
 
-Cat::Cat(const Cat &src)  : Animal(src) {
+Cat::Cat(const Cat &src)  : Animal(src), brains_(NULL) {
 	std::cout << "Cat " << type << " Copy Constructor called"<< std::endl;
 	*this = src;
 }
