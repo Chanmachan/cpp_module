@@ -3,63 +3,121 @@
 //
 
 #include "Bureaucrat.h"
-#include "AForm.h"
 #include "ShrubberyCreationForm.h"
 #include "RobotomyRequestForm.h"
 #include "PresidentialPardonForm.h"
 
+#define RED "\x1b[31m"
+#define GREEN "\x1b[32m"
+#define CYAN "\x1b[36m"
+#define RESET "\x1b[0m"
+
 int main() {
 	{
-		ShrubberyCreationForm a("test1");
-		ShrubberyCreationForm b(a);
-		ShrubberyCreationForm c;
-		Bureaucrat d("Kishida", 10);
-		ShrubberyCreationForm e;
-
-		c = a;
-
-		d.signForm(c);
-		d.executeForm(a);
-//		try {
-//			c.execute(d);
-//		} catch (std::exception& e) {
-//			std::cout << "exception: " << e.what() << std::endl;
-//			std::cout << d.getName() << " (" << d.getGrade() << ")" << " has not reached " << c.getGradeToExec() << " grade_to_exec" << std::endl;
-//		}
+		std::cout << "##################################################################" << std::endl;
+		std::cout << "#                   \x1b[36mShrubberyCreationForm TEST\x1b[0m                   #" << std::endl;
+		std::cout << "##################################################################" << std::endl;
+		{
+			std::cout << CYAN << "[TEST1]" << RESET << std::endl;
+			ShrubberyCreationForm test1("test1");
+			Bureaucrat ng("cannot_sign_exec", 150);
+			std::cout << RED;
+			ng.signForm(test1);
+			ng.executeForm(test1);
+			std::cout << RESET;
+		}
+		std::cout << std::endl;
+		{
+			std::cout << CYAN << "[TEST2]" << RESET << std::endl;
+			ShrubberyCreationForm test2("test2");
+			Bureaucrat ng("cannnot_exec", 140);
+			std::cout << GREEN;
+			ng.signForm(test2);
+			std::cout << RED;
+			ng.executeForm(test2);
+			std::cout << RESET;
+		}
+		std::cout << std::endl;
+		{
+			std::cout << CYAN << "[TEST3]" << RESET << std::endl;
+			ShrubberyCreationForm test3("test3");
+			Bureaucrat ok("ok", 1);
+			std::cout << GREEN;
+			ok.signForm(test3);
+			ok.executeForm(test3);
+			std::cout << RESET;
+		}
 	}
-	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
+	std::cout << std::endl;
 	{
-		RobotomyRequestForm a("hoge");
-		RobotomyRequestForm b(a);
-		RobotomyRequestForm c;
-		Bureaucrat d("Kishida", 10);
-		srand((unsigned int) time(NULL));
-
-		c = a;
-
-		d.signForm(c);
-//		try {
-//			c.execute(d);
-//		} catch (std::exception& e) {
-//			std::cout << "hogexception\n";
-//			std::cout << e.what() << std::endl;
-//		}
+		std::cout << "##################################################################" << std::endl;
+		std::cout << "#                    \x1b[36mRobotomyRequestForm TEST\x1b[0m                    #" << std::endl;
+		std::cout << "##################################################################" << std::endl;
+		{
+			std::cout << CYAN << "[TEST1]" << RESET << std::endl;
+			RobotomyRequestForm test1("test1");
+			Bureaucrat ng("cannot_sign_exec", 150);
+			std::cout << RED;
+			ng.signForm(test1);
+			ng.executeForm(test1);
+			std::cout << RESET;
+		}
+		std::cout << std::endl;
+		{
+			std::cout << CYAN << "[TEST2]" << RESET << std::endl;
+			RobotomyRequestForm test2("test2");
+			Bureaucrat ng("cannnot_exec", 80);
+			std::cout << GREEN;
+			ng.signForm(test2);
+			std::cout << RED;
+			ng.executeForm(test2);
+			std::cout << RESET;
+		}
+		std::cout << std::endl;
+		{
+			std::cout << CYAN << "[TEST3]" << RESET << std::endl;
+			RobotomyRequestForm test3("test3");
+			Bureaucrat ok("ok", 1);
+			std::cout << GREEN;
+			ok.signForm(test3);
+			ok.executeForm(test3);
+			std::cout << RESET;
+		}
 	}
-	std::cout << std::endl << "------------------------------------------------------" << std::endl << std::endl;
+	std::cout << std::endl;
 	{
-		PresidentialPardonForm a("test3");
-		PresidentialPardonForm b(a);
-		PresidentialPardonForm c;
-		Bureaucrat d("Kishida", 4);
-
-		c = a;
-
-		d.signForm(c);
-		try {
-			c.execute(d);
-//		} catch (std::exception& e) {
-//			std::cout << "exception: " << e.what() << std::endl;
-//			std::cout << d.getName() << " (" << d.getGrade() << ")" << " has not reached " << c.getGradeToExec() << " grade_to_exec" << std::endl;
-//		}
+		std::cout << "##################################################################" << std::endl;
+		std::cout << "#                  \x1b[36mPresidentialPardonForm TEST\x1b[0m                   #" << std::endl;
+		std::cout << "##################################################################" << std::endl;
+		{
+			std::cout << CYAN << "[TEST1]" << RESET << std::endl;
+			PresidentialPardonForm test1("test1");
+			Bureaucrat ng("cannot_sign_exec", 150);
+			std::cout << RED;
+			ng.signForm(test1);
+			ng.executeForm(test1);
+			std::cout << RESET;
+		}
+		std::cout << std::endl;
+		{
+			std::cout << CYAN << "[TEST2]" << RESET << std::endl;
+			PresidentialPardonForm test2("test2");
+			Bureaucrat ng("cannnot_exec", 20);
+			std::cout << GREEN;
+			ng.signForm(test2);
+			std::cout << RED;
+			ng.executeForm(test2);
+			std::cout << RESET;
+		}
+		std::cout << std::endl;
+		{
+			std::cout << CYAN << "[TEST3]" << RESET << std::endl;
+			PresidentialPardonForm test3("test3");
+			Bureaucrat ok("ok", 1);
+			std::cout << GREEN;
+			ok.signForm(test3);
+			ok.executeForm(test3);
+			std::cout << RESET;
+		}
 	}
 }
