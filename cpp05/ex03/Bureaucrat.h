@@ -2,8 +2,8 @@
 // Created by 本間優之介 on 2023/02/20.
 //
 
-#ifndef CPP05EX00_BUREAUCRAT_H
-#define CPP05EX00_BUREAUCRAT_H
+#ifndef CPP05EX03_BUREAUCRAT_H
+#define CPP05EX03_BUREAUCRAT_H
 
 #include "AForm.h"
 #include <iostream>
@@ -32,6 +32,7 @@ public:
 	void decrementGrade();
 
 	void signForm(AForm& AForm) const;
+	void executeForm(AForm& AForm) const;
 
 	// 例外クラスを継承することで自分が拾いたい例外が発生したときに処理を足したりできる
 	// 定義された範囲を超えてアクセスされたことを通知
@@ -60,4 +61,4 @@ public:
 
 std::ostream& operator<<(std::ostream &ostream, const Bureaucrat& Bureaucrat);
 
-#endif //CPP05EX00_BUREAUCRAT_H
+#endif //CPP05EX03_BUREAUCRAT_H
