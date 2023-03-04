@@ -5,10 +5,10 @@
 #include "Bureaucrat.h"
 #include "Intern.h"
 
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
-#define CYAN "\x1b[36m"
-#define RESET "\x1b[0m"
+//__attribute__((destructor))
+//static void destructor() {
+//	system("leaks -q exe");
+//}
 
 int main() {
 	Bureaucrat test("test", 60);
@@ -18,18 +18,21 @@ int main() {
 		AForm *sc = intern.makeForm("shrubbery creation", "test_sc");
 		test.signForm(*sc);
 		test.executeForm(*sc);
+		delete sc;
 	}
 	std::cout << "------------------------------------------------------" << std::endl;
 	{
 		AForm *rr = intern.makeForm("robotomy request", "test_rr");
 		test.signForm(*rr);
 		test.executeForm(*rr);
+		delete rr;
 	}
 	std::cout << "------------------------------------------------------" << std::endl;
 	{
 		AForm* pp = intern.makeForm("presidential pardon", "test_pp");
 		test.signForm(*pp);
 		test.executeForm(*pp);
+		delete pp;
 	}
 	std::cout << "------------------------------------------------------" << std::endl;
 }
