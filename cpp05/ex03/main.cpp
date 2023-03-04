@@ -6,6 +6,7 @@
 #include "ShrubberyCreationForm.h"
 #include "RobotomyRequestForm.h"
 #include "PresidentialPardonForm.h"
+#include "Intern.h"
 
 #define RED "\x1b[31m"
 #define GREEN "\x1b[32m"
@@ -119,5 +120,13 @@ int main() {
 			ok.executeForm(test3);
 			std::cout << RESET;
 		}
+	}
+	std::cout << std::endl;
+	{
+		Intern a;
+		Bureaucrat test("test", 100);
+		AForm* ok = a.makeForm("shrubbery creation", "hoge");
+		test.signForm(*ok);
+		test.executeForm(*ok);
 	}
 }
