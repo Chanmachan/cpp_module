@@ -4,14 +4,24 @@
 
 #include "AForm.h"
 
-// Formのコンストラクタは1~150の境界線は指定がなかったので無視
 AForm::AForm(const std::string& name,
 		   int grade_to_sign,
 		   int grade_to_exec)
 		   : name_(name),
 		   signed_flag_(false),
-		   grade_to_sign_(grade_to_sign),
-		   grade_to_exec_(grade_to_exec) {
+		   grade_to_sign_(lowest_grade_),
+		   grade_to_exec_(lowest_grade_) {
+	if (grade_to_sign < highest_grade_) {
+		throw AForm::GradeTooHighException();
+	} else if (grade_to_sign > lowest_grade_) {
+		throw AForm::GradeTooLowException();
+	} else if (grade_to_exec < highest_grade_) {
+		throw AForm::GradeTooHighException();
+	} else if (grade_to_exec > lowest_grade_) {
+		throw AForm::GradeTooLowException();
+	}
+	const_cast<int&>(grade_to_sign_) = grade_to_sign;
+	const_cast<int&>(grade_to_exec_) = grade_to_exec;
 	std::cout << "AForm " << name_ << " was created" << std::endl;
 }
 

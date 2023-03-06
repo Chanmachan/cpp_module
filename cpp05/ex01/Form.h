@@ -15,6 +15,8 @@ private:
 	bool signed_flag_;
 	const int grade_to_sign_;
 	const int grade_to_exec_;
+	static const int highest_grade_ = 1;
+	static const int lowest_grade_ = 150;
 	Form();
 public:
 	Form(const Form& src);
