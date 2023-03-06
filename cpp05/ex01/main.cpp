@@ -8,6 +8,11 @@
 int main() {
 	// grade must be over 1, under 150
 	Bureaucrat a("Kishida", 100);
+	try {
+		Form b("test", 15, 100);
+	} catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 	Form b("test", 20, 100);
 	/*
 	{
