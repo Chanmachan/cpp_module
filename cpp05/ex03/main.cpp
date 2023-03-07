@@ -35,4 +35,17 @@ int main() {
 		delete pp;
 	}
 	std::cout << "------------------------------------------------------" << std::endl;
+	{
+		AForm *error = NULL;
+		try{
+			error = intern.makeForm("a", "b");
+		}
+		catch (std::invalid_argument& e){
+			std:: cout << e.what() << std:: endl;
+			return 1;
+		}
+		// std::    cout << "test1!!"  << std::endl;
+		test.signForm(*error);
+		test.executeForm(*error);
+	}
 }

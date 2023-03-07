@@ -17,7 +17,7 @@ Intern::~Intern() {
 }
 
 AForm* Intern::makeForm(std::string form_name, std::string target) {
-	AForm *Form = NULL;
+	AForm *Form;
 	switch (checkWhichForm(form_name)) {
 		case 0:
 			Form = new ShrubberyCreationForm(target);
@@ -30,7 +30,7 @@ AForm* Intern::makeForm(std::string form_name, std::string target) {
 			break;
 		default:
 			std::cout << "Target of the form is incorrect" << std::endl;
-			return Form;
+			throw std::invalid_argument("invalid_argument");
 	}
 	std::cout << form_name << " " << Form->getName() << " is created" << std::endl;
 	return Form;
