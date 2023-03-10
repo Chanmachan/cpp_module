@@ -37,6 +37,6 @@ re: fclean all
 val: re
 	valgrind --leak-check=full ./exe
 
-.PHONY: va;
+.PHONY: val;
 
 -include $(DEPS)
