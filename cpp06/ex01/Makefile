@@ -1,7 +1,7 @@
 NAME = convert
 
 SRCS =	main.cpp \
-		Convert.cpp
+		Data.cpp
 
 INCLUDES = -I includes
 
