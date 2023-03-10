@@ -34,6 +34,6 @@ re: fclean all
 val: re
 	valgrind ./exe
 
-.PHONY: val;
+.PHONY: val
 
 -include $(DEPS)
