@@ -5,7 +5,7 @@
 #include "Bureaucrat.h"
 #include "Form.h"
 
-Bureaucrat::Bureaucrat(): name_("Jorn Doe"), grade_(150) {
+Bureaucrat::Bureaucrat(): name_("John Doe"), grade_(150) {
 	std::cout << "Hi! I'm " << name_ << ", grade " << grade_ << std::endl;
 }
 
@@ -29,10 +29,12 @@ Bureaucrat::~Bureaucrat() {
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &src) {
-	const_cast<std::string&>(this->name_) = src.name_;
-	// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
-	this->grade_ = src.grade_;
-	std::cout << name_ << " Copy assignment operator called" << std::endl;
+	if (this != &src) {
+		const_cast<std::string &>(this->name_) = src.name_;
+		// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
+		this->grade_ = src.grade_;
+		std::cout << name_ << " Copy assignment operator called" << std::endl;
+	}
 	return *this;
 }
 
@@ -72,24 +74,8 @@ Bureaucrat::GradeTooHighException::GradeTooHighException(): std::out_of_range("G
 
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException(const Bureaucrat::GradeTooHighException &src): std::out_of_range(src.what()) {
-
-}
-
-Bureaucrat::GradeTooHighException::~GradeTooHighException() _NOEXCEPT {
-
-}
-
 // GradeTooLowException
 Bureaucrat::GradeTooLowException::GradeTooLowException(): std::out_of_range("Grade is too low!") {
-
-}
-
-Bureaucrat::GradeTooLowException::GradeTooLowException(const Bureaucrat::GradeTooLowException &src): std::out_of_range(src.what()) {
-
-}
-
-Bureaucrat::GradeTooLowException::~GradeTooLowException() _NOEXCEPT {
 
 }
 

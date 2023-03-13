@@ -12,15 +12,17 @@ Form::Form(const std::string& name,
 		   signed_flag_(false),
 		   grade_to_sign_(lowest_grade_),
 		   grade_to_exec_(lowest_grade_) {
-	if (grade_to_sign < highest_grade_) {
-		throw Form::GradeTooHighException();
-	} else if (grade_to_sign > lowest_grade_) {
-		throw Form::GradeTooLowException();
-	} else if (grade_to_exec < highest_grade_) {
-		throw Form::GradeTooHighException();
-	} else if (grade_to_exec > lowest_grade_) {
-		throw Form::GradeTooLowException();
-	}
+//	if (grade_to_sign < highest_grade_) {
+//		throw Form::GradeTooHighException();
+//	} else if (grade_to_sign > lowest_grade_) {
+//		throw Form::GradeTooLowException();
+//	} else if (grade_to_exec < highest_grade_) {
+//		throw Form::GradeTooHighException();
+//	} else if (grade_to_exec > lowest_grade_) {
+//		throw Form::GradeTooLowException();
+//	}
+	assertGradeIsInRange(grade_to_sign);
+	assertGradeIsInRange(grade_to_exec);
 	const_cast<int&>(grade_to_sign_) = grade_to_sign;
 	const_cast<int&>(grade_to_exec_) = grade_to_exec;
 	std::cout << "Form " << name_ << " was created" << std::endl;
@@ -39,11 +41,13 @@ Form::~Form() {
 }
 
 Form& Form::operator=(const Form& src) {
-	const_cast<std::string&>(name_) = src.name_;
-	signed_flag_ = src.signed_flag_;
-	const_cast<int&>(grade_to_sign_) = src.grade_to_sign_;
-	const_cast<int&>(grade_to_exec_) = src.grade_to_exec_;
-	std::cout << "Form " << name_ << " is copied (by =operator)" << std::endl;
+	if (this != &src) {
+		const_cast<std::string &>(name_) = src.name_;
+		signed_flag_ = src.signed_flag_;
+		const_cast<int &>(grade_to_sign_) = src.grade_to_sign_;
+		const_cast<int &>(grade_to_exec_) = src.grade_to_exec_;
+		std::cout << "Form " << name_ << " is copied (by =operator)" << std::endl;
+	}
 	return *this;
 }
 
@@ -51,7 +55,7 @@ const std::string& Form::getName() const {
 	return name_;
 }
 
-int Form::getSignedFlag() const {
+bool Form::getSignedFlag() const {
 	return signed_flag_;
 }
 
@@ -71,16 +75,16 @@ void Form::beSigned(const Bureaucrat& Bureaucrat) {
 	signed_flag_ = true;
 }
 
+void Form::assertGradeIsInRange(int grade) const {
+	if (grade < highest_grade_) {
+		throw GradeTooHighException();
+	} else if (grade > lowest_grade_) {
+		throw GradeTooLowException();
+	}
+}
+
 // GradeTooHighException
 Form::GradeTooHighException::GradeTooHighException(): std::out_of_range("Grade is too high!") {
-
-}
-
-Form::GradeTooHighException::GradeTooHighException(const Form::GradeTooHighException &src): std::out_of_range(src.what()) {
-
-}
-
-Form::GradeTooHighException::~GradeTooHighException() _NOEXCEPT {
 
 }
 
@@ -89,17 +93,9 @@ Form::GradeTooLowException::GradeTooLowException(): std::out_of_range("Grade is 
 
 }
 
-Form::GradeTooLowException::GradeTooLowException(const Form::GradeTooLowException &src): std::out_of_range(src.what()) {
-
-}
-
-Form::GradeTooLowException::~GradeTooLowException() _NOEXCEPT {
-
-}
-
 std::ostream& operator<<(std::ostream &ostream, const Form& Form) {
-	return ostream << "Form_name: " << Form.getName() << std::endl
-			<< "signed_flag: " << Form.getSignedFlag() << std::endl
-			<< "Grade_to_sign: " << Form.getGradeToSign() << std::endl
-			<< "Grade_to_sign: " << Form.getGradeToExec() << std::endl;
+	return ostream << "Form_name: " << Form.getName() << "\n"
+			<< "signed_flag: " << std::boolalpha << Form.getSignedFlag() << std::noboolalpha << "\n"
+			<< "Grade_to_sign: " << Form.getGradeToSign() << "\n"
+			<< "Grade_to_sign: " << Form.getGradeToExec();
 }
