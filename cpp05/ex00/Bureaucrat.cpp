@@ -24,7 +24,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& src): name_(src.name_), grade_(src.grad
 }
 
 Bureaucrat::~Bureaucrat() {
-
+	std::cout << "Bureaucrat " << name_ << " byebye ٩( ᐛ )و" << std::endl;
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &src) {

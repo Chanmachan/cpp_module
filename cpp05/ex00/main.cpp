@@ -5,30 +5,32 @@
 #include "Bureaucrat.h"
 
 int main() {
-	Bureaucrat a;
-	Bureaucrat b("hoge", 150);
-	std::cout << "-----------------------------------" << std::endl;
-	for (size_t i = 0; i < 150; i++) {
-		try {
-			b.incrementGrade();
-		} catch (std::out_of_range& e) {
-			std::cout << e.what() << std::endl;
+	{
+		Bureaucrat a;
+		Bureaucrat b("hoge", 150);
+		std::cout << "-----------------------------------" << std::endl;
+		for (size_t i = 0; i < 150; i++) {
+			try {
+				b.incrementGrade();
+			} catch (std::out_of_range &e) {
+				std::cout << e.what() << std::endl;
+			}
 		}
-	}
-	std::cout << b << std::endl;
-	std::cout << "-----------------------------------" << std::endl;
-	for (size_t i = 0; i < 150; i++) {
-		try {
-			b.decrementGrade();
-		} catch (std::out_of_range& e) {
-			std::cout << e.what() << std::endl;
+		std::cout << b << std::endl;
+		std::cout << "-----------------------------------" << std::endl;
+		for (size_t i = 0; i < 150; i++) {
+			try {
+				b.decrementGrade();
+			} catch (std::out_of_range &e) {
+				std::cout << e.what() << std::endl;
+			}
 		}
+		std::cout << b << std::endl;
+		std::cout << "-----------------------------------" << std::endl;
+		std::cout << "getName: " << a.getName() << std::endl;
+		std::cout << "getGrade" << a.getGrade() << std::endl;
+		std::cout << "-----------------------------------" << std::endl;
 	}
-	std::cout << b << std::endl;
-	std::cout << "-----------------------------------" << std::endl;
-	std::cout << "getName: " << a.getName() << std::endl;
-	std::cout << "getGrade" << a.getGrade() << std::endl;
-	std::cout << "-----------------------------------" << std::endl;
 	{
 
 		Bureaucrat c("piyo", 1);
