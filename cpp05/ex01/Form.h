@@ -18,7 +18,7 @@ private:
 	static const int highest_grade_ = 1;
 	static const int lowest_grade_ = 150;
 	Form();
-	void assertGradeIsInRange(int grade) const;
+	static void assertGradeIsInRange(int grade) ;
 public:
 	Form(const Form& src);
 	Form(const std::string& name, int grade_to_sign, int grade_to_exec);

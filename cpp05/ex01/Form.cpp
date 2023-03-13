@@ -66,7 +66,7 @@ void Form::beSigned(const Bureaucrat& Bureaucrat) {
 	signed_flag_ = true;
 }
 
-void Form::assertGradeIsInRange(int grade) const {
+void Form::assertGradeIsInRange(int grade) {
 	if (grade < highest_grade_) {
 		throw GradeTooHighException();
 	} else if (grade > lowest_grade_) {
