@@ -28,10 +28,12 @@ Bureaucrat::~Bureaucrat() {
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &src) {
-	const_cast<std::string&>(this->name_) = src.name_;
-	// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
-	this->grade_ = src.grade_;
-	std::cout << name_ << " Copy assignment operator called" << std::endl;
+	if (this != &src) {
+		const_cast<std::string &>(this->name_) = src.name_;
+		// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
+		this->grade_ = src.grade_;
+		std::cout << name_ << " Copy assignment operator called" << std::endl;
+	}
 	return *this;
 }
 
@@ -61,7 +63,7 @@ void Bureaucrat::signForm(AForm& AForm) const {
 	try {
 		AForm.beSigned(*this);
 		std::cout << name_ << " signed " << AForm.getName() << std::endl;
-	} catch (std::out_of_range& e) {
+	} catch (const std::exception& e) {
 		std::cerr << name_ << " couldn't sign " << AForm.getName() << " because " << e.what() << std::endl;
 	}
 }
@@ -70,7 +72,7 @@ void Bureaucrat::executeForm(AForm &AForm) const {
 	try {
 		AForm.execute(*this);
 		std::cout << name_ << " executed " << AForm.getName() << std::endl;
-	} catch (std::exception& e) {
+	} catch (const std::exception& e) {
 		std::cerr << "Cannot execute: " << e.what() << std::endl;
 	}
 }
@@ -80,24 +82,8 @@ Bureaucrat::GradeTooHighException::GradeTooHighException(): std::out_of_range("G
 
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException(const Bureaucrat::GradeTooHighException &src): std::out_of_range(src.what()) {
-
-}
-
-Bureaucrat::GradeTooHighException::~GradeTooHighException() _NOEXCEPT {
-
-}
-
 // GradeTooLowException
 Bureaucrat::GradeTooLowException::GradeTooLowException(): std::out_of_range("Grade is too low!") {
-
-}
-
-Bureaucrat::GradeTooLowException::GradeTooLowException(const Bureaucrat::GradeTooLowException &src): std::out_of_range(src.what()) {
-
-}
-
-Bureaucrat::GradeTooLowException::~GradeTooLowException() _NOEXCEPT {
 
 }
 
