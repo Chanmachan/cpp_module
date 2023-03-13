@@ -7,7 +7,8 @@
 int main() {
 	Bureaucrat a;
 	Bureaucrat b("hoge", 150);
-	for (size_t i = 0; i < 5; i++) {
+	std::cout << "-----------------------------------" << std::endl;
+	for (size_t i = 0; i < 150; i++) {
 		try {
 			b.incrementGrade();
 		} catch (std::out_of_range& e) {
@@ -15,17 +16,27 @@ int main() {
 		}
 	}
 	std::cout << b << std::endl;
-	for (size_t i = 0; i < 6; i++) {
+	std::cout << "-----------------------------------" << std::endl;
+	for (size_t i = 0; i < 150; i++) {
 		try {
 			b.decrementGrade();
 		} catch (std::out_of_range& e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
+	std::cout << b << std::endl;
+	std::cout << "-----------------------------------" << std::endl;
 	std::cout << "getName: " << a.getName() << std::endl;
 	std::cout << "getGrade" << a.getGrade() << std::endl;
-	std::cout << b << std::endl;
-
+	std::cout << "-----------------------------------" << std::endl;
+	{
+		Bureaucrat c("piyo", 1);
+		Bureaucrat d;
+		Bureaucrat e(c);
+		d = c;
+		std::cout << "d: " << d.getName() << ", " << d.getGrade() << std::endl;
+		std::cout << "e: " << e.getName() << ", " << e.getGrade() << std::endl;
+	}
 	/*
 	try {
 		std::cout << "here" << std::endl;
