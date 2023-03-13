@@ -50,6 +50,7 @@ int main() {
 	}
 	std::cout << std::endl;
 	{
+		srand((unsigned int) time(NULL));
 		std::cout << "##################################################################" << std::endl;
 		std::cout << "#                    \x1b[36mRobotomyRequestForm TEST\x1b[0m                    #" << std::endl;
 		std::cout << "##################################################################" << std::endl;
