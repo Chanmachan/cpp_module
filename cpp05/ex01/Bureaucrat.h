@@ -50,4 +50,4 @@ public:
 
 std::ostream& operator<<(std::ostream &ostream, const Bureaucrat& Bureaucrat);
 
-#endif //CPP05EX00_BUREAUCRAT_H
+#endif //CPP05EX01_BUREAUCRAT_H
