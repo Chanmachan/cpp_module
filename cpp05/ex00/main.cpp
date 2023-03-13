@@ -30,9 +30,15 @@ int main() {
 	std::cout << "getGrade" << a.getGrade() << std::endl;
 	std::cout << "-----------------------------------" << std::endl;
 	{
+
 		Bureaucrat c("piyo", 1);
 		Bureaucrat d;
 		Bureaucrat e(c);
+		try {
+			Bureaucrat f("error", 100000);
+		} catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+		}
 		d = c;
 		std::cout << "d: " << d.getName() << ", " << d.getGrade() << std::endl;
 		std::cout << "e: " << e.getName() << ", " << e.getGrade() << std::endl;
