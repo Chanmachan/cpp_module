@@ -11,6 +11,7 @@
 //}
 
 int main() {
+	srand((unsigned int) time(NULL));
 	Bureaucrat test("test", 60);
 	Intern intern;
 	std::cout << "------------------------------------------------------" << std::endl;

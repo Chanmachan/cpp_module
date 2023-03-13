@@ -9,7 +9,7 @@ RobotomyRequestForm::RobotomyRequestForm()
 			required_grade_to_sign,
 			required_grade_to_exec),
 			target_("no_name") {
-	srand((unsigned int) time(NULL));
+
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
@@ -17,7 +17,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
 			required_grade_to_sign,
 			required_grade_to_exec),
 			target_(target) {
-	srand((unsigned int) time(NULL));
+
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src): AForm(src), target_(src.target_) {
