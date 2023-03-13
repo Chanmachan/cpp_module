@@ -28,9 +28,12 @@ Bureaucrat::~Bureaucrat() {
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &src) {
-	const_cast<std::string&>(this->name_) = src.name_;
-	// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
-	this->grade_ = src.grade_;
+	if (this != &src) {
+		const_cast<std::string &>(this->name_) = src.name_;
+		// thisとsrcのアドレスが同じだったときの処理を書いた方が安全
+		this->grade_ = src.grade_;
+		std::cout << name_ << " Copy assignment operator called" << std::endl;
+	}
 	return *this;
 }
 
