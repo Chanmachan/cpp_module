@@ -12,15 +12,6 @@ Form::Form(const std::string& name,
 		   signed_flag_(false),
 		   grade_to_sign_(lowest_grade_),
 		   grade_to_exec_(lowest_grade_) {
-//	if (grade_to_sign < highest_grade_) {
-//		throw Form::GradeTooHighException();
-//	} else if (grade_to_sign > lowest_grade_) {
-//		throw Form::GradeTooLowException();
-//	} else if (grade_to_exec < highest_grade_) {
-//		throw Form::GradeTooHighException();
-//	} else if (grade_to_exec > lowest_grade_) {
-//		throw Form::GradeTooLowException();
-//	}
 	assertGradeIsInRange(grade_to_sign);
 	assertGradeIsInRange(grade_to_exec);
 	const_cast<int&>(grade_to_sign_) = grade_to_sign;
