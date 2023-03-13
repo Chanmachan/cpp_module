@@ -5,12 +5,12 @@
 #include "AForm.h"
 
 AForm::AForm(const std::string& name,
-		   int grade_to_sign,
-		   int grade_to_exec)
-		   : name_(name),
-		   signed_flag_(false),
-		   grade_to_sign_(lowest_grade_),
-		   grade_to_exec_(lowest_grade_) {
+			 int grade_to_sign,
+			 int grade_to_exec)
+			 : name_(name),
+			 signed_flag_(false),
+			 grade_to_sign_(lowest_grade_),
+			 grade_to_exec_(lowest_grade_) {
 	assertGradeIsInRange(grade_to_sign);
 	assertGradeIsInRange(grade_to_exec);
 	const_cast<int&>(grade_to_sign_) = grade_to_sign;

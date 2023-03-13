@@ -19,6 +19,7 @@ private:
 	static const int highest_grade_ = 1;
 	static const int lowest_grade_ = 150;
 	AForm();
+	static void assertGradeIsInRange(int grade);
 public:
 	AForm(const AForm& src);
 	AForm(const std::string& name, int grade_to_sign, int grade_to_exec);
@@ -37,21 +38,13 @@ public:
 	virtual void execute(Bureaucrat const & executor) const = 0;
 
 	class GradeTooHighException: public std::out_of_range {
-	private:
-		GradeTooHighException& operator=(const GradeTooHighException& src);
 	public:
 		GradeTooHighException();
-		GradeTooHighException(const AForm::GradeTooHighException& src);
-		~GradeTooHighException() _NOEXCEPT;
 	};
 
 	class GradeTooLowException: public std::out_of_range {
-	private:
-		GradeTooLowException& operator=(const GradeTooLowException& src);
 	public:
 		GradeTooLowException();
-		GradeTooLowException(const AForm::GradeTooLowException& src);
-		~GradeTooLowException() _NOEXCEPT;
 	};
 };
 
