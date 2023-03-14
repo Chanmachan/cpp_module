@@ -2,30 +2,45 @@
 #include <stdexcept>
 
 template<typename T>
-Array<T>::Array(): data_(new T[0]), len_(0) {
+Array<T>::Array(): data_(new T[0]()), len_(1), max_size_(1) {
 
 }
 
 template<typename T>
-Array<T>::Array(unsigned int len): data_(new T[len]), len_(len) {
+Array<T>::Array(unsigned int len): data_(new T[len]()), len_(len), max_size_(len) {
 
 }
 
+//template<typename T>
+//Array<T>::Array(const Array<T> &src): data_(new T[src.len_]()), len_(src.len_), max_size_(src.max_size_) {
+//	for (size_t i = 0; i < len_; ++i) {
+//		data_[i] = src.data_[i];
+//	}
+//}
+
 template<typename T>
-Array<T>::Array(const Array<T> &src) {
+Array<T>::Array(const Array<T> &src): data_(NULL), len_(0), max_size_(0) {
 	*this = src;
 }
 
 template<typename T>
 Array<T> &Array<T>::operator=(const Array<T> &src) {
 	if (this != &src) {
-		if (data_ != src.data_) {
-			delete [] data_;
+		if (!data_) {
 			data_ = new T[src.len_];
-			len_ = src.len_;
-			for (unsigned int i = 0; i < len_; i++) {
-				data_[i] = src.data_[i];
+			max_size_ = src.len_;
+		}
+		// ex) this->data_[5] src->data[10] つまりthis.len_=5, src.len_=10のとき
+		else {
+			if (max_size_ < src.len_) {
+				delete[] data_;
+				data_ = new T[src.len_]();
+				max_size_ = src.len_;
 			}
+		}
+		len_ = src.len_;
+		for (size_t i = 0; i < len_; i++) {
+			data_[i] = src.data_[i];
 		}
 	}
 	return *this;
@@ -48,4 +63,9 @@ T& Array<T>::operator[](size_t N) {
 template<typename T>
 unsigned int Array<T>::size() const {
 	return len_;
+}
+
+template<typename T>
+unsigned int Array<T>::getMaxSize() const {
+	return max_size_;
 }

@@ -12,6 +12,7 @@ class Array {
 private:
 	T *data_;
 	unsigned int len_;
+	unsigned int max_size_; // 実際のArrayのサイズ
 public:
 	Array();
 	explicit Array(unsigned int len);
@@ -20,6 +21,7 @@ public:
 	~Array();
 	T& operator[](size_t N);
 	unsigned int size() const;
+	unsigned int getMaxSize() const;
 };
 // classを宣言した後に定義を読み込む
 #include "Array.tpp"
