@@ -6,7 +6,7 @@ INCLUDES = -I includes
 
 CXX = c++
 
-CXXFLAGS = -Wall -Werror -Wextra -Wshadow -std=c++98 -MMD -MP
+CXXFLAGS = -Wall -Werror -Wextra -Wshadow -std=c++98 -MMD -MP -g
 
 OBJS = $(SRCS:.cpp=.o)
 

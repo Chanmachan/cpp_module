@@ -20,6 +20,7 @@ public:
 	Array& operator=(const Array& src);
 	~Array();
 	T& operator[](size_t N);
+	const T& operator[](size_t N) const;
 	unsigned int size() const;
 	unsigned int getMaxSize() const;
 };

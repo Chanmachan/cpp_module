@@ -2,32 +2,38 @@
 #include <stdexcept>
 
 template<typename T>
-Array<T>::Array(): data_(new T[0]()), len_(1), max_size_(1) {
+Array<T>::Array(): data_(new T[1]()), len_(1), max_size_(1) {
 
 }
 
 template<typename T>
 Array<T>::Array(unsigned int len): data_(new T[len]()), len_(len), max_size_(len) {
+	// Array<int> a(0) のときでも要素1を確保 -> int *a = new int (0)のときみたいに
+	if (len_ == 0) {
+		delete [] data_;
+		data_ = new T[1]();
+		len_ = 1;
+		max_size_ = 1;
+	}
+}
 
+template<typename T>
+Array<T>::Array(const Array<T> &src): data_(new T[src.len_]()), len_(src.len_), max_size_(src.max_size_) {
+	for (size_t i = 0; i < len_; ++i) {
+		data_[i] = src.data_[i];
+	}
 }
 
 //template<typename T>
-//Array<T>::Array(const Array<T> &src): data_(new T[src.len_]()), len_(src.len_), max_size_(src.max_size_) {
-//	for (size_t i = 0; i < len_; ++i) {
-//		data_[i] = src.data_[i];
-//	}
+//Array<T>::Array(const Array<T> &src): data_(NULL), len_(0), max_size_(0) {
+//	*this = src;
 //}
-
-template<typename T>
-Array<T>::Array(const Array<T> &src): data_(NULL), len_(0), max_size_(0) {
-	*this = src;
-}
 
 template<typename T>
 Array<T> &Array<T>::operator=(const Array<T> &src) {
 	if (this != &src) {
 		if (!data_) {
-			data_ = new T[src.len_];
+			data_ = new T[src.len_]();
 			max_size_ = src.len_;
 		}
 		// ex) this->data_[5] src->data[10] つまりthis.len_=5, src.len_=10のとき
@@ -51,9 +57,16 @@ Array<T>::~Array() {
 	delete [] data_;
 }
 
-// const用も作りましょう
 template<typename T>
 T& Array<T>::operator[](size_t N) {
+	if (len_ <= N) {
+		throw std::out_of_range("Index is out of range");
+	}
+	return data_[N];
+}
+
+template<typename T>
+const T& Array<T>::operator[](size_t N) const {
 	if (len_ <= N) {
 		throw std::out_of_range("Index is out of range");
 	}

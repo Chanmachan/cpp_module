@@ -20,6 +20,7 @@
 #include <ctime>
 
 int main() {
+	/* 1 */
 	std::cout << std::endl << CYAN << "[DEFAULT TEST]" << RESET << std::endl;
 	{
 		std::cout << "use any kind of leaks checker" << std::endl;
@@ -60,8 +61,20 @@ int main() {
 				std::cout << "max_size: " << test.getMaxSize() << std::endl;
 			}
 		}
+		{
+			// constの[]
+			std::cout << YELLOW << "<4>" << RESET << std::endl;
+			try {
+				const Array<char> test;
+				test[0];
+			} catch (const std::exception& e) {
+				std::cout << RED << e.what() << RESET << std::endl;
+			}
+			std::cout << "nothing would be displayed here, if there were no errors" << std::endl;
+		}
 	}
 
+	/* 2 */
 	std::cout << std::endl << CYAN << "[INT TEST]" << RESET << std::endl;
 	{
 		Array<int> int_array;
@@ -84,6 +97,7 @@ int main() {
 		std::cout << "size(): " << int_array.size() << std::endl;
 	}
 
+	/* 3 */
 	std::cout << std::endl << CYAN << "[STRING TEST]" << RESET << std::endl;
 	{
 		Array<std::string> string_array(20);
@@ -109,10 +123,54 @@ int main() {
 		std::cout << "size(): " << string_array.size() << std::endl;
 	}
 
+	/* 4 */
 	std::cout << std::endl << CYAN << "[ARRAY IN ARRAY TEST]" << RESET << std::endl;
 	{
 		Array<Array<int> > test(2);
 		std::cout << test.size() << std::endl;
 		Array<Array<int> > tmp(test);
 	}
+
+	/* 5 */
+	std::cout << std::endl << CYAN << "[TEST+]" << RESET << std::endl;
+	{
+		std::cout << YELLOW << "<1>" << RESET << std::endl;
+		try {
+			Array<int> test;
+			std::cout << "Array<int> test -> size: " << test.size() << std::endl;
+			test[0] = 6;
+			std::cout << "test[0]: " << test[0] << " -> can access" << std::endl;
+			test[1] = 5;
+			std::cout << "test[1]: " << test[0] << std::endl;
+		} catch (const std::exception& e) {
+			std::cout << RED << e.what() << RESET << " -> test[1] cannot access" << std::endl;
+		}
+	}
+	{
+		std::cout << YELLOW << "<2>" << RESET << std::endl;
+		// デフォルトコンストラクタと引数のlen==0でコンストラクタが呼ばれた場合
+		try {
+			Array<int> hoge;
+			std::cout << "Array<int> test -> size: " << hoge.size() << std::endl;
+			hoge[0] = 9;
+			hoge[1] = 9;
+		} catch (const std::exception& e) {
+			std::cout << RED << e.what() << RESET << std::endl;
+		}
+		try {
+			Array<int> hoge(0);
+			hoge[0] = 9;
+			hoge[1] = 9;
+		} catch (const std::exception& e) {
+			std::cout << RED << e.what() << RESET << std::endl;
+		}
+	}
+	// これはエラー
+//	{
+//		int *a = new int (0);
+//		a[0] = 5;
+//		std::cout << a[0] << std::endl;
+//		std::cout << a[1] << std::endl;
+//		delete a;
+//	}
 }
