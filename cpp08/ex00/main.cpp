@@ -20,57 +20,13 @@
 #define RESET "\x1b[0m"
 
 template<typename T>
-void f1(T& t, int target) {
-	for (size_t i = 0; i < 10; ++i) {
-		t.push_back((int)i);
-	}
-	try {
-		typename T::iterator itr = easyfind(t, target);
-		std::cout << GREEN << "Found" << RESET << std::endl;
-	#ifdef DEBUG
-		std::cout << "target: " << target << " = " << *itr << std::endl;
-	#endif
-		(void) itr;
-	} catch (const std::exception &e) {
-		std::cout << RED << e.what() << RESET << std::endl;
-	}
-}
-
+void f1(T& t, int target);
 // forward_list
 template<typename T>
-void f2(T& t, int target) {
-	for (size_t i = 0; i < 10; ++i) {
-		t.push_front((int)9 - i);
-	}
-	try {
-		typename T::iterator itr = easyfind(t, target);
-		std::cout << GREEN << "Found" << RESET << std::endl;
-#ifdef DEBUG
-		std::cout << "target: " << target << " = " << *itr << std::endl;
-#endif
-		(void) itr;
-	} catch (const std::exception &e) {
-		std::cout << RED << e.what() << RESET << std::endl;
-	}
-}
-
+void f2(T& t, int target);
 // set
 template<typename T>
-void f3(T& t, int target) {
-	for (size_t i = 0; i < 10; ++i) {
-		t.insert((int)i);
-	}
-	try {
-		typename T::iterator itr = easyfind(t, target);
-		std::cout << GREEN << "Found" << RESET << std::endl;
-#ifdef DEBUG
-		std::cout << "target: " << target << " = " << *itr << std::endl;
-#endif
-		(void) itr;
-	} catch (const std::exception &e) {
-		std::cout << RED << e.what() << RESET << std::endl;
-	}
-}
+void f3(T& t, int target);
 
 int main() {
 	{
@@ -125,5 +81,58 @@ int main() {
 			std::set<int> test5;
 			f3(test5, target);
 		}
+	}
+}
+
+template<typename T>
+void f1(T& t, int target) {
+	for (size_t i = 0; i < 10; ++i) {
+		t.push_back((int)i);
+	}
+	try {
+		typename T::iterator itr = easyfind(t, target);
+		std::cout << GREEN << "Found" << RESET << std::endl;
+#ifdef DEBUG
+		std::cout << "target: " << target << " = " << *itr << std::endl;
+#endif
+		(void) itr;
+	} catch (const std::exception &e) {
+		std::cout << RED << e.what() << RESET << std::endl;
+	}
+}
+
+// forward_list
+template<typename T>
+void f2(T& t, int target) {
+	for (size_t i = 0; i < 10; ++i) {
+		t.push_front((int)9 - i);
+	}
+	try {
+		typename T::iterator itr = easyfind(t, target);
+		std::cout << GREEN << "Found" << RESET << std::endl;
+#ifdef DEBUG
+		std::cout << "target: " << target << " = " << *itr << std::endl;
+#endif
+		(void) itr;
+	} catch (const std::exception &e) {
+		std::cout << RED << e.what() << RESET << std::endl;
+	}
+}
+
+// set
+template<typename T>
+void f3(T& t, int target) {
+	for (size_t i = 0; i < 10; ++i) {
+		t.insert((int)i);
+	}
+	try {
+		typename T::iterator itr = easyfind(t, target);
+		std::cout << GREEN << "Found" << RESET << std::endl;
+#ifdef DEBUG
+		std::cout << "target: " << target << " = " << *itr << std::endl;
+#endif
+		(void) itr;
+	} catch (const std::exception &e) {
+		std::cout << RED << e.what() << RESET << std::endl;
 	}
 }
