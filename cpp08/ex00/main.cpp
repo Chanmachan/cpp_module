@@ -54,6 +54,24 @@ void f2(T& t, int target) {
 	}
 }
 
+// set
+template<typename T>
+void f3(T& t, int target) {
+	for (size_t i = 0; i < 10; ++i) {
+		t.insert((int)i);
+	}
+	try {
+		typename T::iterator itr = easyfind(t, target);
+		std::cout << GREEN << "Found" << RESET << std::endl;
+#ifdef DEBUG
+		std::cout << "target: " << target << " = " << *itr << std::endl;
+#endif
+		(void) itr;
+	} catch (const std::exception &e) {
+		std::cout << RED << e.what() << RESET << std::endl;
+	}
+}
+
 int main() {
 	{
 		const int target = 9;
@@ -71,9 +89,15 @@ int main() {
 			std::deque<int> test3;
 			f1(test3, target);
 
+			// forward_list(単方向リスト) 単方向なのでpush_backはない
 			std::cout << CYAN << "[FORWARD_LIST TEST]" << RESET << std::endl;
 			std::forward_list<int> test4;
 			f2(test4, target);
+
+			// set(順序付集合) insertはソートされた位置に値を入れる
+			std::cout << CYAN << "[SET TEST]" << RESET << std::endl;
+			std::set<int> test5;
+			f3(test5, target);
 		}
 	}
 	std::cout << "--------------------------------" << std::endl;
@@ -96,6 +120,10 @@ int main() {
 			std::cout << CYAN << "[FORWARD_LIST TEST]" << RESET << std::endl;
 			std::forward_list<int> test4;
 			f2(test4, target);
+
+			std::cout << CYAN << "[SET TEST]" << RESET << std::endl;
+			std::set<int> test5;
+			f3(test5, target);
 		}
 	}
 }
