@@ -164,10 +164,8 @@ bool Convert::getValidNumbers() {
 }
 
 void Convert::setIntNum() {
-	std::istringstream iss;
+	std::istringstream iss(literal_);
 	int intNum;
-
-	iss = std::istringstream(literal_);
 	iss >> intNum;
 	int_num_ = intNum;
 }
