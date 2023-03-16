@@ -5,6 +5,7 @@
 #include "Convert.h"
 #include <iomanip>
 #include <cerrno>
+#include <cstdlib>
 
 Convert::Convert()
 			: literal_(""),
