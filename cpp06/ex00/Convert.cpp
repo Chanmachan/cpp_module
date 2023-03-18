@@ -54,7 +54,7 @@ void Convert::inputConvertedType(t_type type) {
 			setIntNum();
 			if (!isOverflow() && 0 <= getIntNum() && getIntNum() <= 127) {
 				if (std::isprint(getIntNum())) {
-					ss << (char) int_num_;
+					ss << static_cast<char>(int_num_);
 					ss >> output_;
 					output_ = '\'' + output_ + '\'';
 				} else {
