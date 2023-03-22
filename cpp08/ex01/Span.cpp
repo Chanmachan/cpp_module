@@ -29,7 +29,7 @@ Span &Span::operator=(const Span &src) {
 
 void Span::addNumber(int num) {
 	if (stored_len_ >= cap_) {
-		throw std::runtime_error("Stotage has no more capacity");
+		throw std::runtime_error("Storage has no more capacity");
 	}
 	storage.insert(num);
 	stored_len_++;
