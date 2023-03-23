@@ -1,4 +1,5 @@
 NAME = exe
+NAME_DEBUG = exe_debug
 
 SRCS =	main.cpp
 
@@ -12,22 +13,30 @@ OBJS = $(SRCS:.cpp=.o)
 
 DEPS = $(OBJS:.o=.d)
 
+DEF =
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CXX) $(OBJS) $(INCLUDES) -o $(NAME)
 
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(DEF) -c $< -o $@
+
 clean:
 	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_DEBUG)
 
 re: fclean all
 
-# ここいい書き方教えてほしい
-debug:
-	$(CXX) -DDEBUG $(SRCS) $(INCLUDES) -o $(NAME)
+ifdef DEBUG
+NAME = $(NAME_DEBUG)
+endif
+
+debug: clean
+	$(MAKE) DEF="-DDEBUG" DEBUG=TRUE
 
 .PHONY: all clean fclean re debug
 

@@ -25,10 +25,6 @@ fclean: clean
 
 re: fclean all
 
-# ここいい書き方教えてほしい
-debug:
-	$(CXX) -DDEBUG $(SRCS) $(INCLUDES) -o $(NAME)
-
 .PHONY: all clean fclean re debug
 
 #-----------------------------------------------------------------------------#
