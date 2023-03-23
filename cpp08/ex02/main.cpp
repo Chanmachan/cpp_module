@@ -80,8 +80,8 @@ void test_ritr() {
 	for (int i = 0; i < N; ++i) {
 		test.push(i);
 	}
-	typename MutantStack<int, Container>::iterator irBegin = test.begin();
-	typename MutantStack<int, Container>::iterator irEnd = test.end();
+	typename MutantStack<int, Container>::reverse_iterator irBegin = test.rbegin();
+	typename MutantStack<int, Container>::reverse_iterator irEnd = test.rend();
 	for (; irBegin != irEnd; ) {
 		std::cout << *irBegin++ << ", ";
 	}

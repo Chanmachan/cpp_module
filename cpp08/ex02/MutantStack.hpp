@@ -53,19 +53,19 @@ public:
 	}
 
 	const_iterator cbegin() {
-		return this->c.cbegin();
+		return static_cast<const_iterator>(this->c.begin());
 	}
 
 	const_iterator cend() {
-		return this->c.cend();
+		return static_cast<const_iterator>(this->c.end());
 	}
 
 	const_reverse_iterator crbegin() {
-		return this->c.crbegin();
+		return static_cast<const_reverse_iterator>(this->c.rbegin());
 	}
 
 	const_reverse_iterator crend() {
-		return this->c.crend();
+		return static_cast<const_reverse_iterator>(this->c.rend());
 	}
 };
 
