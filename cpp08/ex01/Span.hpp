@@ -12,6 +12,8 @@ private:
 	std::multiset<int> storage;
 	unsigned int stored_len_;
 	unsigned int cap_;
+	unsigned int shortest_;
+	unsigned int longest_;
 	Span();
 public:
 	Span(unsigned int N);

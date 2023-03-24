@@ -25,6 +25,7 @@ void test_rand(unsigned int n);
 }
 
 int main() {
+	std::srand((unsigned int) time(NULL));
 	EXEC_TEST(test_subject())
 	EXEC_TEST(test_exeception())
 	EXEC_TEST(test_general(10000))
@@ -35,7 +36,6 @@ int main() {
 }
 
 void test_subject() {
-	std::srand((unsigned int) time(NULL));
 	Span sp = Span(5);
 	sp.addNumber(6);
 	sp.addNumber(3);
@@ -77,6 +77,17 @@ void test_general(unsigned int n) {
 		}
 	} catch (const std::exception& e) {
 		std::cout << "addNumber: " << RED << e.what() << RESET << std::endl;
+	}
+	if (n < 50) {
+		std::cout << "[input]" << std::endl;
+		std::multiset<int>::const_iterator iBegin = test.getBeginIterator();
+		for (unsigned int i = 0; i < n; ++i) {
+			if (i % 10 == 0 && i != 0) {
+				std::cout << std::endl;
+			}
+			std::cout << std::setw(3) << *iBegin++ << ", ";
+		}
+		std::cout << std::endl;
 	}
 	try {
 		unsigned int rtn = test.longestSpan();
