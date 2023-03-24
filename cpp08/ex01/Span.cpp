@@ -5,6 +5,8 @@
 #include "Span.hpp"
 #include <algorithm>
 
+typedef std::multiset<int>::const_iterator const_iterator;
+
 Span::Span(unsigned int N): stored_len_(0), cap_(N), shortest_(UINT_MAX), longest_(UINT_MAX) {
 
 }
@@ -33,7 +35,7 @@ void Span::addNumber(int num) {
 		throw std::runtime_error("Storage has no more capacity");
 	}
 	stored_len_++;
-	std::multiset<int>::const_iterator iLower = storage.lower_bound(num);
+	const_iterator iLower = storage.lower_bound(num);
 	// lower_boundでイテレーターを返す (storageの中身<numにならない最初のところ->{1, 2, 5}<num(3)だったら5)
 	// 要素が２個しかないうちはshortest_はかえない
 	if (iLower != storage.end()) {
@@ -48,8 +50,18 @@ void Span::addNumber(int num) {
 	longest_ = *--storage.end() - *storage.begin();
 }
 
-std::multiset<int>::const_iterator Span::getBeginIterator() const {
+void Span::addNumber(const_iterator begin, const_iterator end) {
+	for (; begin != end; ++begin) {
+		addNumber(*begin);
+	}
+}
+
+const_iterator Span::getBeginIterator() const {
 	return storage.begin();
+}
+
+const_iterator Span::getEndIterator() const {
+	return storage.end();
 }
 
 unsigned int Span::getStoredLen() const {
