@@ -4,6 +4,7 @@
 
 #include "Span.hpp"
 #include <algorithm>
+#include <climits>
 
 typedef std::multiset<int>::const_iterator const_iterator;
 
