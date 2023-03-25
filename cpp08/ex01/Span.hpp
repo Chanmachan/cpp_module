@@ -29,7 +29,15 @@ public:
 	unsigned int longestSpan() const;
 	unsigned int getStoredLen() const;
 	unsigned int getCap() const;
-	void addNumber(const_iterator begin, const_iterator end);
+	template<typename Itr>
+	void addNumber(Itr iBegin, Itr iEnd);
 };
+
+template<typename Itr>
+void Span::addNumber(Itr iBegin, Itr iEnd) {
+	for (; iBegin != iEnd; ++iBegin) {
+		addNumber(*iBegin);
+	}
+}
 
 #endif //EXE_SPAN_HPP

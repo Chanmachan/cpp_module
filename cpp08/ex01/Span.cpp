@@ -51,12 +51,6 @@ void Span::addNumber(int num) {
 	longest_ = *--storage.end() - *storage.begin();
 }
 
-void Span::addNumber(const_iterator begin, const_iterator end) {
-	for (; begin != end; ++begin) {
-		addNumber(*begin);
-	}
-}
-
 const_iterator Span::getBeginIterator() const {
 	return storage.begin();
 }
