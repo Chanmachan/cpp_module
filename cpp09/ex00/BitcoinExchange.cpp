@@ -30,7 +30,16 @@ BitcoinExchange::BitcoinExchange() {
 		if (!validateDate(date)) {
 			throw std::runtime_error("data.csv: date wrong format");
 		}
+		std::string rate_str = line.substr(pos, line.size());
+		if (!validateRate(rate_str)) {
+			throw std::runtime_error("data.csv: date wrong format");
+		}
+		inputDataIntoMap(date, rate_str);
 	}
+// 中身の確認
+//	for (std::map<std::string, double>::const_iterator it = rate_map_.begin(); it != rate_map_.end(); ++it) {
+//		std::cout << it->first << ": " << it->second << std::endl;
+//	}
 }
 
 BitcoinExchange::~BitcoinExchange() {};
@@ -70,6 +79,26 @@ bool BitcoinExchange::validateDate(const std::string& date) {
 		}
 	}
 	return true;
+}
+
+bool BitcoinExchange::validateRate(const std::string& rate_str) {
+	std::stringstream ss(rate_str);
+	double rate;
+
+	ss >> rate;
+	if (ss.fail() || !ss.eof()) {
+		return false;
+	}
+	return true;
+}
+
+void BitcoinExchange::inputDataIntoMap(const std::string &date, const std::string &rate_str) {
+	std::stringstream ss(rate_str);
+	double rate;
+
+	ss >> rate;
+
+	rate_map_.insert(std::make_pair(date, rate));
 }
 
 bool BitcoinExchange::isDigit(const std::string& data) {

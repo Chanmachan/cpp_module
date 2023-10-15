@@ -17,10 +17,12 @@ public:
 private:
 	std::map<std::string, double> rate_map_;
 	bool validateDate(const std::string& date);
+	bool validateRate(const std::string& rate_str);
 	bool isDigit(const std::string& data);
 	static bool validateYear(const std::string& data);
 	static bool validateMonth(const std::string& data);
 	static bool validateDay(const std::string& data);
+	void inputDataIntoMap(const std::string& date, const std::string& rate_str);
 };
 
 
