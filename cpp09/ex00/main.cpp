@@ -9,6 +9,8 @@ int main(int ac, char **av) {
 	}
 	try {
 		BitcoinExchange btcExchanger;
+
+		btcExchanger.processInputFile(av[1]);
 	} catch (const std::runtime_error& e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 	}

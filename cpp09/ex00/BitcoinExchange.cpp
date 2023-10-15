@@ -12,13 +12,13 @@ BitcoinExchange::BitcoinExchange() {
 	// data.csvを読み込む
 	std::ifstream datafile("data.csv");
 	if (!datafile) {
-		std::cerr << "file cannot open" << std::endl;
+		throw std::runtime_error("data.csv: file cannot open");
 	}
 	// data.csvのvalidateをかける
 	std::string line;
 	std::getline(datafile, line);
 	if (line != "date,exchange_rate") {
-		throw std::runtime_error("data.csv: date wrong format");
+		throw std::runtime_error("data.csv: wrong format");
 	}
 	while (std::getline(datafile, line)) {
 		size_t pos = line.find(',');
@@ -57,24 +57,19 @@ bool BitcoinExchange::validateDate(const std::string& date) {
 	if (date.length() != 10) {
 		return false;
 	}
-	std::istringstream ss(date);
-	std::string token;
-	std::vector<std::string> tokens;
-	while (std::getline(ss, token, '-')) {
-		tokens.push_back(token);
-	}
-	if (tokens.size() != 3) {
-		return false;
-	}
-
 	typedef bool (*Validator)(const std::string&);
 	Validator validators[3] = {validateYear, validateMonth, validateDay};
 
-	for (std::vector<std::string>::iterator it = tokens.begin(); it != tokens.end(); ++it){
-		if (!isDigit(*it)) {
+	std::istringstream ss(date);
+	for (size_t i = 0; i < 3; ++i) {
+		std::string token;
+		if (!std::getline(ss, token, '-')) {
 			return false;
 		}
-		if (!validators[it - tokens.begin()](*it)) {
+		if (!isDigit(token)) {
+			return false;
+		}
+		if (!validators[i](token)) {
 			return false;
 		}
 	}
@@ -90,6 +85,49 @@ bool BitcoinExchange::validateRate(const std::string& rate_str) {
 		return false;
 	}
 	return true;
+}
+
+void BitcoinExchange::processInputFile(const std::string &filename) {
+	std::ifstream inputFile(filename);
+	if (!inputFile) {
+		throw std::runtime_error(filename + ": file cannot open");
+	}
+	// inputFileのvalidate
+	std::string line;
+	std::getline(inputFile, line);
+	if (line != "date | value") {
+		throw std::runtime_error(filename + ": wrong format");
+	}
+	while (std::getline(inputFile, line)) {
+		std::stringstream ss(line);
+		// 日付
+		std::string date;
+		if (!std::getline(ss, date, ' ') || !validateDate(date)) {
+			std::cerr << "Error: " << "bad input => " << date << std::endl;
+			continue;
+		}
+		// " | "のvalidate
+		std::string token;
+		if (!std::getline(ss, token, ' ') || token != "|") {
+			std::cerr << "Error: " << "bad input => " << date << std::endl;
+			continue;
+		}
+		// value && rate
+		std::string value_str;
+		double value;
+		if (!std::getline(ss, value_str) || !validateValue(value_str, value)) {
+			continue;
+		}
+		double rate;
+		try {
+			rate = getRate(date);
+		} catch (std::runtime_error& e) {
+			std::cerr << "Error: " << "bad input => " << date << std::endl;
+			continue;
+		}
+		// 出力
+		std::cout << date << " => " << value << " = " << rate*value << std::endl;
+	}
 }
 
 void BitcoinExchange::inputDataIntoMap(const std::string &date, const std::string &rate_str) {
@@ -132,4 +170,32 @@ bool BitcoinExchange::validateDay(const std::string &data) {
 		return false;
 	}
 	return true;
+}
+
+bool BitcoinExchange::validateValue(const std::string &value_str, double& value) {
+	std::stringstream ss(value_str);
+
+	if (!(ss >> value)) {
+		std::cerr << "Error: Invalid format." << std::endl;
+		return false;
+	}
+
+	if (value < 0.0) {
+		std::cerr << "Error: " << "not a positive number." << std::endl;
+		return false;
+	} else if (1000.0 < value) {
+		std::cerr << "Error: " << "too large a number." << std::endl;
+		return false;
+	}
+	return true;
+}
+
+double BitcoinExchange::getRate(const std::string &date) {
+	std::map<std::string, double>::iterator it = rate_map_.upper_bound(date);
+	if (it != rate_map_.end()) {
+		--it;
+		return it->second;
+	} else {
+		throw std::runtime_error(NULL);
+	}
 }
