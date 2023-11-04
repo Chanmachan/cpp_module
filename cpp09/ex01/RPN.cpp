@@ -32,7 +32,10 @@ bool RPN::processRpn(char *arg) {
 			nums.push(*it - '0');
 		} else if (isArithmeticOperator(it)) {
 			std::cout << "演算子-> " << *it << std::endl;
-			calculate(it);
+			if (!calculate(it)) {
+				std::cout << "Error: insufficient numbers"  << std::endl;
+				return false;
+			}
 		} else {
 			if (it == tokens.end()) {
 				break;
@@ -46,6 +49,10 @@ bool RPN::processRpn(char *arg) {
 }
 
 bool RPN::calculate(std::string::iterator& it) {
+	if (nums.size() < 2) {
+		return false;
+	}
+
 	int num1 = nums.top();
 	nums.pop();
 	int num2 = nums.top();
