@@ -28,10 +28,8 @@ bool RPN::processRpn(const char *arg) {
 		skipSpace(it);
 		// 数値ならpush, 演算子ならpop
 		if (std::isdigit(*it)) {
-			std::cout << "isdigit-> " << *it << std::endl;
 			nums.push(*it - '0');
 		} else if (isArithmeticOperator(it)) {
-			std::cout << "演算子-> " << *it << std::endl;
 			if (!calculate(it)) {
 				throw std::runtime_error("insufficient numbers");
 			}
@@ -45,7 +43,7 @@ bool RPN::processRpn(const char *arg) {
 	if (nums.size() != 1) {
 		throw std::runtime_error("numbers left yet");
 	}
-	std::cout << "result: " << nums.top() << std::endl;
+	std::cout << nums.top() << std::endl;
 	return true;
 }
 
