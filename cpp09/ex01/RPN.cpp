@@ -71,7 +71,7 @@ bool RPN::calculate(std::string::iterator& it) {
 			break;
 		case '/':
 			if (num1 == 0) {
-				throw std::runtime_error("Error: zero division");
+				throw std::runtime_error("zero division");
 			}
 			nums.push(num2 / num1);
 			break;
