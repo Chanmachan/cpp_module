@@ -10,8 +10,11 @@ int main(int ac, char **av) {
 		std::cerr << "Error" << std::endl;
 		return 1;
 	}
-	RPN calculator;
-
-	calculator.processRpn(av[1]);
-	std::cout << "Hello, World!" << std::endl;
+	try {
+		RPN calculator;
+		calculator.processRpn(av[1]);
+	} catch (std::exception &e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+	return 0;
 }

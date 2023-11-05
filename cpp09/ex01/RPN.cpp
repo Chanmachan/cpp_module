@@ -33,20 +33,17 @@ bool RPN::processRpn(const char *arg) {
 		} else if (isArithmeticOperator(it)) {
 			std::cout << "演算子-> " << *it << std::endl;
 			if (!calculate(it)) {
-				std::cout << "Error: insufficient numbers"  << std::endl;
-				return false;
+				throw std::runtime_error("insufficient numbers");
 			}
 		} else {
 			if (it == tokens.end()) {
 				break;
 			}
-			std::cout << "Error: invalid token: " << *it << std::endl;
-			return false;
+			throw std::runtime_error("invalid token");
 		}
 	}
 	if (nums.size() != 1) {
-		std::cout << "Error: numbers left" << std::endl;
-		return false;
+		throw std::runtime_error("numbers left yet");
 	}
 	std::cout << "result: " << nums.top() << std::endl;
 	return true;
@@ -73,6 +70,9 @@ bool RPN::calculate(std::string::iterator& it) {
 			nums.push(num1 * num2);
 			break;
 		case '/':
+			if (num1 == 0) {
+				throw std::runtime_error("Error: zero division");
+			}
 			nums.push(num2 / num1);
 			break;
 	}
