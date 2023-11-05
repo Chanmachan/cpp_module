@@ -44,6 +44,10 @@ bool RPN::processRpn(char *arg) {
 			return false;
 		}
 	}
+	if (nums.size() != 1) {
+		std::cout << "Error: numbers left" << std::endl;
+		return false;
+	}
 	std::cout << "result: " << nums.top() << std::endl;
 	return true;
 }
