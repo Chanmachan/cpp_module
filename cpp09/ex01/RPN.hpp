@@ -22,7 +22,12 @@ public:
 
 	RPN(const RPN& src);
 	RPN& operator=(const RPN& rhs);
-	bool processRpn(char *arg);
+	bool processRpn(const char *arg);
+
+	void clear() {
+		while (!nums.empty()) {
+			nums.pop();
+		}};
 };
 
 

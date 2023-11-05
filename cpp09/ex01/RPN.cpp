@@ -18,7 +18,7 @@ RPN& RPN::operator=(const RPN &rhs) {
 	return *this;
 }
 
-bool RPN::processRpn(char *arg) {
+bool RPN::processRpn(const char *arg) {
 //	if (!validateArg(arg)) {
 //		return false;
 //	}
