@@ -67,13 +67,13 @@ bool RPN::calculate(std::string::iterator& it) {
 			nums.push(num1 + num2);
 			break;
 		case '-':
-			nums.push(num1 - num2);
+			nums.push(num2 - num1);
 			break;
 		case '*':
 			nums.push(num1 * num2);
 			break;
 		case '/':
-			nums.push(num1 / num2);
+			nums.push(num2 / num1);
 			break;
 	}
 	return true;
