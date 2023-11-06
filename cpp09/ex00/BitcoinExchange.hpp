@@ -21,9 +21,9 @@ private:
 	static bool validateRate(const std::string& rate_str);
 	void inputDataIntoMap(const std::string& date, const std::string& rate_str);
 	static bool isDigit(const std::string& data);
-	static bool validateYear(const std::string& data);
-	static bool validateMonth(const std::string& data);
-	static bool validateDay(const std::string& data);
+	static bool validateYear(const std::string& data, int &month, bool &isLeapYear);
+	static bool validateMonth(const std::string& data, int &month, bool &isLeapYear);
+	static bool validateDay(const std::string& data, int &month, bool &isLeapYear);
 	bool validateValue(const std::string& value_str, double& value);
 	double getRate(const std::string& date);
 };

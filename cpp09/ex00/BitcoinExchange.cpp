@@ -57,7 +57,9 @@ bool BitcoinExchange::validateDate(const std::string& date) {
 	if (date.length() != 10) {
 		return false;
 	}
-	typedef bool (*Validator)(const std::string&);
+	int month;
+	bool isLeapYear = false;
+	typedef bool (*Validator)(const std::string&, int&, bool&);
 	Validator validators[3] = {validateYear, validateMonth, validateDay};
 
 	std::istringstream ss(date);
@@ -69,7 +71,7 @@ bool BitcoinExchange::validateDate(const std::string& date) {
 		if (!isDigit(token)) {
 			return false;
 		}
-		if (!validators[i](token)) {
+		if (!validators[i](token, month, isLeapYear)) {
 			return false;
 		}
 	}
@@ -148,25 +150,41 @@ bool BitcoinExchange::isDigit(const std::string& data) {
 	return true;
 }
 
-bool BitcoinExchange::validateYear(const std::string &data) {
+bool BitcoinExchange::validateYear(const std::string &data, int &month, bool &isLeapYear) {
+	(void)month;
 	int year = std::atoi(data.c_str());
 	if (year < 2009 || 2999 < year) {
 		return false;
 	}
-	return true;
-}
-
-bool BitcoinExchange::validateMonth(const std::string &data) {
-	int month = std::atoi(data.c_str());
-	if (month < 1 || 12 < month) {
-		return false;
+	if (year % 4 == 0) {
+		if (year % 100 != 0) {
+			isLeapYear = true;
+		} else if (year % 400 == 0) {
+			isLeapYear = true;
+		}
 	}
 	return true;
 }
 
-bool BitcoinExchange::validateDay(const std::string &data) {
+bool BitcoinExchange::validateMonth(const std::string &data, int &month, bool &isLeapYear) {
+	int month_tmp = std::atoi(data.c_str());
+	if (month_tmp < 1 || 12 < month_tmp) {
+		return false;
+	}
+	if (isLeapYear && month_tmp != 2) {
+		isLeapYear = false;
+	}
+	month = month_tmp;
+	return true;
+}
+
+bool BitcoinExchange::validateDay(const std::string &data, int &month, bool &isLeapYear) {
+	int dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	if (isLeapYear) {
+		dayInMonth[1] = 29;
+	}
 	int day = std::atoi(data.c_str());
-	if (day < 1 || 31 < day) {
+	if (day < 1 || dayInMonth[month-1] < day) {
 		return false;
 	}
 	return true;
