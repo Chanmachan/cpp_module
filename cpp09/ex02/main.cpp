@@ -5,5 +5,9 @@
 #include <iostream>
 
 int main(int ac, char **av) {
-
+	if (ac <= 1) {
+		return 1;
+	}
+	std::cout << av[1] << std::endl;
+	return 0;
 }
