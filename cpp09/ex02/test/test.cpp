@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_SUITE(PmergeMeSuite)
 		expectedResult.push_back(4);
 		expectedResult.push_back(1);
 		expectedResult.push_back(5);
-		std::vector<int> result = pmergeMeInstance.inputVec(5, args);
+		std::vector<int> result = pmergeMeInstance.inputVec(5, (char **)args);
 
 		BOOST_CHECK_EQUAL_COLLECTIONS(result.begin(), result.end(), expectedResult.begin(), expectedResult.end());
 	}
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_SUITE(PmergeMeSuite)
 		PmergeMe pmergeMeInstance;
 
 		const char *args[] = {"1", "a", "2"};
-		BOOST_CHECK_THROW(pmergeMeInstance.inputVec(3, args), std::invalid_argument);
+		BOOST_CHECK_THROW(pmergeMeInstance.inputVec(3, (char **)args), std::invalid_argument);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

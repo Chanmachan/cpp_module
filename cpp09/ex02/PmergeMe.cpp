@@ -4,7 +4,7 @@
 
 #include "PmergeMe.hpp"
 
-std::vector<int> PmergeMe::inputVec(int ac, const char **av) {
+std::vector<int> PmergeMe::inputVec(int ac, char **av) {
 	std::vector<int> vec;
 	for (int i = 0; i < ac; i++) {
 		errno = 0;

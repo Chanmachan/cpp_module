@@ -12,7 +12,7 @@ class PmergeMe {
 private:
 
 public:
-	std::vector<int> inputVec(int ac, const char **av);
+	std::vector<int> inputVec(int ac, char **av);
 	template<typename T>
 	static void mergeInsertionSort(std::vector<T> data);
 	template<typename T>
