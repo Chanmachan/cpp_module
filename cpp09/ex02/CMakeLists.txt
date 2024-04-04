@@ -7,3 +7,7 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -std=c++98 -Wshadow -fsanitize=addres
 
 add_executable(exe main.cpp
                    PmergeMe.cpp)
+
+add_library(pmergeme_lib PmergeMe.cpp)
+
+add_subdirectory(test)
