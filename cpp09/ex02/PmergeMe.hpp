@@ -12,6 +12,10 @@ class PmergeMe {
 private:
 
 public:
+	template<typename T>
+	static void mergeInsertionSort(std::vector<T> data);
+	template<typename T>
+	static void mergeInsertionSort(std::list<T> data);
 };
 
 
