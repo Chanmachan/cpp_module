@@ -15,12 +15,15 @@ void recursivePartitionAndSort(std::vector<PairComparisonResult<T, typename std:
 	std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs;
 	typename std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> >::iterator it = pairs.begin();
 	// 最後(奇数個の場合は最後の手前)までペアを作って比較してpair(勝者と敗者)に分ける
-	for (; it < pairs.end() && std::next(it) != pairs.end(); it += 2) {
+	for (int i = 0; it < pairs.end() && std::next(it) != pairs.end(); it += 2) {
+		std::cout << "<" << i++ << ">" << std::endl;
+		std::cout << "[bef] " << it->getWinnerValue() << " : " << std::next(it)->getWinnerValue() << " -> ";
 		if (it->getWinnerValue() < std::next(it)->getWinnerValue()) {
 			T tmp = it->getWinnerValue();
 			it->setWinnerValue(std::next(it)->getWinnerValue());
 			std::next(it)->setWinnerValue(tmp);
 		}
+		std::cout << "[aft] " << it->getWinnerValue() << " : " << std::next(it)->getWinnerValue() << std::endl;
 		// ここのコンストラクタで比較してインプットする処理にしてもいいかも
 		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it->getWinnerItr(), std::next(it)->getWinnerItr());
 		nextPairs.push_back(pair);
@@ -31,12 +34,6 @@ void recursivePartitionAndSort(std::vector<PairComparisonResult<T, typename std:
 		nextPairs.push_back(pair);
 	}
 	recursivePartitionAndSort(nextPairs);
-	for (size_t i = 0; i < nextPairs.size(); ++i) {
-		std::cout << "[" << i << "]" << std::endl \
-					<< "Winner:" <<nextPairs[i].getWinnerValue() << std::endl \
-					<< "Loser:" <<nextPairs[i].getLoserValue() << std::endl;
-
-	}
 }
 
 template<typename T>
