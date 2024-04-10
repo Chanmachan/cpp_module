@@ -11,7 +11,7 @@ void recursivePartitionAndSort(std::vector<PairComparisonResult<T, typename std:
 	}
 	bool hasUnpairedElement = (pairs.size() % 2) != 0;
 	std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs;
-	typename std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > it = pairs.begin();
+	typename std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> >::iterator it = pairs.begin();
 	// 最後(奇数個の場合は最後の手前)までペアを作って比較してpair(勝者と敗者)に分ける
 	for (; it < pairs.end() && std::next(it) != pairs.end(); it += 2) {
 		if (it->getWinnerValue() < std::next(it)->getWinnerValue()) {
