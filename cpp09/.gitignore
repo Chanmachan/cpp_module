@@ -1,2 +1,5 @@
 ex*/cmake-build-debug
 ex*/build
+/sample/
+/sample2/
+.gitignore

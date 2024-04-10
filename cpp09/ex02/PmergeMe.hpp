@@ -5,14 +5,15 @@
 #ifndef EXE_PMERGEME_HPP
 #define EXE_PMERGEME_HPP
 
-#include <vector>
+#include<vector>
 #include <list>
+#include "PairComparisonResult.hpp"
 
 class PmergeMe {
 private:
 
 public:
-	std::vector<int> inputVec(int ac, char **av);
+	static std::vector<int> inputVec(int ac, char **av);
 	template<typename T>
 	static void mergeInsertionSort(std::vector<T> data);
 	template<typename T>
