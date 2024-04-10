@@ -16,8 +16,8 @@ public:
 	PairComparisonResult(Iterator winner, Iterator loser): itrWinner_(winner), itrLoser_(loser), size_(2) {};
 	PairComparisonResult(Iterator winner): itrWinner_(winner), size_(1) {};
 	// イテレーターの先
-	ValueType getWinnerValue() { return *itrWinner_; };
-	ValueType getLoserValue() { return *itrLoser_; };
+	ValueType& getWinnerValue() { return *itrWinner_; };
+	ValueType& getLoserValue() { return *itrLoser_; };
 	void setWinnerValue(ValueType& value) { *itrWinner_ = value; };
 	void setLoserValue(ValueType& value) { *itrLoser_ = value; };
 	// イテレーター自体
