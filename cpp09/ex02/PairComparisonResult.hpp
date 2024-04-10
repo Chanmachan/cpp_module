@@ -15,6 +15,8 @@ private:
 public:
 	PairComparisonResult(Iterator winner, Iterator loser): itrWinner_(winner), itrLoser_(loser), size_(2) {};
 	PairComparisonResult(Iterator winner): itrWinner_(winner), size_(1) {};
+
+	int getSize() { return size_; };
 	// イテレーターの先
 	ValueType& getWinnerValue() { return *itrWinner_; };
 	ValueType& getLoserValue() { return *itrLoser_; };
