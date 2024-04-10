@@ -20,5 +20,7 @@ public:
 	static void mergeInsertionSort(std::list<T> data);
 };
 
+// 定義を読み込む
+#include "PmergeMe.tpp"
 
 #endif //EXE_PMERGEME_HPP
