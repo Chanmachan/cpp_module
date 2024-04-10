@@ -1,5 +1,4 @@
 cmake-build-*
-CMakeLists.txt
 *.o
 *.d
 */*/fixed
