@@ -3,9 +3,11 @@
 //
 
 #include "PmergeMe.hpp"
+#include <iostream>
 
 template<typename T>
 void recursivePartitionAndSort(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > pairs) {
+
 	if (pairs.size() <= 1) {
 		return;
 	}
@@ -20,20 +22,31 @@ void recursivePartitionAndSort(std::vector<PairComparisonResult<T, typename std:
 			std::next(it)->setWinnerValue(tmp);
 		}
 		// ここのコンストラクタで比較してインプットする処理にしてもいいかも
-		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it, std::next(it));
+		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it->getWinnerItr(), std::next(it)->getWinnerItr());
 		nextPairs.push_back(pair);
 	}
 	if (hasUnpairedElement) {
 		// 最後のあまりをpairsにいれる処理
-		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it);
+		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it->getWinnerItr());
 		nextPairs.push_back(pair);
 	}
 	recursivePartitionAndSort(nextPairs);
+	for (size_t i = 0; i < nextPairs.size(); ++i) {
+		std::cout << "[" << i << "]" << std::endl \
+					<< "Winner:" <<nextPairs[i].getWinnerValue() << std::endl \
+					<< "Loser:" <<nextPairs[i].getLoserValue() << std::endl;
+
+	}
 }
 
 template<typename T>
 void PmergeMe::mergeInsertionSort(std::vector<T> data) {
 	// 一番最初のループなのでペアは作らずにそれぞれを一つのペアとして扱う
+	std::cout << "before: ";
+	for (size_t i = 0; i < data.size(); ++i) {
+		std::cout << data[i] << ", ";
+	}
+	std::cout << std::endl;
 	std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > firstPairs;
 	for (typename std::vector<T>::iterator it = data.begin(); it < data.end(); it++) {
 		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it);
