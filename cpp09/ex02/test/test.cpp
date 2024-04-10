@@ -42,6 +42,7 @@ BOOST_AUTO_TEST_SUITE(PmergeMeSuite)
 		testData.push_back(6);
 		testData.push_back(9);
 		testData.push_back(8);
+		testData.push_back(10);
 		std::vector<int> expectedResult;
 		expectedResult.push_back(5);
 		expectedResult.push_back(3);
@@ -51,6 +52,7 @@ BOOST_AUTO_TEST_SUITE(PmergeMeSuite)
 		expectedResult.push_back(6);
 		expectedResult.push_back(9);
 		expectedResult.push_back(8);
+		expectedResult.push_back(10);
 
 		// mergeInsertionSort関数を実行
 		PmergeMe::mergeInsertionSort(testData);
