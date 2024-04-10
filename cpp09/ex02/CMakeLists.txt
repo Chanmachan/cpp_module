@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -std=c++98 -Wshadow -fsanitize=address")
 
 add_executable(exe main.cpp
-                   PmergeMe.cpp)
+        PmergeMe.tpp)
 
-add_library(pmergeme_lib PmergeMe.cpp)
+add_library(pmergeme_lib PmergeMe.tpp)
 
 add_subdirectory(test)
