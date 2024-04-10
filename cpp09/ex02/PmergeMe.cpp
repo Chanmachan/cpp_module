@@ -2,7 +2,7 @@
 // Created by chanma on 2024/04/10.
 //
 
-#include "PmergeMe.tpp"
+#include "PmergeMe.hpp"
 
 std::vector<int> PmergeMe::inputVec(int ac, char **av) {
 	std::vector<int> vec;
