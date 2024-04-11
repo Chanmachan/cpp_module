@@ -15,9 +15,9 @@ private:
 public:
 	static std::vector<int> inputVec(int ac, char **av);
 	template<typename T>
-	static void mergeInsertionSort(std::vector<T> data);
-	template<typename T>
-	static void mergeInsertionSort(std::list<T> data);
+	static std::vector<T> mergeInsertionSort(std::vector<T> data);
+//	template<typename T>
+//	static void mergeInsertionSort(std::list<T> data);
 };
 
 // 定義を読み込む
