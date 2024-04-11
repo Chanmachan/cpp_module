@@ -14,7 +14,8 @@ private:
 
 public:
 	PairComparisonResult(Iterator winner, Iterator loser): itrWinner_(winner), itrLoser_(loser), size_(2) {};
-	PairComparisonResult(Iterator winner): itrWinner_(winner), size_(1) {};
+	// 引数が一つのときの暗黙的な型変換防止でexplicit
+	explicit PairComparisonResult(Iterator winner): itrWinner_(winner), size_(1) {};
 
 	int getSize() { return size_; };
 	// イテレーターの先
