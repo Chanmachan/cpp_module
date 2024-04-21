@@ -44,7 +44,7 @@ int main(int ac, char **av) {
 
 		std::cout << std::endl;
 		double elapsed = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-		std::cout << "Time to process a range of " << std::setw(4) << lst.size() << " elements with std::vector :\t" \
+		std::cout << "Time to process a range of " << std::setw(4) << lst.size() << " elements with std::list :\t" \
 					<< elapsed << " us" << std::endl;
 	}
 
