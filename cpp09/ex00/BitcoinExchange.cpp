@@ -49,7 +49,9 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) {
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs) {
-	rate_map_ = rhs.rate_map_;
+	if (this != &rhs) {
+		rate_map_ = rhs.rate_map_;
+	}
 	return *this;
 }
 
