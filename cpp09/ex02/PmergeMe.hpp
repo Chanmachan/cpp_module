@@ -18,6 +18,11 @@ private:
 		LIST,
 	};
 public:
+	PmergeMe();
+	PmergeMe(const PmergeMe& src);
+	PmergeMe& operator=(const PmergeMe& src);
+	~PmergeMe();
+
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
 	void mergeInsertionSort(std::vector<T> data);
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
