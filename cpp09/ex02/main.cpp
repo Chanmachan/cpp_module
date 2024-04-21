@@ -55,9 +55,9 @@ int main(int ac, char **av) {
 	// 出力
 	std::cout << "Before:\t" << av << std::endl;
 	std::cout << "After:\t" << pmergeMe.getVec() << std::endl;
-	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getVec() << " elements with std::vector :\t" \
+	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getVec().size() << " elements with std::vector :\t" \
 					<< elapsedVec << " us" << std::endl;
-	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getLst() << " elements with std::list   :\t" \
+	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getLst().size() << " elements with std::list   :\t" \
 					<< elapsedLst << " us" << std::endl;
 
 	return 0;
