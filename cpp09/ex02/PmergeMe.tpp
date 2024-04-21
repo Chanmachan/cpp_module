@@ -5,6 +5,19 @@
 #include "PmergeMe.hpp"
 #include <iostream>
 
+template<typename T,template<typename, typename=std::allocator<T> > class Container>
+void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
+	for (int i = 1; i < ac; i++) {
+		errno = 0;
+		char *p_end;
+		long l = std::strtol(av[i], &p_end, 10);
+		if ((*p_end != '\0') || (errno == ERANGE) || (errno == EINVAL)) {
+			throw std::invalid_argument("Invalid Arg");
+		}
+		dst.push_back((int)l);
+	}
+}
+
 template<typename T>
 typename std::list<T>::iterator PmergeMe::lowerBoundForList(typename std::list<T>::iterator first,
 															typename std::list<T>::iterator last, const T &value) {
@@ -15,13 +28,13 @@ typename std::list<T>::iterator PmergeMe::lowerBoundForList(typename std::list<T
 }
 
 template<typename T>
-void insertLosers(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > newPairs, std::vector<T>& ret) {
+void PmergeMe::insertLosers(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > newPairs) {
 	if (newPairs.size() == 1) {
-		ret.insert(ret.begin(), newPairs[0].getWinnerValue());
+		vec_.insert(vec_.begin(), newPairs[0].getWinnerValue());
 	}
 	for (size_t i = 0; i < newPairs.size() && newPairs[i].getSize() == 2; i++) {
-		typename std::vector<T>::iterator insPos = std::lower_bound(ret.begin(), ret.end(), newPairs[i].getLoserValue());
-		ret.insert(insPos, newPairs[i].getLoserValue());
+		typename std::vector<T>::iterator insPos = std::lower_bound(vec_.begin(), vec_.end(), newPairs[i].getLoserValue());
+		vec_.insert(insPos, newPairs[i].getLoserValue());
 	}
 
 #ifdef TEST
@@ -33,15 +46,15 @@ void insertLosers(std::vector<PairComparisonResult<T, typename std::vector<T>::i
 }
 
 template<typename T>
-void insertLosers(std::list<PairComparisonResult<T, typename std::list<T>::iterator> > newPairs, std::list<T>& ret) {
+void PmergeMe::insertLosers(std::list<PairComparisonResult<T, typename std::list<T>::iterator> > newPairs) {
 	typename std::list<PairComparisonResult<T, typename std::list<T>::iterator> >::iterator it = newPairs.begin();
 
 	if (newPairs.size() == 1) {
-		ret.insert(ret.begin(), it->getWinnerValue());
+		lst_.insert(lst_.begin(), it->getWinnerValue());
 	}
 	for (; it != newPairs.end() && it->getSize() == 2; ++it) {
-		typename std::list<T>::iterator insPos = PmergeMe::lowerBoundForList(ret.begin(), ret.end(), it->getLoserValue());
-		ret.insert(insPos, it->getLoserValue());
+		typename std::list<T>::iterator insPos = PmergeMe::lowerBoundForList(lst_.begin(), lst_.end(), it->getLoserValue());
+		lst_.insert(insPos, it->getLoserValue());
 	}
 
 #ifdef TEST
@@ -116,9 +129,9 @@ void insertLosers(std::list<PairComparisonResult<T, typename std::list<T>::itera
  * partitionAndSort(pairs, &ret)の形
  * */
 template<typename T, template<typename, typename=std::allocator<T> > class Container>
-void partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
+void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
 						std::allocator<PairComparisonResult<T, typename Container<T>::iterator> > > pairs, \
-						Container<T>& ret, bool flag) {
+						bool flag) {
 	typedef PairComparisonResult<T, typename Container<T>::iterator> ComparisonPair;
 	if (pairs.size() <= 1) {
 		return;
@@ -157,7 +170,7 @@ void partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::i
 		ComparisonPair pair(it->getWinnerItr());
 		nextPairs.push_back(pair);
 	}
-	partitionAndSort<T, Container>(nextPairs, ret, flag);
+	partitionAndSort<T, Container>(nextPairs, flag);
 #ifdef TEST
 	std::cout << "<oldPairs> " << std::endl << "winner: ";
 	for (size_t i = 0; i < pairs.size(); ++i) {
@@ -185,37 +198,30 @@ void partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::i
 	// nextPairsのloserがソートされたpairsのwinner(->ret)にinsertされる感じ
 	// vecのendから挿入していった方が効率がいい？
 	if (flag) {
-		insertLosers(nextPairs, ret);
+		insertLosers(nextPairs);
 	} else {
-		insertLosers(nextPairs, ret);
+		insertLosers(nextPairs);
 	}
 }
 
 // mainで指定したアロケータの型に設定
 template<typename T, template<typename, typename=std::allocator<T> > class Container>
-std::vector<T> PmergeMe::mergeInsertionSort(std::vector<T> data) {
+void PmergeMe::mergeInsertionSort(std::vector<T> data) {
 	// 一番最初のループなのでペアは作らずにそれぞれを一つのペアとして扱う
 	std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > firstPairs;
 	for (typename std::vector<T>::iterator it = data.begin(); it < data.end(); it++) {
 		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it);
 		firstPairs.push_back(pair);
 	}
-	// 一旦retに返すようにする
-	std::vector<T> ret;
-	partitionAndSort<T, Container>(firstPairs, ret, true);
-
-	return ret;
+	partitionAndSort<T, Container>(firstPairs, true);
 }
 
 template<typename T, template<typename, typename=std::allocator<T> > class Container>
-std::list<T> PmergeMe::mergeInsertionSort(std::list<T> data) {
+void PmergeMe::mergeInsertionSort(std::list<T> data) {
 	std::list<PairComparisonResult<T, typename std::list<T>::iterator> > firstPairs;
 	for (typename std::list<T>::iterator it = data.begin(); it != data.end(); it++) {
 		PairComparisonResult<T, typename std::list<T>::iterator> pair(it);
 		firstPairs.push_back(pair);
 	}
-	std::list<T> ret;
-	partitionAndSort<T, Container>(firstPairs, ret, false);
-
-	return ret;
+	partitionAndSort<T, Container>(firstPairs, false);
 }
