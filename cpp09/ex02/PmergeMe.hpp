@@ -14,8 +14,6 @@ private:
 	std::vector<int> vec_;
 	std::list<int> lst_;
 public:
-	void inputToContainer(int ac, char **av, std::vector<int>& dst);
-	void inputToContainer(int ac, char **av, std::list<int>& dst);
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
 	void mergeInsertionSort(std::vector<T> data);
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
