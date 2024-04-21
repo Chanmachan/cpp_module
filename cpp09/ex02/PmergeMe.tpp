@@ -15,10 +15,11 @@ void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
 		if ((*p_end != '\0') || (errno == ERANGE) || (errno == EINVAL)) {
 			throw std::invalid_argument("Invalid Arg");
 		}
-		dst.push_back((int)l);
-		if (std::find(dst.begin(), dst.end(), (int)l) != dst.end()) {
+		int value = (int)l;
+		if (std::find(dst.begin(), dst.end(), value) != dst.end()) {
 			throw std::invalid_argument("Duplicate value detected");
 		}
+		dst.push_back((int)l);
 	}
 }
 
