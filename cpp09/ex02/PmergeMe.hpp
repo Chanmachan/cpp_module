@@ -30,9 +30,28 @@ public:
 	static typename std::list<T>::iterator lowerBoundForList(typename std::list<T>::iterator first, typename std::list<T>::iterator last, const T& value);
 	template<typename T,template<typename, typename=std::allocator<T> > class Container>
 	void inputToContainer(int ac, char **av, Container<T>& dst);
+
+	std::vector<int> getVec() { return vec_; };
+	std::list<int> getLst() { return lst_; };
 };
 
 // 定義を読み込む
 #include "PmergeMe.tpp"
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+	for (size_t i = 0; i < vec.size(); ++i) {
+		os << vec[i] << " ";
+	}
+	return os;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const std::list<T>& lst) {
+	for (typename std::list<T>::const_iterator it = lst.begin(); it != lst.end(); it++) {
+		os << *it << " ";
+	}
+	return os;
+}
 
 #endif //EXE_PMERGEME_HPP

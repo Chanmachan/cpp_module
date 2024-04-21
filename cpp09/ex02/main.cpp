@@ -7,6 +7,13 @@
 #include <ctime>
 #include <iomanip>
 
+std::ostream& operator<<(std::ostream& os, char** args) {
+	for (size_t i = 1; args[i] != NULL; ++i) { // NOLINT(*-use-nullptr)
+		os << args[i] << " ";
+	}
+	return os;
+}
+
 int main(int ac, char **av) {
 	if (ac <= 1) {
 		std::cout << "Error: " << "Lack of Args" << std::endl;
@@ -32,8 +39,6 @@ int main(int ac, char **av) {
 
 
 		elapsedVec = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-		std::cout << "Time to process a range of " << std::setw(4) << vec.size() << " elements with std::vector :\t" \
-					<< elapsedVec << " us" << std::endl;
 	}
 	// list part
 	{
@@ -45,9 +50,15 @@ int main(int ac, char **av) {
 		clock_t end = clock();
 
 		elapsedLst = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-		std::cout << "Time to process a range of " << std::setw(4) << lst.size() << " elements with std::list   :\t" \
-					<< elapsedLst << " us" << std::endl;
 	}
+
+	// 出力
+	std::cout << "Before:\t" << av << std::endl;
+	std::cout << "After:\t" << pmergeMe.getVec() << std::endl;
+	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getVec() << " elements with std::vector :\t" \
+					<< elapsedVec << " us" << std::endl;
+	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getLst() << " elements with std::list   :\t" \
+					<< elapsedLst << " us" << std::endl;
 
 	return 0;
 }
