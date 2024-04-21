@@ -28,7 +28,6 @@ int main(int ac, char **av) {
 		vec = PmergeMe::mergeInsertionSort<int, std::vector>(vec);
 		clock_t end = clock();
 
-		std::cout << std::endl;
 		double elapsed = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 		std::cout << "Time to process a range of " << std::setw(4) << vec.size() << " elements with std::vector :\t" \
 					<< elapsed << " us" << std::endl;
@@ -42,7 +41,6 @@ int main(int ac, char **av) {
 		lst = PmergeMe::mergeInsertionSort<int, std::list>(lst);
 		clock_t end = clock();
 
-		std::cout << std::endl;
 		double elapsed = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 		std::cout << "Time to process a range of " << std::setw(4) << lst.size() << " elements with std::list :\t" \
 					<< elapsed << " us" << std::endl;
