@@ -36,13 +36,6 @@ void PmergeMe::insertLosers(std::vector<PairComparisonResult<T, typename std::ve
 		typename std::vector<T>::iterator insPos = std::lower_bound(vec_.begin(), vec_.end(), newPairs[i].getLoserValue());
 		vec_.insert(insPos, newPairs[i].getLoserValue());
 	}
-
-#ifdef TEST
-	for (size_t i = 0; i < ret.size(); ++i) {
-		std::cout << "[" << i <<  "]" << ret[i] << std::endl;
-	}
-	std::cout << "-------------------------------" << std::endl;
-#endif
 }
 
 template<typename T>
@@ -56,14 +49,6 @@ void PmergeMe::insertLosers(std::list<PairComparisonResult<T, typename std::list
 		typename std::list<T>::iterator insPos = PmergeMe::lowerBoundForList(lst_.begin(), lst_.end(), it->getLoserValue());
 		lst_.insert(insPos, it->getLoserValue());
 	}
-
-#ifdef TEST
-	size_t index = 0;
-    for (auto& value : ret) {
-        std::cout << "[" << index++ << "]" << value << std::endl;
-    }
-    std::cout << "-------------------------------" << std::endl;
-#endif
 }
 
 /* テンプレートテンプレートパラメータを使うことでコンテナをtemplateにできる
@@ -105,26 +90,6 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 		nextPairs.push_back(pair);
 	}
 	partitionAndSort<T, Container>(nextPairs, containerType);
-#ifdef TEST
-	std::cout << "<oldPairs> " << std::endl << "winner: ";
-	for (size_t i = 0; i < pairs.size(); ++i) {
-		std::cout << pairs[i].getWinnerValue() << ", ";
-	}
-	std::cout << std::endl << " loser: ";
-	for (size_t i = 0; i < pairs.size() && pairs[i].getSize() == 2; ++i) {
-		std::cout << pairs[i].getLoserValue() << ", ";
-	}
-	std::cout << std::endl;
-	std::cout << "<nextPairs> " << std::endl << "winner: ";
-	for (size_t i = 0; i < nextPairs.size(); ++i) {
-		std::cout << nextPairs[i].getWinnerValue() << ", ";
-	}
-	std::cout << std::endl << " loser: ";
-	for (size_t i = 0; i < nextPairs.size() && nextPairs[i].getSize() ==2; ++i) {
-		std::cout << nextPairs[i].getLoserValue() << ", ";
-	}
-	std::cout << std::endl << "------------------------------------------" << std::endl;
-#endif
 
 	// 敗者を挿入していく
 	// binary_researchを使う(lower_bound?)
