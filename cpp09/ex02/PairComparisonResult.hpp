@@ -12,22 +12,25 @@ private:
 	Iterator itrLoser_;
 	int size_;
 
+	PairComparisonResult();
 public:
-	PairComparisonResult(Iterator winner, Iterator loser): itrWinner_(winner), itrLoser_(loser), size_(2) {};
-	// 引数が一つのときの暗黙的な型変換防止でexplicit
-	explicit PairComparisonResult(Iterator winner): itrWinner_(winner), size_(1) {};
+	PairComparisonResult(Iterator winner, Iterator loser);
+	explicit PairComparisonResult(Iterator winner);
+	PairComparisonResult(const PairComparisonResult& src);
+	PairComparisonResult& operator=(const PairComparisonResult& src);
+	~PairComparisonResult();
 
-	int getSize() { return size_; };
-	// イテレーターの先
-	ValueType& getWinnerValue() { return *itrWinner_; };
-	ValueType& getLoserValue() { return *itrLoser_; };
-	void setWinnerValue(ValueType& value) { *itrWinner_ = value; };
-	void setLoserValue(ValueType& value) { *itrLoser_ = value; };
-	// イテレーター自体
-	Iterator getWinnerItr() { return itrWinner_; };
-	Iterator getLoserItr() { return itrLoser_; };
-	void setWinnerItr(Iterator winner) { itrWinner_ = winner; };
-	void setLoserItr(Iterator loser) { itrLoser_ = loser; };
+	int getSize() const;
+	ValueType& getWinnerValue() const;
+	ValueType& getLoserValue() const;
+	void setWinnerValue(ValueType& value);
+	void setLoserValue(ValueType& value);
+	Iterator getWinnerItr() const;
+	Iterator getLoserItr() const;
+	void setWinnerItr(Iterator winner);
+	void setLoserItr(Iterator loser);
 };
+
+#include "PairComparisonResult.tpp"
 
 #endif //EXE_PAIRCOMPARISONRESULT_HPP
