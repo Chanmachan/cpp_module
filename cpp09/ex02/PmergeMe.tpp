@@ -113,6 +113,12 @@ void PmergeMe::mergeInsertionSort(std::vector<T> data) {
 		firstPairs.push_back(pair);
 	}
 	partitionAndSort<T, Container>(firstPairs, VECTOR);
+#ifdef DEBUG_VEC
+		for (size_t i = 0; i < vec_.size(); ++i) {
+			std::cout << vec_[i] << " ";
+		}
+		std::cout << std::endl;
+#endif
 }
 
 template<typename T, template<typename, typename=std::allocator<T> > class Container>
@@ -123,4 +129,10 @@ void PmergeMe::mergeInsertionSort(std::list<T> data) {
 		firstPairs.push_back(pair);
 	}
 	partitionAndSort<T, Container>(firstPairs, LIST);
+#ifdef DEBUG_LST
+	for (typename std::list<T>::const_iterator it = lst_.begin(); it != lst_.end(); it++) {
+			std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+#endif
 }
