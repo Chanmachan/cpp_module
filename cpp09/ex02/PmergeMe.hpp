@@ -13,6 +13,10 @@ class PmergeMe {
 private:
 	std::vector<int> vec_;
 	std::list<int> lst_;
+	enum ContainerType {
+		VECTOR,
+		LIST,
+	};
 public:
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
 	void mergeInsertionSort(std::vector<T> data);
@@ -21,7 +25,7 @@ public:
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
 	void partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
 						std::allocator<PairComparisonResult<T, typename Container<T>::iterator> > > pairs, \
-						bool flag);
+						ContainerType containerType);
 	template<typename T>
 	void insertLosers(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > newPairs);
 	template<typename T>
