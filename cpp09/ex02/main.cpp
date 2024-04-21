@@ -36,6 +36,7 @@ int main(int ac, char **av) {
 			pmergeMe.inputToContainer(ac, av, vec);
 		} catch (std::invalid_argument& e) {
 			std::cerr << "Error: " << e.what() << std::endl;
+			return 1;
 		}
 		clock_t start = clock();
 		pmergeMe.mergeInsertionSort<int, std::vector>(vec);
@@ -52,6 +53,7 @@ int main(int ac, char **av) {
 			pmergeMe.inputToContainer(ac, av, lst);
 		} catch (std::invalid_argument& e) {
 			std::cerr << "Error: " << e.what() << std::endl;
+			return 1;
 		}
 		clock_t start = clock();
 		pmergeMe.mergeInsertionSort<int, std::list>(lst);
