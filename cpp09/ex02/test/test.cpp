@@ -12,19 +12,31 @@ BOOST_AUTO_TEST_SUITE(TestSuitePmergeMe)
 
 	BOOST_AUTO_TEST_CASE(TestValidInput) {
 		PmergeMe pm;
+		const char* args[] = {"3", "1", "4", "5", NULL};
+		std::vector<int> vec;
+
+		// argsをstd::vectorに変換する関数を呼び出し
+		try {
+			pm.inputToContainer<int, std::vector>(5, const_cast<char**>(args), vec);
+			BOOST_CHECK_EQUAL(vec.size(), 4); // 期待される要素数を確認
+			std::vector<int> expected;
+			expected.push_back(3);
+			expected.push_back(1);
+			expected.push_back(4);
+			expected.push_back(5);
+			BOOST_CHECK_EQUAL_COLLECTIONS(vec.begin(), vec.end(), expected.begin(), expected.end());
+		} catch (const std::exception& e) {
+			BOOST_FAIL("Unexpected exception has been thrown.");
+		}
+	}
+
+	BOOST_AUTO_TEST_CASE(TestInvalidInputWithDuplicates) {
+		PmergeMe pm;
 		const char* args[] = {"3", "1", "4", "1", "5", NULL};
 		std::vector<int> vec;
-		// argsをstd::vectorに変換する関数を呼び出し
-		pm.inputToContainer<int, std::vector>(5, const_cast<char**>(args), vec);
 
-		std::vector<int> expected;
-		expected.push_back(3);
-		expected.push_back(1);
-		expected.push_back(4);
-		expected.push_back(1);
-		expected.push_back(5);
-
-		BOOST_CHECK_EQUAL_COLLECTIONS(vec.begin(), vec.end(), expected.begin(), expected.end());
+		// 重複を含む入力で例外が発生することを確認
+		BOOST_CHECK_THROW(pm.inputToContainer(6, const_cast<char**>(args), vec), std::invalid_argument);
 	}
 
 	BOOST_AUTO_TEST_CASE(TestInvalidInput) {

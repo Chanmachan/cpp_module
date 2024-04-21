@@ -4,6 +4,7 @@
 
 #include "PmergeMe.hpp"
 #include <iostream>
+#include <stdexcept>
 
 template<typename T,template<typename, typename=std::allocator<T> > class Container>
 void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
@@ -15,6 +16,9 @@ void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
 			throw std::invalid_argument("Invalid Arg");
 		}
 		dst.push_back((int)l);
+		if (std::find(dst.begin(), dst.end(), (int)l) != dst.end()) {
+			throw std::invalid_argument("Duplicate value detected");
+		}
 	}
 }
 
