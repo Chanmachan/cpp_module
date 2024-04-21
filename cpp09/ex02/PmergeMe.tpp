@@ -66,62 +66,6 @@ void PmergeMe::insertLosers(std::list<PairComparisonResult<T, typename std::list
 #endif
 }
 
-
-//template<typename T>
-//void PartitionAndSort(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > pairs, std::vector<T>& ret) {
-//
-//	if (pairs.size() <= 1) {
-//		return;
-//	}
-//	bool hasUnpairedElement = (pairs.size() % 2) != 0;
-//	std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs;
-//	typename std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> >::iterator it = pairs.begin();
-//	// 最後(奇数個の場合は最後の手前)までペアを作って比較してpair(勝者と敗者)に分ける
-//	for (; it < pairs.end() && std::next(it) != pairs.end(); it += 2) {
-//		if (it->getWinnerValue() < std::next(it)->getWinnerValue()) {
-//			T tmp = it->getWinnerValue();
-//			it->setWinnerValue(std::next(it)->getWinnerValue());
-//			std::next(it)->setWinnerValue(tmp);
-//		}
-//		// ここのコンストラクタで比較してインプットする処理にしてもいいかも
-//		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it->getWinnerItr(), std::next(it)->getWinnerItr());
-//		nextPairs.push_back(pair);
-//	}
-//	if (hasUnpairedElement) {
-//		// 最後のあまりをpairsにいれる処理
-//		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it->getWinnerItr());
-//		nextPairs.push_back(pair);
-//	}
-//	PartitionAndSort(nextPairs, ret);
-//#ifdef TEST
-//	std::cout << "<oldPairs> " << std::endl << "winner: ";
-//	for (size_t i = 0; i < pairs.size(); ++i) {
-//		std::cout << pairs[i].getWinnerValue() << ", ";
-//	}
-//	std::cout << std::endl << " loser: ";
-//	for (size_t i = 0; i < pairs.size() && pairs[i].getSize() == 2; ++i) {
-//		std::cout << pairs[i].getLoserValue() << ", ";
-//	}
-//	std::cout << std::endl;
-//	std::cout << "<nextPairs> " << std::endl << "winner: ";
-//	for (size_t i = 0; i < nextPairs.size(); ++i) {
-//		std::cout << nextPairs[i].getWinnerValue() << ", ";
-//	}
-//	std::cout << std::endl << " loser: ";
-//	for (size_t i = 0; i < nextPairs.size() && nextPairs[i].getSize() ==2; ++i) {
-//		std::cout << nextPairs[i].getLoserValue() << ", ";
-//	}
-//	std::cout << std::endl << "------------------------------------------" << std::endl;
-//#endif
-//
-//	// 敗者を挿入していく
-//	// binary_researchを使う(lower_bound?)
-//	// 元のpairsに挿入していく感じ？
-//	// nextPairsのloserがpairsのwinnerにinsertする
-//	// vecのendから挿入していった方が効率がいい？
-//	InsertLosers(nextPairs, ret);
-//}
-
 /* テンプレートテンプレートパラメータを使うことでコンテナをtemplateにできる
  * vectorやlistは第二引数でアロケータが必要
  * defaultではT型のアロケータをセットしている
@@ -155,16 +99,6 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 		ComparisonPair pair(it->getWinnerItr(), next_it->getWinnerItr());
 		nextPairs.push_back(pair);
 	}
-//	for (; it != pairs.end() && std::next(it) != pairs.end(); it += 2) {
-//		if (it->getWinnerValue() < std::next(it)->getWinnerValue()) {
-//			T tmp = it->getWinnerValue();
-//			it->setWinnerValue(std::next(it)->getWinnerValue());
-//			std::next(it)->setWinnerValue(tmp);
-//		}
-//		// ここのコンストラクタで比較してインプットする処理にしてもいいかも
-//		ComparisonPair pair(it->getWinnerItr(), std::next(it)->getWinnerItr());
-//		nextPairs.push_back(pair);
-//	}
 	if (hasUnpairedElement) {
 		// 最後のあまりをpairsにいれる処理
 		ComparisonPair pair(it->getWinnerItr());
