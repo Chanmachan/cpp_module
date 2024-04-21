@@ -42,7 +42,6 @@ int main(int ac, char **av) {
 		pmergeMe.mergeInsertionSort<int, std::vector>(vec);
 		clock_t end = clock();
 
-
 		elapsedVec = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 	}
 	// list part
@@ -64,7 +63,7 @@ int main(int ac, char **av) {
 
 	// 出力
 	std::cout << "Before:\t" << av << std::endl;
-	std::cout << "After:\t" << pmergeMe.getVec() << std::endl;
+	std::cout << "After:\t" << pmergeMe.getLst() << std::endl;
 	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getVec().size() << " elements with std::vector :\t" \
 					<< elapsedVec << " us" << std::endl;
 	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getLst().size() << " elements with std::list   :\t" \

@@ -100,7 +100,6 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 	// binary_researchを使う(lower_bound?)
 	// 元のpairsに挿入していく感じ？
 	// nextPairsのloserがソートされたpairsのwinner(->ret)にinsertされる感じ
-	// vecのendから挿入していった方が効率がいい？
 	if (containerType == VECTOR) {
 		insertLosers(nextPairs);
 	} else if (containerType == LIST){
