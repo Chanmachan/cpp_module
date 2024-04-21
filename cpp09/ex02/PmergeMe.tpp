@@ -30,7 +30,8 @@ void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
 		errno = 0;
 		char *p_end;
 		long l = std::strtol(av[i], &p_end, 10);
-		if ((*p_end != '\0') || (errno == ERANGE) || (errno == EINVAL)) {
+		if (*p_end != '\0' || errno == ERANGE || errno == EINVAL || \
+			strlen(av[i]) > 11 || l <= 0 || l > 2147483647) {
 			throw std::invalid_argument("Invalid Arg");
 		}
 		int value = (int)l;
