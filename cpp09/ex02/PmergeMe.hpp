@@ -42,6 +42,11 @@ public:
 
 	std::vector<int> getVec() { return vec_; };
 	std::list<int> getLst() { return lst_; };
+
+	template<typename T>
+	void myDebug(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs);
+	template<typename T>
+	void myDebug(std::list<PairComparisonResult<T, typename std::list<T>::iterator> > nextPairs);
 };
 
 // 定義を読み込む

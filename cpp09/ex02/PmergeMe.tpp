@@ -81,6 +81,19 @@ void PmergeMe::insertLosers(std::list<PairComparisonResult<T, typename std::list
  * PairComparisonResultの集合体をコンテナとして持つ場合は、アロケータをその型でセットしなければならない
  * partitionAndSort(pairs, &ret)の形
  * */
+template<typename T>
+void PmergeMe::myDebug(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs) {
+	for (size_t i = 0; i < nextPairs.size(); ++i) {
+		std::cout << nextPairs[i].getWinnerValue() << ", ";
+	}
+	std::cout << std::endl;
+}
+
+template<typename T>
+void PmergeMe::myDebug(std::list<PairComparisonResult<T, typename std::list<T>::iterator> > nextPairs) {
+	(void)nextPairs;
+}
+
 template<typename T, template<typename, typename=std::allocator<T> > class Container>
 void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
 						std::allocator<PairComparisonResult<T, typename Container<T>::iterator> > > pairs, \
@@ -114,7 +127,13 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 		nextPairs.push_back(pair);
 	}
 	partitionAndSort<T, Container>(nextPairs, containerType);
-
+#ifdef DEBUG
+	if (containerType == VECTOR) {
+		myDebug(nextPairs);
+	} else if (containerType == LIST){
+		myDebug(nextPairs);
+	}
+#endif
 	// 敗者を挿入していく
 	// binary_researchを使う(lower_bound?)
 	// 元のpairsに挿入していく感じ？

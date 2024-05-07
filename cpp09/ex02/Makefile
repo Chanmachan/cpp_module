@@ -5,6 +5,7 @@ SRCS = main.cpp PmergeMe.cpp
 CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98 -MMD -MP
+CXXFLAGS_DEBUG = $(CXXFLAGS) -D DEBUG
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -26,6 +27,10 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+debug: fclean
+	$(CXX) $(CXXFLAGS_DEBUG) -c $(SRCS)
+	$(CXX) $(OBJS) -o $(NAME)
+
+.PHONY: all clean fclean re debug
 
 -include $(DEPS)
