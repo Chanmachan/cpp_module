@@ -26,6 +26,9 @@
 
 template<typename T,template<typename, typename=std::allocator<T> > class Container>
 void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
+	if (ac > 42000) {
+		throw std::invalid_argument("too many args: max 42000");
+	}
 	for (int i = 1; i < ac; i++) {
 		errno = 0;
 		char *p_end;
