@@ -116,7 +116,7 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 		if (next_it == pairs.end()) {
 			break;
 		}
-		if (it->getWinnerValue() < next_it->getWinnerValue()) {
+		if (it->getWinnerValue() > next_it->getWinnerValue()) {
 			T tmp = it->getWinnerValue();
 			it->setWinnerValue(next_it->getWinnerValue());
 			next_it->setWinnerValue(tmp);
