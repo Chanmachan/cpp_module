@@ -2,70 +2,59 @@
 // Created by chanma on 2023/10/16.
 //
 
+/*
+ * [vector]
+ * 連続したメモリ上にデータを格納するためランダムアクセス(任意の要素への直接アクセス)が早い
+ * キャッシュ効率がいい。メモリが一列なのでキャッシュライン(キャッシュメモリのひとまとまりの単位のようなもの)に一度に多くデータをロードできるから早い。
+ * 要素の追加や削除(特に中間)には時間がかかるが、ソート中は交換の工程が多いので今回はデメリットが少ない。
+ *
+ * [list]
+ * 双方向連結リストで、メモリ上にばらばらに存在しがちなのでランダムアクセスが遅い。要素間を移動するにはポインタをたどる必要がある。
+ * リストは挿入や削除がO(1)で行えるため小規模なデータセットでは有利だが、
+ * ソートでは比較と移動が多いのでポインタをたどるオーバーヘッドにより数が増えてくると遅い。
+ * キャッシュ効率悪い(メモリがちらばってるから)ので、要素が多いと性能が低下しやすい。
+ *
+ * ※キャッシュメモリ
+ * CPUのメモリ。通常のメモリよりCPUから高速なアクセスが可能だが少量。
+ * ※キャッシュ効率
+ * まぁキャッシュメモリにどれだけ効率よく格納・アクセスできるかみたいな
+ */
+
 #ifndef EXE_PMERGEME_HPP
 #define EXE_PMERGEME_HPP
 
 #include <vector>
 #include <list>
-#include "PairComparisonResult.hpp"
+#include <iostream>
 
 class PmergeMe {
 private:
 	std::vector<int> vec_;
-	std::list<int> lst_;
-	enum ContainerType {
-		VECTOR,
-		LIST,
-	};
 public:
 	PmergeMe();
 	PmergeMe(const PmergeMe& src);
 	PmergeMe& operator=(const PmergeMe& src);
 	~PmergeMe();
 
-	template<typename T, template<typename, typename=std::allocator<T> > class Container>
-	void mergeInsertionSort(std::vector<T> data);
-	template<typename T, template<typename, typename=std::allocator<T> > class Container>
-	void mergeInsertionSort(std::list<T> data);
-	template<typename T, template<typename, typename=std::allocator<T> > class Container>
-	void partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
-						std::allocator<PairComparisonResult<T, typename Container<T>::iterator> > > pairs, \
-						ContainerType containerType);
-	template<typename T>
-	void insertLosers(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > newPairs);
-	template<typename T>
-	void insertLosers(std::list<PairComparisonResult<T, typename std::list<T>::iterator> > newPairs);
-	template<typename T>
-	static typename std::list<T>::iterator lowerBoundForList(typename std::list<T>::iterator first, typename std::list<T>::iterator last, const T& value);
-	template<typename T,template<typename, typename=std::allocator<T> > class Container>
-	void inputToContainer(int ac, char **av, Container<T>& dst);
+	void inputToContainer(int ac, char **av, std::vector<int>& dst);
+	void mergeInsertionSort(std::vector<int> data);
 
-	std::vector<int> getVec() { return vec_; };
-	std::list<int> getLst() { return lst_; };
-
-	template<typename T>
-	void myDebug(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs);
-	template<typename T>
-	void myDebug(std::list<PairComparisonResult<T, typename std::list<T>::iterator> > nextPairs);
+	std::vector<int> getVec();
 };
 
-// 定義を読み込む
-#include "PmergeMe.tpp"
-
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+inline std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
 	for (size_t i = 0; i < vec.size(); ++i) {
 		os << vec[i] << " ";
 	}
 	return os;
 }
 
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const std::list<T>& lst) {
-	for (typename std::list<T>::const_iterator it = lst.begin(); it != lst.end(); it++) {
-		os << *it << " ";
-	}
-	return os;
-}
+//template<typename int>
+//std::ostream& operator<<(std::ostream& os, const std::list<int>& lst) {
+//	for (typename std::list<T>::const_iterator it = lst.begin(); it != lst.end(); it++) {
+//		os << *it << " ";
+//	}
+//	return os;
+//}
 
 #endif //EXE_PMERGEME_HPP
