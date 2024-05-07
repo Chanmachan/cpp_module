@@ -42,7 +42,9 @@ void PmergeMe::inputToContainer(int ac, char **av, std::vector<int>& dst) {
 void PmergeMe::mergeInsertionSort(std::vector<int> data) {
 	(void )data;
 
+	printVec(data);
 	// ここに再帰処理する関数を作る
+
 
 }
 
@@ -50,3 +52,11 @@ void PmergeMe::mergeInsertionSort(std::vector<int> data) {
 
 
 std::vector<int> PmergeMe::getVec() { return vec_; }
+
+
+void PmergeMe::printVec(std::vector<int> v) {
+	for (size_t i = 0; i < v.size(); i++) {
+		std::cout << v[i] << ", ";
+	}
+	std::cout << std::endl;
+}

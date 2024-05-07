@@ -7,6 +7,13 @@
 #include <ctime>
 #include <iomanip>
 
+std::ostream& operator<<(std::ostream& os, char** args) {
+	for (size_t i = 1; args[i] != NULL; ++i) { // NOLINT(*-use-nullptr)
+		os << args[i] << " ";
+	}
+	return os;
+}
+
 int main(int ac, char **av) {
 	if (ac <= 1) {
 		std::cout << "Error: " << "Lack of Args" << std::endl;

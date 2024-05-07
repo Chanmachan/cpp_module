@@ -40,6 +40,7 @@ public:
 	void mergeInsertionSort(std::vector<int> data);
 
 	std::vector<int> getVec();
+	static void printVec(std::vector<int> v);
 };
 
 inline std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
