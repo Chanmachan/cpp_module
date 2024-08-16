@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(testJustInput) {
 		test_data.push_back(1);
 		test_data.push_back(4);
 		test_data.push_back(2);
-		pmergeMe.mergeInsertionSort(test_data, 0);
+		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 }
 
 BOOST_AUTO_TEST_CASE(testPowerOfTwo) {
@@ -42,7 +42,21 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMaking) {
 		test_data.push_back(6);
 		test_data.push_back(7);
 		pmergeMe.printVec(test_data);
-		pmergeMe.mergeInsertionSort(test_data, 0);
+		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
+		pmergeMe.printVec(test_data);
+}
+
+BOOST_AUTO_TEST_CASE(testRecursivePairMakingSimpleOdd) {
+		PmergeMe pmergeMe;
+
+		std::vector<int> test_data;
+		test_data.push_back(2);
+		test_data.push_back(3);
+		test_data.push_back(1);
+		test_data.push_back(5);
+		test_data.push_back(4);
+		pmergeMe.printVec(test_data);
+		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 		pmergeMe.printVec(test_data);
 }
 
@@ -62,7 +76,7 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMakingOdd) {
 		test_data.push_back(6);
 		test_data.push_back(7);
 		pmergeMe.printVec(test_data);
-		pmergeMe.mergeInsertionSort(test_data, 0);
+		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 		pmergeMe.printVec(test_data);
 }
 
