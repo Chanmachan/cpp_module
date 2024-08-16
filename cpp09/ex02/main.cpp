@@ -39,7 +39,7 @@ int main(int ac, char **av) {
 			return 1;
 		}
 		clock_t start = clock();
-		pmergeMe.mergeInsertionSort(vec);
+		pmergeMe.mergeInsertionSort(vec, 0);
 		clock_t end = clock();
 
 		elapsedVec = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;

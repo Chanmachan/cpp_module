@@ -3,6 +3,7 @@
 //
 
 #include "PmergeMe.hpp"
+#include "utils.hpp"
 
 PmergeMe::PmergeMe() {}
 
@@ -39,17 +40,26 @@ void PmergeMe::inputToContainer(int ac, char **av, std::vector<int>& dst) {
 	}
 }
 
-void PmergeMe::mergeInsertionSort(std::vector<int> data) {
-	(void )data;
-
-	printVec(data);
+void PmergeMe::mergeInsertionSort(std::vector<int>& data, int recursive_count) {
+	int pow = powerOfTwo(recursive_count);
+	if (data.size() / pow == 1) {
+		return;
+	}
+	bool hasUnpairedElement = data.size() % pow != 0;
+	(void )hasUnpairedElement;
+	std::cout << "recursive[" << recursive_count << "] " << "bef: ";
+	printVecRecursive(data, recursive_count);
 	// ここに再帰処理する関数を作る
 
-
+	for (size_t i = 0; i + pow < data.size(); i += 2 * pow) {
+		if (data[i] < data[i + pow]) {
+			std::swap(data[i], data[i + pow]);
+		}
+	}
+	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
+	printVecRecursive(data, recursive_count);
+	mergeInsertionSort(data, recursive_count + 1);
 }
-
-
-
 
 std::vector<int> PmergeMe::getVec() { return vec_; }
 
@@ -57,6 +67,16 @@ std::vector<int> PmergeMe::getVec() { return vec_; }
 void PmergeMe::printVec(std::vector<int> v) {
 	for (size_t i = 0; i < v.size(); i++) {
 		std::cout << v[i] << ", ";
+	}
+	std::cout << std::endl;
+}
+
+void PmergeMe::printVecRecursive(std::vector<int> v, int recursive_count) {
+	int pow = powerOfTwo(recursive_count);
+	for (size_t i = 0; i + pow < v.size(); i++) {
+		std::cout << v[i] << ", ";
+		std::cout << v[i + pow] << ", ";
+		i += pow;
 	}
 	std::cout << std::endl;
 }

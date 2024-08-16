@@ -37,10 +37,11 @@ public:
 	~PmergeMe();
 
 	void inputToContainer(int ac, char **av, std::vector<int>& dst);
-	void mergeInsertionSort(std::vector<int> data);
+	void mergeInsertionSort(std::vector<int>& data, int recursive_count);
 
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);
+	static void printVecRecursive(std::vector<int> v, int recursive_count);
 };
 
 inline std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
