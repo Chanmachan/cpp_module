@@ -23,6 +23,7 @@
 #include "PmergeMe.hpp"
 #include <iostream>
 #include <stdexcept>
+#include <iomanip>
 
 template<typename T,template<typename, typename=std::allocator<T> > class Container>
 void PmergeMe::inputToContainer(int ac, char **av, Container<T>& dst) {
@@ -86,8 +87,13 @@ void PmergeMe::insertLosers(std::list<PairComparisonResult<T, typename std::list
  * */
 template<typename T>
 void PmergeMe::myDebug(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > nextPairs) {
+	std::cout << "Winner: ";
 	for (size_t i = 0; i < nextPairs.size(); ++i) {
-		std::cout << nextPairs[i].getWinnerValue() << ", ";
+		std::cout << std::setw(2) << nextPairs[i].getWinnerValue() << ", ";
+	}
+	std::cout << std::endl << "Loser : ";
+	for (size_t i = 0; i < nextPairs.size(); ++i) {
+		std::cout << std::setw(2) << nextPairs[i].getLoserValue() << ", ";
 	}
 	std::cout << std::endl;
 }
