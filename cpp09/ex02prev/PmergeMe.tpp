@@ -104,16 +104,18 @@ void PmergeMe::myDebug(std::list<PairComparisonResult<T, typename std::list<T>::
 }
 
 template<typename T, template<typename, typename=std::allocator<T> > class Container>
-void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
-						std::allocator<PairComparisonResult<T, typename Container<T>::iterator> > > pairs, \
-						ContainerType containerType) {
-	typedef PairComparisonResult<T, typename Container<T>::iterator> ComparisonPair;
+// 戻り値の型
+typename ContainerTraits<T, Container>::ComparisonContainer
+	PmergeMe::partitionAndSort(typename ContainerTraits<T, Container>::ComparisonContainer pairs, ContainerType containerType) {
+//	typedef PairComparisonResult<T, typename Container<T>::iterator> ComparisonPair;
+	typedef typename ContainerTraits<T, Container>::ComparisonPair ComparisonPair;
+	typedef typename ContainerTraits<T, Container>::ComparisonContainer ComparisonContainer;
 	if (pairs.size() <= 1) {
-		return;
+		return pairs;
 	}
 	bool hasUnpairedElement = (pairs.size() % 2) != 0;
-	Container<ComparisonPair, std::allocator<ComparisonPair> > nextPairs;
-	typename Container<ComparisonPair, std::allocator<ComparisonPair> >::iterator it = pairs.begin();
+	ComparisonContainer nextPairs;
+	typename ComparisonContainer::iterator it = pairs.begin();
 	// 最後(奇数個の場合は最後の手前)までペアを作って比較してpair(勝者と敗者)に分ける
 	// 二つずつ進める
 	for (; it != pairs.end();) {
@@ -149,6 +151,10 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 #endif
 	(void )hasUnpairedElement;
 	partitionAndSort<T, Container>(nextPairs, containerType);
+
+	// 戻り値とする変数を宣言しておく
+	ComparisonContainer ret;
+
 	// 敗者を挿入していく
 	// binary_researchを使う(lower_bound?)
 	// 元のpairsに挿入していく感じ？
@@ -158,6 +164,7 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 //	} else if (containerType == LIST){
 //		insertLosers(nextPairs);
 //	}
+	return ret;
 }
 
 // mainで指定したアロケータの型に設定
@@ -169,7 +176,16 @@ void PmergeMe::mergeInsertionSort(std::vector<T> data) {
 		PairComparisonResult<T, typename std::vector<T>::iterator> pair(it);
 		firstPairs.push_back(pair);
 	}
-	partitionAndSort<T, Container>(firstPairs, VECTOR);
+	typename ContainerTraits<T, Container>::ComparisonContainer tmp;
+	ContainerType containerType = VECTOR;
+	tmp = partitionAndSort<T, Container>(firstPairs, containerType);
+#ifdef DEBUG
+	if (containerType == VECTOR) {
+		myDebug(tmp);
+	} else if (containerType == LIST){
+		myDebug(tmp);
+	}
+#endif
 #ifdef DEBUG_VEC
 		for (size_t i = 0; i < vec_.size(); ++i) {
 			std::cout << vec_[i] << " ";

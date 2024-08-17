@@ -9,6 +9,14 @@
 #include <list>
 #include "PairComparisonResult.hpp"
 
+// c++のtype_traitsを模倣
+// コードの簡略化のため
+template<typename T, template<typename, typename=std::allocator<T> > class Container>
+struct ContainerTraits {
+	typedef PairComparisonResult<T, typename Container<T>::iterator> ComparisonPair;
+	typedef Container<ComparisonPair, std::allocator<ComparisonPair> > ComparisonContainer;
+};
+
 class PmergeMe {
 private:
 	std::vector<int> vec_;
@@ -28,9 +36,9 @@ public:
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
 	void mergeInsertionSort(std::list<T> data);
 	template<typename T, template<typename, typename=std::allocator<T> > class Container>
-	void partitionAndSort(Container<PairComparisonResult<T, typename Container<T>::iterator>, \
-						std::allocator<PairComparisonResult<T, typename Container<T>::iterator> > > pairs, \
-						ContainerType containerType);
+	// 戻り値の型
+	typename ContainerTraits<T, Container>::ComparisonContainer
+	partitionAndSort(typename ContainerTraits<T, Container>::ComparisonContainer pairs, ContainerType containerType);
 	template<typename T>
 	void insertLosers(std::vector<PairComparisonResult<T, typename std::vector<T>::iterator> > newPairs);
 	template<typename T>
