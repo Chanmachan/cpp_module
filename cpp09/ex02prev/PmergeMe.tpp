@@ -116,26 +116,30 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 	typename Container<ComparisonPair, std::allocator<ComparisonPair> >::iterator it = pairs.begin();
 	// 最後(奇数個の場合は最後の手前)までペアを作って比較してpair(勝者と敗者)に分ける
 	// 二つずつ進める
-	for (; it != pairs.end(); std::advance(it, 2)) {
+	for (; it != pairs.end();) {
 		typename Container<ComparisonPair, std::allocator<ComparisonPair> >::iterator next_it = it;
 		std::advance(next_it, 1);
 		if (next_it == pairs.end()) {
 			break;
 		}
 		if (it->getWinnerValue() < next_it->getWinnerValue()) {
-			T tmp = it->getWinnerValue();
-			it->setWinnerValue(next_it->getWinnerValue());
-			next_it->setWinnerValue(tmp);
+			// イテレーターを入れ替えるように
+			std::swap(it, next_it);
+			ComparisonPair pair(it->getWinnerItr(), next_it->getWinnerItr());
+			nextPairs.push_back(pair);
+			std::advance(it, 1);
+		} else {
+			ComparisonPair pair(it->getWinnerItr(), next_it->getWinnerItr());
+			nextPairs.push_back(pair);
+			std::advance(it, 2);
 		}
-		ComparisonPair pair(it->getWinnerItr(), next_it->getWinnerItr());
-		nextPairs.push_back(pair);
 	}
-	if (hasUnpairedElement) {
-		// 最後のあまりをpairsにいれる処理
-		ComparisonPair pair(it->getWinnerItr());
-		nextPairs.push_back(pair);
-	}
-	partitionAndSort<T, Container>(nextPairs, containerType);
+	// 次の再帰に送らない
+//	if (hasUnpairedElement) {
+//		// 最後のあまりをpairsにいれる処理
+//		ComparisonPair pair(it->getWinnerItr());
+//		nextPairs.push_back(pair);
+//	}
 #ifdef DEBUG
 	if (containerType == VECTOR) {
 		myDebug(nextPairs);
@@ -143,15 +147,17 @@ void PmergeMe::partitionAndSort(Container<PairComparisonResult<T, typename Conta
 		myDebug(nextPairs);
 	}
 #endif
+	(void )hasUnpairedElement;
+	partitionAndSort<T, Container>(nextPairs, containerType);
 	// 敗者を挿入していく
 	// binary_researchを使う(lower_bound?)
 	// 元のpairsに挿入していく感じ？
 	// nextPairsのloserがソートされたpairsのwinner(->ret)にinsertされる感じ
-	if (containerType == VECTOR) {
-		insertLosers(nextPairs);
-	} else if (containerType == LIST){
-		insertLosers(nextPairs);
-	}
+//	if (containerType == VECTOR) {
+//		insertLosers(nextPairs);
+//	} else if (containerType == LIST){
+//		insertLosers(nextPairs);
+//	}
 }
 
 // mainで指定したアロケータの型に設定
