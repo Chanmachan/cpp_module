@@ -42,6 +42,7 @@ public:
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);
 	static void printVecRecursive(std::vector<int> v, size_t end, int recursive_count);
+	static void printDebug(std::vector<int> v, int recursive_count);
 };
 
 inline std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
