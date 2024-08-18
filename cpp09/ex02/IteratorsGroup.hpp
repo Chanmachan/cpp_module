@@ -12,9 +12,14 @@ private:
 	Iterator end;
 public:
 	IteratorsGroup();
+	IteratorsGroup(Iterator lhs, Iterator rhs);
 	IteratorsGroup(const IteratorsGroup& src);
 	IteratorsGroup& operator=(const IteratorsGroup& src);
 	~IteratorsGroup();
+
+	static void swap(IteratorsGroup& lhs, IteratorsGroup& rhs);
+
+	void print();
 };
 
 #include "IteratorsGroup.tpp"
