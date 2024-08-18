@@ -56,7 +56,7 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 		}
 	}
 	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
-	printVecRecursive(data, end, recursive_count);
+	printDebug(data, recursive_count);
 
 	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
 }
