@@ -107,10 +107,9 @@ template<typename T, template<typename, typename=std::allocator<T> > class Conta
 // 戻り値の型
 typename ContainerTraits<T, Container>::ComparisonContainer
 	PmergeMe::partitionAndSort(typename ContainerTraits<T, Container>::ComparisonContainer pairs, ContainerType containerType) {
-//	typedef PairComparisonResult<T, typename Container<T>::iterator> ComparisonPair;
 	typedef typename ContainerTraits<T, Container>::ComparisonPair ComparisonPair;
 	typedef typename ContainerTraits<T, Container>::ComparisonContainer ComparisonContainer;
-	if (pairs.size() <= 1) {
+	if (pairs.size() == 1) {
 		return pairs;
 	}
 	bool hasUnpairedElement = (pairs.size() % 2) != 0;
@@ -150,11 +149,28 @@ typename ContainerTraits<T, Container>::ComparisonContainer
 	}
 #endif
 	(void )hasUnpairedElement;
-	partitionAndSort<T, Container>(nextPairs, containerType);
-
 	// 戻り値とする変数を宣言しておく
+	ComparisonContainer sorted;
 	ComparisonContainer ret;
-
+	sorted = partitionAndSort<T, Container>(nextPairs, containerType);
+#ifdef DEBUG
+	if (containerType == VECTOR) {
+		std::cout << "after loop: nextPaiers" << std::endl;
+		myDebug(nextPairs);
+//		std::cout << "after loop: pairs" << std::endl;
+//		myDebug(pairs);
+	} else if (containerType == LIST){
+		myDebug(nextPairs);
+	}
+#endif
+	// sorted変数
+	if (nextPairs.size() == 1) {
+		typename ComparisonContainer::iterator itr = nextPairs.begin();
+		ComparisonPair winner(itr->getWinnerItr());
+		ComparisonPair loser(itr->getLoserItr());
+		ret.push_back(loser);
+		ret.push_back(winner);
+	}
 	// 敗者を挿入していく
 	// binary_researchを使う(lower_bound?)
 	// 元のpairsに挿入していく感じ？
