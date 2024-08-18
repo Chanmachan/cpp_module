@@ -4,6 +4,7 @@
 
 #include "PmergeMe.hpp"
 #include "utils.hpp"
+#include "IteratorsGroup.hpp"
 
 PmergeMe::PmergeMe() {}
 
@@ -47,12 +48,13 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	}
 	bool hasUnpairedElement = data.size() / pow % 2 != 0;
 	std::cout << "recursive[" << recursive_count << "] " << "bef: ";
-	printVecRecursive(data, end, recursive_count);
+	printDebug(data, recursive_count);
 	// ここに再帰処理する関数を作る
-
 	for (size_t i = 0; i + pow < end; i += 2 * pow) {
 		if (data[i] < data[i + pow]) {
-			std::swap(data[i], data[i + pow]);
+			IteratorsGroup<std::vector<int>::iterator> lhs(data.begin() + i, data.begin() + i + pow);
+			IteratorsGroup<std::vector<int>::iterator> rhs(data.begin() + i + pow, data.begin() + i + 2 * pow);
+			IteratorsGroup<std::vector<int>::iterator>::swap(lhs, rhs);
 		}
 	}
 	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
