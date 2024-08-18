@@ -119,7 +119,7 @@ typename ContainerTraits<T, Container>::ComparisonContainer
 	// 最後(奇数個の場合は最後の手前)までペアを作って比較してpair(勝者と敗者)に分ける
 	// 二つずつ進める
 	for (; it != pairs.end();) {
-		typename Container<ComparisonPair, std::allocator<ComparisonPair> >::iterator next_it = it;
+		typename ComparisonContainer::iterator next_it = it;
 		std::advance(next_it, 1);
 		if (next_it == pairs.end()) {
 			break;
