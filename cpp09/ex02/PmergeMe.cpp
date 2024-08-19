@@ -44,6 +44,7 @@ void PmergeMe::inputToContainer(int ac, char **av, std::vector<int>& dst) {
 void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count) {
 	int pow = powerOfTwo(recursive_count);
 	if (data.size() / pow == 1) {
+		printDebug(data, recursive_count);
 		return;
 	}
 	bool hasUnpairedElement = data.size() / pow % 2 != 0;
@@ -52,8 +53,8 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	// ここに再帰処理する関数を作る
 	for (size_t i = 0; i + pow < end; i += 2 * pow) {
 		if (data[i] < data[i + pow]) {
-			IteratorsGroup<std::vector<int>::iterator> lhs(data.begin() + i, data.begin() + i + pow);
-			IteratorsGroup<std::vector<int>::iterator> rhs(data.begin() + i + pow, data.begin() + i + 2 * pow);
+			IteratorsGroup<std::vector<int>::iterator> lhs(data.begin() + i, data.begin() + i + pow, true);
+			IteratorsGroup<std::vector<int>::iterator> rhs(data.begin() + i + pow, data.begin() + i + 2 * pow, true);
 			IteratorsGroup<std::vector<int>::iterator>::swap(lhs, rhs);
 		}
 	}
@@ -63,8 +64,28 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
 }
 
-std::vector<int> PmergeMe::getVec() { return vec_; }
+std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator PmergeMe::binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> >& it_groups, int target) {
+	std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator first = it_groups.begin();
+	std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator end;
+	std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator mid;
+	for (end = it_groups.begin(); end != it_groups.end() && (*end).getIsIndependent(); ++end) {}
 
+	size_t dist = std::distance(it_groups.begin(), end);
+	for (; dist != 0; ) {
+		mid = first;
+		size_t half_dist = dist / 2;
+		std::advance(mid, half_dist);
+		if ((*mid).getStartValue() < target) {
+			first = ++mid;
+			dist -= half_dist + 1;
+		} else {
+			dist = half_dist;
+		}
+	}
+	return first;
+}
+
+std::vector<int> PmergeMe::getVec() { return vec_; }
 
 void PmergeMe::printVec(std::vector<int> v) {
 	for (size_t i = 0; i < v.size(); i++) {
@@ -105,6 +126,14 @@ void PmergeMe::printDebug(std::vector<int> v, int recursive_count) {
 		if (i < v.size() - 1) {
 			std::cout << ", ";
 		}
+	}
+	std::cout << std::endl;
+}
+
+void PmergeMe::printVecLimited(std::vector<int> v, size_t start, size_t end) {
+	std::cout << "== printVecLimited" << std::endl;
+	for (size_t i = start; i < end; ++i) {
+		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
 }
