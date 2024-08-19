@@ -87,20 +87,20 @@ const char* BLUE = "\033[34m";
 const char* CYAN = "\033[96m";
 
 void PmergeMe::printDebug(std::vector<int> v, int recursive_count) {
-	int pow = powerOfTwo(recursive_count); // このpowは、どのくらいのグループサイズで要素を分割するかを示します。
+	int pow = powerOfTwo(recursive_count);
 	for (size_t i = 0; i < v.size(); ++i) {
 		if (i % (2 * pow) == 0) {
-			std::cout << CYAN << "{" << RESET;  // 大きいグループの開始
+			std::cout << CYAN << "{" << RESET;
 		}
 		if (i % pow == 0) {
-			std::cout << BLUE << "(" << RESET;  // 小さいグループの開始
+			std::cout << BLUE << "(" << RESET;
 		}
 		std::cout << v[i];  // 要素の値
 		if ((i + 1) % pow == 0 || i == v.size() - 1) {
-			std::cout << BLUE << ")" << RESET;  // 小さいグループの終了
+			std::cout << BLUE << ")" << RESET;
 		}
 		if ((i + 1) % (2 * pow) == 0) {
-			std::cout << CYAN << "}" << RESET;  // 大きいグループの終了
+			std::cout << CYAN << "}" << RESET;
 		}
 		if (i < v.size() - 1) {
 			std::cout << ", ";
