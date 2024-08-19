@@ -5,6 +5,7 @@
 #include <boost/test/unit_test.hpp>
 #include "../PmergeMe.hpp"
 #include "../utils.hpp"
+#include "../IteratorsGroup.hpp"
 #include <vector>
 #include <iostream>
 
@@ -89,6 +90,33 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMakingOdd) {
 		pmergeMe.printVec(test_data);
 		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 		pmergeMe.printVec(test_data);
+}
+
+BOOST_AUTO_TEST_CASE(testJacobsthalNumbers) {
+		std::vector<int> ret = calculateJacobsthalDoubles(200);
+		std::cout << ret << std::endl;
+		BOOST_CHECK_EQUAL(ret[0], 0);
+		BOOST_CHECK_EQUAL(ret[1], 2);
+		BOOST_CHECK_EQUAL(ret[2], 2);
+		BOOST_CHECK_EQUAL(ret[3], 6);
+		BOOST_CHECK_EQUAL(ret[4], 10);
+		BOOST_CHECK_EQUAL(ret[5], 22);
+}
+
+BOOST_AUTO_TEST_CASE(BinarySearchTest) {
+		std::vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		std::vector<IteratorsGroup<std::vector<int>::iterator>> it_groups;
+
+		// 独立しているグループを追加
+		it_groups.push_back(IteratorsGroup<std::vector<int>::iterator>(data.begin(), data.begin() + 3, true));
+		it_groups.push_back(IteratorsGroup<std::vector<int>::iterator>(data.begin() + 3, data.begin() + 6, true));
+		it_groups.push_back(IteratorsGroup<std::vector<int>::iterator>(data.begin() + 6, data.end() - 1, true));
+
+		auto result = PmergeMe::binary_search(it_groups, 1);
+
+		// ターゲットの4は3番目の要素で、二番目のグループの最初の要素であるため、正しくそこを指すことを期待
+		BOOST_REQUIRE(result != it_groups.end());
+		BOOST_CHECK_EQUAL(*result->getStart(), 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
