@@ -8,16 +8,21 @@
 template<typename Iterator>
 class IteratorsGroup {
 private:
-	Iterator start;
-	Iterator end;
-public:
+	Iterator start_;
+	Iterator end_;
+	// 独立していてswapやinsertの対象になる場合はtrue
+	bool isIndependent_;
 	IteratorsGroup();
-	IteratorsGroup(Iterator lhs, Iterator rhs);
+public:
+	IteratorsGroup(Iterator lhs, Iterator rhs, bool independent);
 	IteratorsGroup(const IteratorsGroup& src);
 	IteratorsGroup& operator=(const IteratorsGroup& src);
 	~IteratorsGroup();
 
 	static void swap(IteratorsGroup& lhs, IteratorsGroup& rhs);
+	bool getIsIndependent() const;
+	Iterator getStart() const;
+	Iterator getEnd() const;
 
 	void print();
 };
