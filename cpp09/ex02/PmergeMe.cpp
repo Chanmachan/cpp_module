@@ -2,6 +2,7 @@
 // Created by chanma on 2024/04/10.
 //
 
+#include <iomanip>
 #include "PmergeMe.hpp"
 #include "utils.hpp"
 #include "IteratorsGroup.hpp"
@@ -42,6 +43,7 @@ void PmergeMe::inputToContainer(int ac, char **av, std::vector<int>& dst) {
 }
 
 void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count) {
+	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 	int pow = powerOfTwo(recursive_count);
 	if (data.size() / pow == 1) {
 		printDebug(data, recursive_count);
@@ -53,24 +55,91 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	// ここに再帰処理する関数を作る
 	for (size_t i = 0; i + pow < end; i += 2 * pow) {
 		if (data[i] < data[i + pow]) {
-			IteratorsGroup<std::vector<int>::iterator> lhs(data.begin() + i, data.begin() + i + pow, true);
-			IteratorsGroup<std::vector<int>::iterator> rhs(data.begin() + i + pow, data.begin() + i + 2 * pow, true);
-			IteratorsGroup<std::vector<int>::iterator>::swap(lhs, rhs);
+			IteratorsGroup lhs(data.begin() + i, data.begin() + i + pow, true);
+			IteratorsGroup rhs(data.begin() + i + pow, data.begin() + i + 2 * pow, true);
+			IteratorsGroup::swap(lhs, rhs);
 		}
 	}
 	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
 	printDebug(data, recursive_count);
 
 	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
+
+	std::vector<IteratorsGroup> it_groups;
+
+	std::cout << "recursive[" << recursive_count << "] " << "bef: ";
+	printDebug(data, recursive_count);
+	// insertionソートの処理
+	if (data.size() / pow == 2) {
+		// recursive_count == 3
+		printVecRecursive(data, end, recursive_count);
+		// 要素が2のときは比較なしで先頭にインサート
+		IteratorsGroup lhs(data.begin(), data.begin()+ pow, true);
+		IteratorsGroup rhs(data.begin() + pow, data.begin() + 2 * pow, true);
+		IteratorsGroup::swap(lhs, rhs);
+		std::cout << "                : ";
+		printDebug(data, recursive_count);
+	}
+	size_t i = 0;
+	for (; i + pow < end; i += pow) {
+		if (i == 0) {
+			// 一番先頭のLoserはWinnerの前に挿入してしまう
+			IteratorsGroup lhs(data.begin(), data.begin() + pow / 2, true);
+			IteratorsGroup rhs(data.begin() + pow / 2, data.begin() + pow, true);
+			IteratorsGroup::swap(lhs, rhs);
+			it_groups.push_back(lhs);
+			it_groups.push_back(rhs);
+		} else {
+			it_groups.push_back(IteratorsGroup(data.begin() + i, data.begin() + i + pow / 2, true));
+			if (i + pow < end) { // ループの最後で2つ目のグループを追加
+				it_groups.push_back(IteratorsGroup(data.begin() + i + pow / 2, data.begin() + i + 2 * pow / 2, false));
+			}
+		}
+	}
+	if (i < data.size()) {
+		it_groups.push_back(IteratorsGroup(data.begin() + i, data.end(), false));
+	}
+	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
+	printDebug(data, recursive_count);
+	printVecRecursive(data, end, recursive_count);
+	// Loserをバイナリリサーチで挿入していく
+	// it_groupsのisIndependentの全てがtrueになるまで挿入する
+	// 最終的にはヤコブスタール数を使って挿入
+	printIteratorGroups(it_groups);
+	// winnersのみをみてバイナリサーチ
+	std::vector<IteratorsGroup> winners;
+	for (std::vector<IteratorsGroup>::iterator it = it_groups.begin(); it != it_groups.end(); ++it) {
+		if ((*it).getIsIndependent()) {
+			winners.push_back(*it);
+		}
+	}
+	printIteratorGroups(winners);
+	size_t winner_count = 0;
+	for (std::vector<IteratorsGroup>::iterator it = it_groups.begin(); it != it_groups.end(); ++it) {
+		if (!(*it).getIsIndependent()) {
+			std::vector<IteratorsGroup>::iterator result = binary_search(winners, winner_count, (*it).getStartValue());
+			if (result != winners.end()) {
+				std::cout << "binary_search: to_find->" << (*it).getStartValue() << "  found->" << (*result).getStartValue() << std::endl;
+			} else {
+				std::cout << "binary_search: to_find->" << (*it).getStartValue() << "  found->" << "Not found" << std::endl;
+			}
+		} else {
+			winner_count++;
+		}
+	}
 }
 
-std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator PmergeMe::binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> >& it_groups, int target) {
-	std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator first = it_groups.begin();
-	std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator end;
-	std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator mid;
-	for (end = it_groups.begin(); end != it_groups.end() && (*end).getIsIndependent(); ++end) {}
+std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
+PmergeMe::binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &it_groups,
+						size_t count,
+						int target) {
+	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 
-	size_t dist = std::distance(it_groups.begin(), end);
+	std::vector<IteratorsGroup>::iterator first = it_groups.begin();
+	std::vector<IteratorsGroup>::iterator mid;
+	std::vector<IteratorsGroup>::iterator end;
+	size_t dist = std::distance(it_groups.begin(), it_groups.begin() + count);
+
 	for (; dist != 0; ) {
 		mid = first;
 		size_t half_dist = dist / 2;
@@ -136,4 +205,17 @@ void PmergeMe::printVecLimited(std::vector<int> v, size_t start, size_t end) {
 		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
+}
+
+void PmergeMe::printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator>>& it_groups) {
+	std::cout << "Printing Iterator Groups:" << std::endl;
+	int group_number = 0;
+	for (const auto& group : it_groups) {
+		std::cout << "Group " << group_number++ << ": ";
+		for (auto it = group.getStart(); it != group.getEnd(); ++it) {
+			std::cout << std::setw(3) << *it << " ";
+		}
+		std::cout<< "  isIndependent-> " << std::boolalpha << group.getIsIndependent();
+		std::cout << std::endl;
+	}
 }

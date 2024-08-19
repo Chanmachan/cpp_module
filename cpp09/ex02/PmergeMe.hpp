@@ -45,8 +45,10 @@ public:
 	static void printVecRecursive(std::vector<int> v, size_t end, int recursive_count);
 	static void printDebug(std::vector<int> v, int recursive_count);
 	static void printVecLimited(std::vector<int> v, size_t start, size_t end);
+	static void printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator>>& it_groups);
 
-	static std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> >& it_groups, int target);
+	static std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
+	binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &it_groups, size_t count, int target);
 };
 
 inline std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
