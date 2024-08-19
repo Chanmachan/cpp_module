@@ -23,6 +23,7 @@ public:
 	bool getIsIndependent() const;
 	Iterator getStart() const;
 	Iterator getEnd() const;
+	int getStartValue() const;
 
 	void print();
 };

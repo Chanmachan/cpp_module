@@ -62,3 +62,9 @@ template<typename Iterator>
 Iterator IteratorsGroup<Iterator>::getEnd() const {
 	return end_;
 }
+
+template<typename Iterator>
+int IteratorsGroup<Iterator>::getStartValue() const {
+	return *start_;
+}
+
