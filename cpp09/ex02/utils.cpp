@@ -8,9 +8,9 @@ int powerOfTwo(int exponent) {
 	return 1 << exponent;
 }
 
-std::vector<int> calculateJacobsthalDoubles(int max_sum) {
+std::vector<int> calculateJacobsthalDoubles(size_t max_sum) {
 	std::vector<int> ret;
-	int sum = 0;
+	size_t sum = 0;
 	int j0 = 0, j1 = 1;
 
 	ret.push_back(2 * j0);
