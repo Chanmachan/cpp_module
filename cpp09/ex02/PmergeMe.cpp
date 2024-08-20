@@ -47,7 +47,7 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	}
 
 	// 再帰
-	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
+	mergeInsertionSort(data, end - hasUnpairedElement * pow, recursive_count + 1);
 
 	std::vector<IteratorsGroup> it_groups;
 	// insertionソートの処理
