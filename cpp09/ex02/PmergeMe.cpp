@@ -23,6 +23,10 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &src) {
 PmergeMe::~PmergeMe() {}
 
 void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count) {
+#ifdef DEBUG
+	//// print
+	printDebug(data, recursive_count);
+#endif
 	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 	int pow = powerOfTwo(recursive_count);
 	if (data.size() / pow == 1) {
@@ -116,6 +120,10 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 			moveRange(data, losers[0].getStart(), losers[0].getEnd(), (*found_pos).getStart());
 		}
 	}
+#ifdef DEBUG
+	//// print
+	printIteratorGroups(it_groups);
+#endif
 }
 
 std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator
