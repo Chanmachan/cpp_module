@@ -112,11 +112,57 @@ BOOST_AUTO_TEST_CASE(BinarySearchTest) {
 		it_groups.push_back(IteratorsGroup<std::vector<int>::iterator>(data.begin() + 3, data.begin() + 6, true));
 		it_groups.push_back(IteratorsGroup<std::vector<int>::iterator>(data.begin() + 6, data.end() - 1, true));
 
-		auto result = PmergeMe::binary_search(it_groups, 1);
+		auto result = PmergeMe::binary_search(it_groups, 1, 1);
 
 		// ターゲットの4は3番目の要素で、二番目のグループの最初の要素であるため、正しくそこを指すことを期待
 		BOOST_REQUIRE(result != it_groups.end());
 		BOOST_CHECK_EQUAL(*result->getStart(), 1);
 }
 
+struct PmergeMeFixture {
+		PmergeMe pmergeMe;
+		std::vector<int> data;
+
+		PmergeMeFixture() : data{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} {
+			// 初期データをセットアップ
+		}
+};
+
+BOOST_FIXTURE_TEST_SUITE(PmergeMeTestSuite, PmergeMeFixture)
+
+BOOST_AUTO_TEST_CASE(testMoveRange) {
+		// 4, 5, 6を新しい位置2に移動する
+		pmergeMe.moveRange(data, data.begin() + 3, data.begin() + 6, data.begin() + 2);
+
+		// 期待されるベクタ: 1, 2, 4, 5, 6, 3, 7, 8, 9, 10
+		std::vector<int> expected = {1, 2, 4, 5, 6, 3, 7, 8, 9, 10};
+		BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(), expected.begin(), expected.end());
+}
+
+BOOST_AUTO_TEST_CASE(testMoveRangeToStart) {
+		// 元の範囲の開始が移動先と同じ場合、何もしない
+		pmergeMe.moveRange(data, data.begin() + 5, data.begin() + 7, data.begin() + 5);
+
+		// 期待されるベクタ: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (変更なし)
+		std::vector<int> expected = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(), expected.begin(), expected.end());
+}
+
+BOOST_AUTO_TEST_CASE(testMoveRange2) {
+		pmergeMe.moveRange(data, data.begin() + 1, data.begin() + 4, data.begin() + 9);
+
+		// 期待されるベクタ: 1, 5, 6, 7, 8, 9, 2, 3, 4, 10
+		std::vector<int> expected = {1, 5, 6, 7, 8, 9, 2, 3, 4, 10};
+		BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(), expected.begin(), expected.end());
+}
+
+BOOST_AUTO_TEST_CASE(testMoveRangeToEnd) {
+		pmergeMe.moveRange(data, data.begin() + 1, data.begin() + 4, data.end());
+
+		// 期待されるベクタ: 1, 5, 6, 7, 8, 9, 10, 2, 3, 4
+		std::vector<int> expected = {1, 5, 6, 7, 8, 9, 10, 2, 3, 4};
+		BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(), expected.begin(), expected.end());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
+}

@@ -154,6 +154,27 @@ PmergeMe::binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> >
 	return first;
 }
 
+void PmergeMe::moveRange(std::vector<int>& data,
+						 std::vector<int>::iterator start,
+						 std::vector<int>::iterator end,
+						 std::vector<int>::iterator new_pos) {
+
+	if (start == new_pos) {
+		return;
+	}
+
+	std::vector<int> copied(start, end);
+
+	data.erase(start, end);
+
+	// new_posが削除により移動した場合の調整
+	if (start < new_pos && new_pos != data.end()) {
+		new_pos -= distance(start, end);
+	}
+
+	data.insert(new_pos, copied.begin(), copied.end());
+}
+
 std::vector<int> PmergeMe::getVec() { return vec_; }
 
 void PmergeMe::printVec(std::vector<int> v) {
