@@ -65,6 +65,7 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 
 	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
 
+	printVecRecursive(data, end, recursive_count);
 	std::vector<IteratorsGroup> it_groups;
 
 	std::cout << "recursive[" << recursive_count << "] " << "bef: ";
@@ -101,7 +102,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	}
 	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
 	printDebug(data, recursive_count);
-	printVecRecursive(data, end, recursive_count);
 	// Loserをバイナリリサーチで挿入していく
 	// it_groupsのisIndependentの全てがtrueになるまで挿入する
 	// 最終的にはヤコブスタール数を使って挿入
@@ -117,16 +117,20 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	size_t winner_count = 0;
 	for (std::vector<IteratorsGroup>::iterator it = it_groups.begin(); it != it_groups.end(); ++it) {
 		if (!(*it).getIsIndependent()) {
-			std::vector<IteratorsGroup>::iterator result = binary_search(winners, winner_count, (*it).getStartValue());
-			if (result != winners.end()) {
-				std::cout << "binary_search: to_find->" << (*it).getStartValue() << "  found->" << (*result).getStartValue() << std::endl;
+
+			std::vector<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, (*it).getStartValue());
+			(*it).setIsIndependent(true);
+			// ここに挿入の処理
+			if (found_pos == winners.end()) {
+				moveRange(data, (*it).getStart(), (*it).getEnd(), data.end());
 			} else {
-				std::cout << "binary_search: to_find->" << (*it).getStartValue() << "  found->" << "Not found" << std::endl;
+				moveRange(data, (*it).getStart(), (*it).getEnd(), (*found_pos).getStart());
 			}
 		} else {
 			winner_count++;
 		}
 	}
+	printIteratorGroups(it_groups);
 }
 
 std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
