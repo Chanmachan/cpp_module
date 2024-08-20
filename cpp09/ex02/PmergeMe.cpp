@@ -142,7 +142,7 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	}
 }
 
-std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
+std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator
 PmergeMe::binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &groups,
 						size_t count,
 						int target) {

@@ -1,6 +1,6 @@
 NAME = PmergeMe
 
-SRCS = main.cpp PmergeMe.cpp
+SRCS = main.cpp PmergeMe.cpp utils.cpp IteratorsGroup.cpp
 
 CXX = c++
 
