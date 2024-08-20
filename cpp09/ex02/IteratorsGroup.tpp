@@ -49,6 +49,11 @@ void IteratorsGroup<Iterator>::print() {
 }
 
 template<typename Iterator>
+void IteratorsGroup<Iterator>::setIsIndependent(bool isIndependent) {
+	isIndependent_ = isIndependent;
+}
+
+template<typename Iterator>
 bool IteratorsGroup<Iterator>::getIsIndependent() const {
 	return isIndependent_;
 }

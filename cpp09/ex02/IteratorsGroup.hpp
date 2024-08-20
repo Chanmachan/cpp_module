@@ -20,6 +20,7 @@ public:
 	~IteratorsGroup();
 
 	static void swap(IteratorsGroup& lhs, IteratorsGroup& rhs);
+	void setIsIndependent(bool isIndependent);
 	bool getIsIndependent() const;
 	Iterator getStart() const;
 	Iterator getEnd() const;
