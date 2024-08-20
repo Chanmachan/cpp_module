@@ -45,6 +45,8 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMaking) {
 		pmergeMe.printVec(test_data);
 		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 		pmergeMe.printVec(test_data);
+		std::vector<int> expected = {1, 2, 3, 4, 5, 6, 7, 8};
+		BOOST_CHECK_EQUAL_COLLECTIONS(test_data.begin(), test_data.end(), expected.begin(), expected.end());
 }
 
 BOOST_AUTO_TEST_CASE(testRecursivePairMakingSimpleOdd) {
@@ -59,6 +61,8 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMakingSimpleOdd) {
 		pmergeMe.printVec(test_data);
 		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 		pmergeMe.printVec(test_data);
+		std::vector<int> expected = {1, 2, 3, 4, 5};
+		BOOST_CHECK_EQUAL_COLLECTIONS(test_data.begin(), test_data.end(), expected.begin(), expected.end());
 }
 
 BOOST_AUTO_TEST_CASE(testRecursivePairMakingOdd) {
@@ -90,7 +94,9 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMakingOdd) {
 		pmergeMe.printVec(test_data);
 		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
 		pmergeMe.printVec(test_data);
-}
+		std::vector<int> expected = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
+		BOOST_CHECK_EQUAL_COLLECTIONS(test_data.begin(), test_data.end(), expected.begin(), expected.end());
+	}
 
 BOOST_AUTO_TEST_CASE(testJacobsthalNumbers) {
 		std::vector<int> ret = calculateJacobsthalDoubles(200);
