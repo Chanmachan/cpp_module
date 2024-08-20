@@ -9,5 +9,6 @@
 
 int powerOfTwo(int exponent);
 std::vector<size_t> calculateJacobsthalDoubles(size_t max_sum);
+std::vector<int> inputToContainer(int ac, char **av);
 
 #endif //EXE_UTILS_HPP
