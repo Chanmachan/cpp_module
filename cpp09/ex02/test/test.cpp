@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMakingOdd) {
 		pmergeMe.printVec(test_data);
 		std::vector<int> expected = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
 		BOOST_CHECK_EQUAL_COLLECTIONS(test_data.begin(), test_data.end(), expected.begin(), expected.end());
-	}
+}
 
 BOOST_AUTO_TEST_CASE(testJacobsthalNumbers) {
 		std::vector<size_t> ret = calculateJacobsthalDoubles(200);
@@ -168,6 +168,38 @@ BOOST_AUTO_TEST_CASE(testMoveRangeToEnd) {
 		// 期待されるベクタ: 1, 5, 6, 7, 8, 9, 10, 2, 3, 4
 		std::vector<int> expected = {1, 5, 6, 7, 8, 9, 10, 2, 3, 4};
 		BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(), expected.begin(), expected.end());
+}
+
+BOOST_AUTO_TEST_CASE(testNormalInput) {
+		const char* argv[] = {"./program", "1", "2", "3", "999"};
+		std::vector<int> result = inputToContainer(5, const_cast<char**>(argv));
+		std::vector<int> expected = {1, 2, 3, 999};
+		BOOST_CHECK_EQUAL_COLLECTIONS(result.begin(), result.end(), expected.begin(), expected.end());
+}
+
+BOOST_AUTO_TEST_CASE(testTooManyArgs) {
+		std::vector<char*> argv(42002);
+		for (int i = 0; i < 42002; i++) {
+			argv[i] = const_cast<char*>("1");
+		}
+		BOOST_CHECK_THROW(inputToContainer(42002, argv.data()), std::invalid_argument);
+}
+
+BOOST_AUTO_TEST_CASE(testInvalidNumbers) {
+		const char* argv[] = {"./program", "one", "2.5", "2147483648", "-1"};
+		BOOST_CHECK_THROW(inputToContainer(5, const_cast<char**>(argv)), std::invalid_argument);
+}
+
+BOOST_AUTO_TEST_CASE(testDuplicateValues) {
+		const char* argv[] = {"./program", "1", "2", "2", "3"};
+		BOOST_CHECK_THROW(inputToContainer(5, const_cast<char**>(argv)), std::invalid_argument);
+}
+
+BOOST_AUTO_TEST_CASE(testEdgeCases) {
+		const char* argv[] = {"./program", "0", "2147483647"};
+		std::vector<int> result = inputToContainer(3, const_cast<char**>(argv));
+		std::vector<int> expected = {0, 2147483647};
+		BOOST_CHECK_EQUAL_COLLECTIONS(result.begin(), result.end(), expected.begin(), expected.end());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
