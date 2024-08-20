@@ -45,6 +45,8 @@ public:
 				   std::vector<int>::iterator start,
 				   std::vector<int>::iterator end,
 				   std::vector<int>::iterator new_pos);
+	size_t getWinnerCount(std::vector<IteratorsGroup<std::vector<int>::iterator> >& groups,
+						  IteratorsGroup<std::vector<int>::iterator> &loser);
 
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);

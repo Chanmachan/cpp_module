@@ -246,3 +246,20 @@ void PmergeMe::printIteratorGroups(const std::vector<IteratorsGroup<std::vector<
 		std::cout << std::endl;
 	}
 }
+
+size_t PmergeMe::getWinnerCount(std::vector<IteratorsGroup<std::vector<int>::iterator> > &groups,
+								IteratorsGroup<std::vector<int>::iterator> &loser) {
+	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
+
+	size_t count = 0;
+	std::vector<IteratorsGroup>::iterator it_groups = groups.begin();
+	for (; it_groups != groups.end(); ++it_groups) {
+		if ((*it_groups).getIsIndependent()) {
+			count++;
+		}
+		if ((*it_groups).getStart() == loser.getStart()) {
+			break;
+		}
+	}
+	return count;
+}
