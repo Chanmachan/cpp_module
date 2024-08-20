@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMakingOdd) {
 	}
 
 BOOST_AUTO_TEST_CASE(testJacobsthalNumbers) {
-		std::vector<int> ret = calculateJacobsthalDoubles(200);
+		std::vector<size_t> ret = calculateJacobsthalDoubles(200);
 		std::cout << ret << std::endl;
 		BOOST_CHECK_EQUAL(ret[0], 0);
 		BOOST_CHECK_EQUAL(ret[1], 2);
