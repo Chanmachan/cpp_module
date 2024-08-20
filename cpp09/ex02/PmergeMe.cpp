@@ -207,15 +207,17 @@ void PmergeMe::printVecLimited(std::vector<int> v, size_t start, size_t end) {
 	std::cout << std::endl;
 }
 
-void PmergeMe::printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator>>& it_groups) {
+void PmergeMe::printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator> >& it_groups) {
 	std::cout << "Printing Iterator Groups:" << std::endl;
 	int group_number = 0;
-	for (const auto& group : it_groups) {
+	std::vector<IteratorsGroup<std::vector<int>::iterator> >::const_iterator group_it;
+	for (group_it = it_groups.begin(); group_it != it_groups.end(); ++group_it) {
 		std::cout << "Group " << group_number++ << ": ";
-		for (auto it = group.getStart(); it != group.getEnd(); ++it) {
-			std::cout << std::setw(3) << *it << " ";
+		std::vector<int>::const_iterator element_it;
+		for (element_it = group_it->getStart(); element_it != group_it->getEnd(); ++element_it) {
+			std::cout << std::setw(3) << *element_it << " ";
 		}
-		std::cout<< "  isIndependent-> " << std::boolalpha << group.getIsIndependent();
+		std::cout<< "  isIndependent-> " << std::boolalpha << group_it->getIsIndependent();
 		std::cout << std::endl;
 	}
 }
