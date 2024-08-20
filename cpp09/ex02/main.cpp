@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "PmergeMe.hpp"
+#include "utils.hpp"
 #include <ctime>
 #include <iomanip>
 
@@ -27,13 +28,12 @@ int main(int ac, char **av) {
 	 */
 	PmergeMe pmergeMe;
 	double elapsedVec;
+	std::vector<int> vec;
 //	double elapsedLst;
 	// vector part
 	{
-		std::vector<int> vec;
-
 		try {
-			pmergeMe.inputToContainer(ac, av, vec);
+			vec = inputToContainer(ac, av);
 		} catch (std::invalid_argument& e) {
 			std::cerr << "Error: " << e.what() << std::endl;
 			return 1;
@@ -63,7 +63,14 @@ int main(int ac, char **av) {
 
 	// 出力
 	std::cout << "Before:\t" << av << std::endl;
-	std::cout << "After:\t" << pmergeMe.getVec() << std::endl;
+	std::cout << "After:\t" << vec << std::endl;
+#ifdef DEBUG
+	if (std::is_sorted(vec.begin(), vec.end())) {
+		std::cout << "The vector is sorted." << std::endl;
+	} else {
+		std::cout << "The vector is not sorted." << std::endl;
+	}
+#endif
 	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getVec().size() << " elements with std::vector :\t" \
 					<< elapsedVec << " us" << std::endl;
 //	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getLst().size() << " elements with std::list   :\t" \
