@@ -39,6 +39,12 @@ public:
 
 	void inputToContainer(int ac, char **av, std::vector<int>& dst);
 	void mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count);
+	static std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
+	binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &it_groups, size_t count, int target);
+	void moveRange(std::vector<int>& data,
+				   std::vector<int>::iterator start,
+				   std::vector<int>::iterator end,
+				   std::vector<int>::iterator new_pos);
 
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);
@@ -46,9 +52,6 @@ public:
 	static void printDebug(std::vector<int> v, int recursive_count);
 	static void printVecLimited(std::vector<int> v, size_t start, size_t end);
 	static void printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator>>& it_groups);
-
-	static std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
-	binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &it_groups, size_t count, int target);
 };
 
 inline std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
