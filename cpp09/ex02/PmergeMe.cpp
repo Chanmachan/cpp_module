@@ -101,7 +101,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	} else if (pos < data.size()) {
 		it_groups.push_back(IteratorsGroup(data.begin() + pos, data.end(), false));
 	}
-	std::cout << "pow: " << pow << std::endl;
 	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
 	printDebug(data, recursive_count);
 	// Loserをバイナリリサーチで挿入していく
@@ -147,7 +146,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	}
 	printIteratorGroups(it_groups);
 	if (!losers.empty()) {
-		std::cout << "size: " << losers.size() << std::endl;
 		std::cout << losers[0].getStartValue() << std::endl;
 		size_t winner_count = getWinnerCount(it_groups, losers[0]);
 		std::vector<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, losers[0].getStartValue());
