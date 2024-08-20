@@ -8,6 +8,6 @@
 #include <vector>
 
 int powerOfTwo(int exponent);
-std::vector<int> calculateJacobsthalDoubles(size_t max_sum);
+std::vector<size_t> calculateJacobsthalDoubles(size_t max_sum);
 
 #endif //EXE_UTILS_HPP
