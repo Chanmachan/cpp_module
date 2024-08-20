@@ -52,13 +52,9 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 		IteratorsGroup lhs(data.begin(), data.begin() + pow / 2, true);
 		IteratorsGroup rhs(data.begin() + pow / 2, data.begin() + pow, true);
 		IteratorsGroup::swap(lhs, rhs);
-		std::cout << "                : ";
-		printDebug(data, recursive_count);
 		return;
 	}
 	bool hasUnpairedElement = data.size() / pow % 2 != 0;
-	std::cout << "recursive[" << recursive_count << "] " << "bef: ";
-	printDebug(data, recursive_count);
 	// ここに再帰処理する関数を作る
 	for (size_t i = 0; i + pow < end; i += 2 * pow) {
 		if (data[i] < data[i + pow]) {
@@ -67,17 +63,12 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 			IteratorsGroup::swap(lhs, rhs);
 		}
 	}
-	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
-	printDebug(data, recursive_count);
 
 	// 再帰
 	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
 
 	printVecRecursive(data, end, recursive_count);
 	std::vector<IteratorsGroup> it_groups;
-
-	std::cout << "recursive[" << recursive_count << "] " << "bef: ";
-	printDebug(data, recursive_count);
 	// insertionソートの処理
 	size_t pos = 0;
 	for (; pos + pow < end; pos += pow) {
@@ -101,12 +92,8 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	} else if (pos < data.size()) {
 		it_groups.push_back(IteratorsGroup(data.begin() + pos, data.end(), false));
 	}
-	std::cout << "recursive[" << recursive_count << "] " << "aft: ";
-	printDebug(data, recursive_count);
 	// Loserをバイナリリサーチで挿入していく
 	// it_groupsのisIndependentの全てがtrueになるまで挿入する
-	// 最終的にはヤコブスタール数を使って挿入
-	printIteratorGroups(it_groups);
 	// winnersのみをみてバイナリサーチ
 	std::vector<IteratorsGroup> winners;
 	std::vector<IteratorsGroup> losers;
@@ -115,8 +102,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 			winners.push_back(*it);
 		}
 	}
-	printIteratorGroups(winners);
-//	size_t winner_count = 0;
 	std::vector<size_t> vec_jd = calculateJacobsthalDoubles(it_groups.size() - winners.size());
 	size_t sum_js = 0;
 	size_t group_id = 1;
@@ -144,7 +129,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 			}
 		}
 	}
-	printIteratorGroups(it_groups);
 	if (!losers.empty()) {
 		std::cout << losers[0].getStartValue() << std::endl;
 		size_t winner_count = getWinnerCount(it_groups, losers[0]);
@@ -156,8 +140,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 			moveRange(data, losers[0].getStart(), losers[0].getEnd(), (*found_pos).getStart());
 		}
 	}
-
-	printIteratorGroups(it_groups);
 }
 
 std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator

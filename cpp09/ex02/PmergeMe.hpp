@@ -39,7 +39,7 @@ public:
 
 	void inputToContainer(int ac, char **av, std::vector<int>& dst);
 	void mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count);
-	static std::vector<IteratorsGroup<std::vector<int>::iterator>>::iterator
+	static std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator
 	binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &groups, size_t count, int target);
 	void moveRange(std::vector<int>& data,
 				   std::vector<int>::iterator start,
@@ -53,7 +53,7 @@ public:
 	static void printVecRecursive(std::vector<int> v, size_t end, int recursive_count);
 	static void printDebug(std::vector<int> v, int recursive_count);
 	static void printVecLimited(std::vector<int> v, size_t start, size_t end);
-	static void printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator>>& it_groups);
+	static void printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator> >& it_groups);
 };
 
 template <typename T>
