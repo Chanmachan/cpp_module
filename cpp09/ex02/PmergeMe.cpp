@@ -46,8 +46,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 	int pow = powerOfTwo(recursive_count);
 	if (data.size() / pow == 1) {
-		printDebug(data, recursive_count);
-		printVecRecursive(data, end, recursive_count);
 		// 要素が2のときは比較なしで先頭にインサート
 		IteratorsGroup lhs(data.begin(), data.begin() + pow / 2, true);
 		IteratorsGroup rhs(data.begin() + pow / 2, data.begin() + pow, true);
@@ -67,7 +65,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	// 再帰
 	mergeInsertionSort(data, end - hasUnpairedElement, recursive_count + 1);
 
-	printVecRecursive(data, end, recursive_count);
 	std::vector<IteratorsGroup> it_groups;
 	// insertionソートの処理
 	size_t pos = 0;
@@ -130,7 +127,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 		}
 	}
 	if (!losers.empty()) {
-		std::cout << losers[0].getStartValue() << std::endl;
 		size_t winner_count = getWinnerCount(it_groups, losers[0]);
 		std::vector<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, losers[0].getStartValue());
 		it_groups[winner_count].setIsIndependent(true);
