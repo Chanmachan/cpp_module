@@ -29,7 +29,7 @@ std::vector<size_t> calculateJacobsthalDoubles(size_t max_sum) {
 		size_t doubled_value = 2 * next_jacobsthal;
 		sum += doubled_value;
 		ret.push_back(doubled_value);
-		if (sum > max_sum) break;
+		if (sum >= max_sum) break;
 	}
 
 	return ret;
