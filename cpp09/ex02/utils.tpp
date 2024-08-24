@@ -52,5 +52,8 @@ Container inputToContainer(int ac, char **av) {
 		}
 		dst.push_back((int)l);
 	}
+	if (std::is_sorted(dst.begin(), dst.end())) {
+		throw std::invalid_argument("Arguments are already sorted");
+	}
 	return dst;
 }

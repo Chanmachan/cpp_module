@@ -16,7 +16,7 @@ std::ostream& operator<<(std::ostream& os, char** args) {
 }
 
 int main(int ac, char **av) {
-	if (ac <= 1) {
+	if (ac <= 2) {
 		std::cout << "Error: " << "Lack of Args" << std::endl;
 		return 1;
 	}
