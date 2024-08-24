@@ -61,7 +61,7 @@ int main(int ac, char **av) {
 			return 1;
 		}
 		clock_t start = clock();
-		pmergeMe.mergeInsertionSort(vec, vec.size(), 0);
+		pmergeMe.mergeInsertionSort(deq, deq.size(), 0);
 		clock_t end = clock();
 
 		elapsedDeq = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
