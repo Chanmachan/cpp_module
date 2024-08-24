@@ -47,10 +47,9 @@ public:
 				   std::vector<int>::iterator end,
 				   std::vector<int>::iterator new_pos);
 	void Copy(const std::vector<IteratorsGroup<std::vector<int>::iterator> > &src, std::vector<int> &dst);
-	size_t getWinnerCount(std::vector<int> v,
-						  std::vector<IteratorsGroup<std::vector<int>::iterator> > &winners,
-						  IteratorsGroup<std::vector<int>::iterator> &loser,
-						  size_t recursive_count);
+	size_t
+	getWinnerCount(std::vector<int> v, size_t end, std::vector<IteratorsGroup<std::vector<int>::iterator> > &winners,
+				   IteratorsGroup<std::vector<int>::iterator> &loser, size_t recursive_count);
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);
 	static void printVecRecursive(std::vector<int> v, size_t end, int recursive_count);
@@ -67,10 +66,9 @@ public:
 				   std::deque<int>::iterator end,
 				   std::deque<int>::iterator new_pos);
 	void Copy(const std::deque<IteratorsGroup<std::deque<int>::iterator> > &src, std::deque<int> &dst);
-	size_t getWinnerCount(std::deque<int> v,
-						  std::deque<IteratorsGroup<std::deque<int>::iterator> > &winners,
-						  IteratorsGroup<std::deque<int>::iterator> &loser,
-						  size_t recursive_count);
+	size_t
+	getWinnerCount(std::deque<int> v, size_t end, std::deque<IteratorsGroup<std::deque<int>::iterator> > &winners,
+				   IteratorsGroup<std::deque<int>::iterator> &loser, size_t recursive_count);
 	std::deque<int> getDeq();
 	static void printVec(std::deque<int> v);
 	static void printVecRecursive(std::deque<int> v, size_t end, int recursive_count);
