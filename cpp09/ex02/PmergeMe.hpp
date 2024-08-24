@@ -50,7 +50,7 @@ public:
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);
 	static void printVecRecursive(std::vector<int> v, size_t end, int recursive_count);
-	static void printDebug(std::vector<int> v, int recursive_count);
+	static void printDebug(std::vector<int> v, int recursive_count, size_t end);
 	static void printVecLimited(std::vector<int> v, size_t start, size_t end);
 	static void printIteratorGroups(const std::vector<IteratorsGroup<std::vector<int>::iterator> >& it_groups);
 };

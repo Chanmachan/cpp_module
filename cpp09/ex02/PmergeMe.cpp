@@ -174,6 +174,10 @@ void PmergeMe::moveRange(std::vector<int>& data,
 
 std::vector<int> PmergeMe::getVec() { return vec_; }
 
+#define RESET "\033[0m"
+#define BLUE "\033[34m"
+#define CYAN "\033[96m"
+
 void PmergeMe::printVec(std::vector<int> v) {
 	for (size_t i = 0; i < v.size(); i++) {
 		std::cout << v[i] << ", ";
@@ -190,13 +194,10 @@ void PmergeMe::printVecRecursive(std::vector<int> v, size_t end, int recursive_c
 	std::cout << std::endl;
 }
 
-const char* RESET = "\033[0m";
-const char* BLUE = "\033[34m";
-const char* CYAN = "\033[96m";
-
-void PmergeMe::printDebug(std::vector<int> v, int recursive_count) {
+void PmergeMe::printDebug(std::vector<int> v, int recursive_count, size_t end) {
 	int pow = powerOfTwo(recursive_count);
-	for (size_t i = 0; i < v.size(); ++i) {
+	size_t i = 0;
+	for (; i < end; ++i) {
 		if (i % (2 * pow) == 0) {
 			std::cout << CYAN << "{" << RESET;
 		}
@@ -212,6 +213,12 @@ void PmergeMe::printDebug(std::vector<int> v, int recursive_count) {
 		}
 		if (i < v.size() - 1) {
 			std::cout << ", ";
+		}
+	}
+	if (i != v.size()) {
+		std::cout << "   left: ";
+		for (; i < v.size(); ++i) {
+			std::cout << v[i] << ", ";
 		}
 	}
 	std::cout << std::endl;
