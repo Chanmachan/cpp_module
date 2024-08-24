@@ -397,7 +397,7 @@ void PmergeMe::mergeInsertionSort(std::deque<int>& data, size_t end, int recursi
 			j = losers.size();
 		}
 		for (; 0 < j; j--) {
-			size_t winner_count = getWinnerCount(data, winners, losers[j - 1], recursive_count);
+			size_t winner_count = getWinnerCount(data, end, winners, losers[j - 1], recursive_count);
 			std::deque<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, losers[j-1].getStartValue());
 			losers[j-1].setIsIndependent(true);
 			winners.insert(found_pos, losers[j-1]);
@@ -466,19 +466,18 @@ void PmergeMe::moveRange(std::deque<int>& data,
 	data.insert(new_pos, copied.begin(), copied.end());
 }
 
-size_t PmergeMe::getWinnerCount(std::deque<int> v,
+size_t PmergeMe::getWinnerCount(std::deque<int> v, size_t end,
 								std::deque<IteratorsGroup<std::deque<int>::iterator> > &winners,
-								IteratorsGroup<std::deque<int>::iterator> &loser,
-								size_t recursive_count) {
+								IteratorsGroup<std::deque<int>::iterator> &loser, size_t recursive_count) {
 	typedef IteratorsGroup<std::deque<int>::iterator> IteratorsGroup;
 
 	int pow = powerOfTwo(recursive_count);
 	size_t count = 0;
+	size_t quotient = end / pow;
 	std::deque<int>::iterator it = std::find(v.begin(), v.end(), loser.getStartValue());
 	// あまりが存在するとき、挿入場所の探索は全体から  {1, 2}, {3, 4}, 5 <-5の探索はそれ以前の数列の全体
-	bool hasUnpairedElement = v.size() / pow % 2 != 0;
-	if (hasUnpairedElement) {
-		if (it + pow == v.end()){
+	if (quotient % 2 != 0) {
+		if (it + pow >= v.begin() + end){
 			return winners.size();
 		}
 	}
