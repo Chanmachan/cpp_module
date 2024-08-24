@@ -261,15 +261,15 @@ size_t PmergeMe::getWinnerCount(std::vector<int> v,
 								size_t recursive_count) {
 	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 
+	int pow = powerOfTwo(recursive_count);
 	size_t count = 0;
-	std::vector<IteratorsGroup>::iterator it_groups = groups.begin();
-	for (; it_groups != groups.end(); ++it_groups) {
-		if ((*it_groups).getIsIndependent()) {
-			count++;
-		}
-		if ((*it_groups).getStart() == loser.getStart()) {
+	std::vector<int>::iterator it = std::find(v.begin(), v.end(), loser.getStartValue());
+	it -= pow;
+	for (std::vector<IteratorsGroup>::iterator it_winners = winners.begin(); it_winners != winners.end(); ++it_winners) {
+		if ((*it_winners).getStartValue() == *it) {
 			break;
 		}
+		count++;
 	}
 	return count;
 }
