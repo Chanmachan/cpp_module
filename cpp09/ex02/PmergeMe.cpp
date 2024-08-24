@@ -151,6 +151,14 @@ PmergeMe::binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> >
 	return first;
 }
 
+void PmergeMe::Copy(const std::vector<IteratorsGroup<std::vector<int>::iterator> > &src, std::vector<int> &dst) {
+	std::vector<int> insert_data;
+	for (std::vector<IteratorsGroup<std::vector<int>::iterator> >::const_iterator it = src.begin(); it != src.end(); ++it) {
+		insert_data.insert(insert_data.end(), it->getStart(), it->getEnd());
+	}
+	std::copy(insert_data.begin(), insert_data.end(), dst.begin());
+}
+
 void PmergeMe::moveRange(std::vector<int>& data,
 						 std::vector<int>::iterator start,
 						 std::vector<int>::iterator end,
@@ -247,8 +255,10 @@ void PmergeMe::printIteratorGroups(const std::vector<IteratorsGroup<std::vector<
 	}
 }
 
-size_t PmergeMe::getWinnerCount(std::vector<IteratorsGroup<std::vector<int>::iterator> > &groups,
-								IteratorsGroup<std::vector<int>::iterator> &loser) {
+size_t PmergeMe::getWinnerCount(std::vector<int> v,
+								std::vector<IteratorsGroup<std::vector<int>::iterator> > &winners,
+								IteratorsGroup<std::vector<int>::iterator> &loser,
+								size_t recursive_count) {
 	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 
 	size_t count = 0;

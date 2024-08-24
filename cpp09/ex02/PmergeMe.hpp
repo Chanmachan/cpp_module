@@ -44,8 +44,11 @@ public:
 				   std::vector<int>::iterator start,
 				   std::vector<int>::iterator end,
 				   std::vector<int>::iterator new_pos);
-	size_t getWinnerCount(std::vector<IteratorsGroup<std::vector<int>::iterator> >& groups,
-						  IteratorsGroup<std::vector<int>::iterator> &loser);
+	void Copy(const std::vector<IteratorsGroup<std::vector<int>::iterator> > &src, std::vector<int> &dst);
+	size_t getWinnerCount(std::vector<int> v,
+						  std::vector<IteratorsGroup<std::vector<int>::iterator> > &winners,
+						  IteratorsGroup<std::vector<int>::iterator> &loser,
+						  size_t recursive_count);
 
 	std::vector<int> getVec();
 	static void printVec(std::vector<int> v);
