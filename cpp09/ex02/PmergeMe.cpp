@@ -3,6 +3,7 @@
 //
 
 #include <iomanip>
+#include <algorithm>
 #include "PmergeMe.hpp"
 #include "utils.hpp"
 #include "IteratorsGroup.hpp"
