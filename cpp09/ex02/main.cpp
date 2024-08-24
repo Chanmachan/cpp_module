@@ -28,8 +28,9 @@ int main(int ac, char **av) {
 	 */
 	PmergeMe pmergeMe;
 	double elapsedVec;
+	double elapsedDeq;
 	std::vector<int> vec;
-//	double elapsedLst;
+	std::deque<int> deq;
 	// vector part
 	{
 		try {
@@ -43,38 +44,44 @@ int main(int ac, char **av) {
 		clock_t end = clock();
 
 		elapsedVec = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
+#ifdef DEBUG
+		if (std::is_sorted(vec.begin(), vec.end())) {
+		std::cout << "The vector is sorted." << std::endl;
+		} else {
+			std::cout << "The vector is not sorted." << std::endl;
+		}
+#endif
 	}
-	// list part
-//	{
-//		std::list<int> lst;
-//
-//		try {
-//			pmergeMe.inputToContainer(ac, av, lst);
-//		} catch (std::invalid_argument& e) {
-//			std::cerr << "Error: " << e.what() << std::endl;
-//			return 1;
-//		}
-//		clock_t start = clock();
-//		pmergeMe.mergeInsertionSort<int, std::list>(lst);
-//		clock_t end = clock();
-//
-//		elapsedLst = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-//	}
+	// deque part
+	{
+		try {
+			deq = inputToContainer<std::deque<int> >(ac, av);
+		} catch (std::invalid_argument& e) {
+			std::cerr << "Error: " << e.what() << std::endl;
+			return 1;
+		}
+		clock_t start = clock();
+		pmergeMe.mergeInsertionSort(vec, vec.size(), 0);
+		clock_t end = clock();
+
+		elapsedDeq = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
+#ifdef DEBUG
+		if (std::is_sorted(deq.begin(), deq.end())) {
+		std::cout << "The vector is sorted." << std::endl;
+		} else {
+			std::cout << "The vector is not sorted." << std::endl;
+		}
+#endif
+	}
 
 	// 出力
 	std::cout << "Before:\t" << av << std::endl;
 	std::cout << "After:\t" << vec << std::endl;
-#ifdef DEBUG
-	if (std::is_sorted(vec.begin(), vec.end())) {
-		std::cout << "The vector is sorted." << std::endl;
-	} else {
-		std::cout << "The vector is not sorted." << std::endl;
-	}
-#endif
-	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getVec().size() << " elements with std::vector :\t" \
+
+	std::cout << "Time to process a range of " << std::setw(4) << vec.size() << " elements with std::vector :\t" \
 					<< elapsedVec << " us" << std::endl;
-//	std::cout << "Time to process a range of " << std::setw(4) << pmergeMe.getLst().size() << " elements with std::list   :\t" \
-//					<< elapsedLst << " us" << std::endl;
+	std::cout << "Time to process a range of " << std::setw(4) << deq.size() << " elements with std::deque  :\t" \
+					<< elapsedDeq << " us" << std::endl;
 
 	return 0;
 }

@@ -198,8 +198,8 @@ BOOST_AUTO_TEST_CASE(testMoveRangeToEnd) {
 
 BOOST_AUTO_TEST_CASE(testNormalInput) {
 		const char* argv[] = {"./program", "1", "2", "3", "999"};
-		std::vector<int> result = inputToContainer(5, const_cast<char**>(argv));
-		std::vector<int> expected = {1, 2, 3, 999};
+		std::deque<int> result = inputToContainer<std::deque<int> >(5, const_cast<char**>(argv));
+		std::deque<int> expected = {1, 2, 3, 999};
 		BOOST_CHECK_EQUAL_COLLECTIONS(result.begin(), result.end(), expected.begin(), expected.end());
 }
 
@@ -208,23 +208,23 @@ BOOST_AUTO_TEST_CASE(testTooManyArgs) {
 		for (int i = 0; i < 42002; i++) {
 			argv[i] = const_cast<char*>("1");
 		}
-		BOOST_CHECK_THROW(inputToContainer(42002, argv.data()), std::invalid_argument);
+		BOOST_CHECK_THROW(inputToContainer<std::deque<int> >(42002, argv.data()), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(testInvalidNumbers) {
 		const char* argv[] = {"./program", "one", "2.5", "2147483648", "-1"};
-		BOOST_CHECK_THROW(inputToContainer(5, const_cast<char**>(argv)), std::invalid_argument);
+		BOOST_CHECK_THROW(inputToContainer<std::deque<int> >(5, const_cast<char**>(argv)), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(testDuplicateValues) {
 		const char* argv[] = {"./program", "1", "2", "2", "3"};
-		BOOST_CHECK_THROW(inputToContainer(5, const_cast<char**>(argv)), std::invalid_argument);
+		BOOST_CHECK_THROW(inputToContainer<std::deque<int> >(5, const_cast<char**>(argv)), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(testEdgeCases) {
 		const char* argv[] = {"./program", "0", "2147483647"};
-		std::vector<int> result = inputToContainer(3, const_cast<char**>(argv));
-		std::vector<int> expected = {0, 2147483647};
+		std::deque<int> result = inputToContainer<std::deque<int> >(3, const_cast<char**>(argv));
+		std::deque<int> expected = {0, 2147483647};
 		BOOST_CHECK_EQUAL_COLLECTIONS(result.begin(), result.end(), expected.begin(), expected.end());
 }
 
