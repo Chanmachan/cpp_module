@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(BinarySearchTest) {
 				winners.push_back(*it);
 			} else {
 				if ((*it).getStartValue() == 5) {
-					winner_count = pmerge.getWinnerCount(data, winners, *it, 0);
+					winner_count = pmerge.getWinnerCount(data, data.size(), winners, *it, 0);
 				}
 				losers.push_back(*it);
 			}
