@@ -1,4 +1,8 @@
 #include "utils.hpp"
+#include <cstring>
+#include <cstdlib>
+#include <cerrno>
+#include <algorithm>
 
 template<typename Container>
 Container calculateJacobsthalDoubles(size_t max_sum) {

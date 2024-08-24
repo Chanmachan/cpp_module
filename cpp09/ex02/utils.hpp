@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <deque>
+#include <iostream>
 
 int powerOfTwo(int exponent);
 template<typename Container>
