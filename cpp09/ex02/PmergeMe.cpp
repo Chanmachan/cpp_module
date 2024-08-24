@@ -26,15 +26,20 @@ PmergeMe::~PmergeMe() {}
 void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count) {
 #ifdef DEBUG
 	//// print
-	printDebug(data, recursive_count);
+	if (recursive_count == 0) {
+		std::cout << "<making pair step>" << std::endl;
+	}
+	std::cout << "Before: ";
+	printDebug(data, recursive_count, end);
+	// printVecRecursive(data, end, recursive_count);
 #endif
 	typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 	int pow = powerOfTwo(recursive_count);
 	if (data.size() / pow == 1) {
-		// 要素が2のときは比較なしで先頭にインサート
-		IteratorsGroup lhs(data.begin(), data.begin() + pow / 2, true);
-		IteratorsGroup rhs(data.begin() + pow / 2, data.begin() + pow, true);
-		IteratorsGroup::swap(lhs, rhs);
+#ifdef DEBUG
+		//// print
+		std::cout << "<insertion step>" << std::endl;
+#endif
 		return;
 	}
 	bool hasUnpairedElement = data.size() / pow % 2 != 0;
@@ -46,10 +51,19 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 			IteratorsGroup::swap(lhs, rhs);
 		}
 	}
-
+#ifdef DEBUG
+	//// print
+		std::cout << "After:  ";
+		printDebug(data, recursive_count, end);
+#endif
 	// 再帰
 	mergeInsertionSort(data, end - hasUnpairedElement * pow, recursive_count + 1);
 
+#ifdef DEBUG
+	//// print
+	std::cout << "Before: ";
+	printDebug(data, recursive_count, end);
+#endif
 	std::vector<IteratorsGroup> it_groups;
 	// insertionソートの処理
 	size_t pos = 0;
@@ -123,7 +137,8 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	}
 #ifdef DEBUG
 	//// print
-	printIteratorGroups(it_groups);
+	std::cout << "After:  ";
+	printDebug(data, recursive_count, end);
 #endif
 }
 
@@ -199,7 +214,14 @@ void PmergeMe::printVecRecursive(std::vector<int> v, size_t end, int recursive_c
 	for (size_t i = 0; i + pow < end; i += 2 * pow) {
 		std::cout << v[i] << ", ";
 		std::cout << v[i + pow] << ", ";
+		if (i + 2 * pow + pow > end) {
+			if (i + 2 * pow < end) {
+				std::cout << v[i + 2 * pow];
+			}
+		}
 	}
+	std::cout << "=== " << end << std::endl;
+
 	std::cout << std::endl;
 }
 

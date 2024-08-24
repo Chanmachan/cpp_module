@@ -42,9 +42,9 @@ BOOST_AUTO_TEST_CASE(testRecursivePairMaking) {
 		test_data.push_back(8);
 		test_data.push_back(6);
 		test_data.push_back(7);
-		pmergeMe.printVec(test_data);
+//		pmergeMe.printVec(test_data);
 		pmergeMe.mergeInsertionSort(test_data, test_data.size(), 0);
-		pmergeMe.printVec(test_data);
+//		pmergeMe.printVec(test_data);
 		std::vector<int> expected = {1, 2, 3, 4, 5, 6, 7, 8};
 		BOOST_CHECK_EQUAL_COLLECTIONS(test_data.begin(), test_data.end(), expected.begin(), expected.end());
 }
