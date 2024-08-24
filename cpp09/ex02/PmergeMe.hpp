@@ -42,10 +42,6 @@ public:
 	void mergeInsertionSort(std::vector<int>& data, size_t end, int recursive_count);
 	static std::vector<IteratorsGroup<std::vector<int>::iterator> >::iterator
 	binary_search(std::vector<IteratorsGroup<std::vector<int>::iterator> > &groups, size_t count, int target);
-	void moveRange(std::vector<int>& data,
-				   std::vector<int>::iterator start,
-				   std::vector<int>::iterator end,
-				   std::vector<int>::iterator new_pos);
 	void Copy(const std::vector<IteratorsGroup<std::vector<int>::iterator> > &src, std::vector<int> &dst);
 	size_t
 	getWinnerCount(std::vector<int> v, size_t end, std::vector<IteratorsGroup<std::vector<int>::iterator> > &winners,
@@ -61,10 +57,6 @@ public:
 	void mergeInsertionSort(std::deque<int>& data, size_t end, int recursive_count);
 	static std::deque<IteratorsGroup<std::deque<int>::iterator> >::iterator
 	binary_search(std::deque<IteratorsGroup<std::deque<int>::iterator> > &groups, size_t count, int target);
-	void moveRange(std::deque<int>& data,
-				   std::deque<int>::iterator start,
-				   std::deque<int>::iterator end,
-				   std::deque<int>::iterator new_pos);
 	void Copy(const std::deque<IteratorsGroup<std::deque<int>::iterator> > &src, std::deque<int> &dst);
 	size_t
 	getWinnerCount(std::deque<int> v, size_t end, std::deque<IteratorsGroup<std::deque<int>::iterator> > &winners,

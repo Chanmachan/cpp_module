@@ -170,27 +170,6 @@ void PmergeMe::Copy(const std::vector<IteratorsGroup<std::vector<int>::iterator>
 	std::copy(insert_data.begin(), insert_data.end(), dst.begin());
 }
 
-void PmergeMe::moveRange(std::vector<int>& data,
-						 std::vector<int>::iterator start,
-						 std::vector<int>::iterator end,
-						 std::vector<int>::iterator new_pos) {
-
-	if (start == new_pos) {
-		return;
-	}
-
-	std::vector<int> copied(start, end);
-
-	data.erase(start, end);
-
-	// new_posが削除により移動した場合の調整
-	if (start < new_pos && new_pos != data.end()) {
-		new_pos -= distance(start, end);
-	}
-
-	data.insert(new_pos, copied.begin(), copied.end());
-}
-
 size_t PmergeMe::getWinnerCount(std::vector<int> v, size_t end,
 								std::vector<IteratorsGroup<std::vector<int>::iterator> > &winners,
 								IteratorsGroup<std::vector<int>::iterator> &loser, size_t recursive_count) {
@@ -443,27 +422,6 @@ void PmergeMe::Copy(const std::deque<IteratorsGroup<std::deque<int>::iterator> >
 		insert_data.insert(insert_data.end(), it->getStart(), it->getEnd());
 	}
 	std::copy(insert_data.begin(), insert_data.end(), dst.begin());
-}
-
-void PmergeMe::moveRange(std::deque<int>& data,
-						 std::deque<int>::iterator start,
-						 std::deque<int>::iterator end,
-						 std::deque<int>::iterator new_pos) {
-
-	if (start == new_pos) {
-		return;
-	}
-
-	std::deque<int> copied(start, end);
-
-	data.erase(start, end);
-
-	// new_posが削除により移動した場合の調整
-	if (start < new_pos && new_pos != data.end()) {
-		new_pos -= distance(start, end);
-	}
-
-	data.insert(new_pos, copied.begin(), copied.end());
 }
 
 size_t PmergeMe::getWinnerCount(std::deque<int> v, size_t end,
