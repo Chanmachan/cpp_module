@@ -15,11 +15,11 @@ std::vector<size_t> calculateJacobsthalDoubles(size_t max_sum) {
 
 	ret.push_back(2 * j0);
 	sum += 2 * j0;
-	if (sum > max_sum) return ret;
+	if (sum >= max_sum) return ret;
 
 	ret.push_back(2 * j1);
 	sum += 2 * j1;
-	if (sum > max_sum) return ret;
+	if (sum >= max_sum) return ret;
 
 	size_t next_jacobsthal;
 	while (sum <= max_sum) {
