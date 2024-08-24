@@ -33,7 +33,7 @@ int main(int ac, char **av) {
 	// vector part
 	{
 		try {
-			vec = inputToContainer(ac, av);
+			vec = inputToContainer<std::vector<int> >(ac, av);
 		} catch (std::invalid_argument& e) {
 			std::cerr << "Error: " << e.what() << std::endl;
 			return 1;
