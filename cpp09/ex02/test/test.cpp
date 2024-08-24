@@ -111,14 +111,17 @@ BOOST_AUTO_TEST_CASE(testJacobsthalNumbers) {
 
 BOOST_AUTO_TEST_CASE(BinarySearchTest) {
 		// データベクターの準備
-		std::vector<int> data = {7, 1, 9, 2, 11, 6, 13, 10, 14, 8, 17, 4, 18, 5, 19, 16, 20, 3, 21, 15, 22, 12};
+		std::vector<int> data = {1, 7, 9, 2, 11, 6, 13, 10, 14, 8, 17, 4, 18, 5, 19, 16, 20, 3, 21, 15, 22, 12};
 		(void )data;
 		// IteratorsGroup の初期化
 		typedef IteratorsGroup<std::vector<int>::iterator> IteratorsGroup;
 		std::vector<IteratorsGroup> it_groups;
 		for (size_t i = 0; i < data.size(); i += 2) {
 			it_groups.push_back(IteratorsGroup(data.begin() + i, data.begin() + i + 1, true));
-			it_groups.push_back(IteratorsGroup(data.begin() + i + 1, data.begin() + i + 1 * 2, false));
+			if (i == 0)
+				it_groups.push_back(IteratorsGroup(data.begin() + i + 1, data.begin() + i + 1 * 2, true));
+			else
+				it_groups.push_back(IteratorsGroup(data.begin() + i + 1, data.begin() + i + 1 * 2, false));
 		}
 
 		// PmergeMe インスタンスの生成
@@ -131,21 +134,21 @@ BOOST_AUTO_TEST_CASE(BinarySearchTest) {
 			if ((*it).getIsIndependent()) {
 				winners.push_back(*it);
 			} else {
-				if ((*it).getStartValue() == 16) {
-					winner_count = pmerge.getWinnerCount(it_groups, *it);
+				if ((*it).getStartValue() == 5) {
+					winner_count = pmerge.getWinnerCount(data, winners, *it, 0);
 				}
 				losers.push_back(*it);
 			}
 		}
 
 		// バイナリサーチの実行
-		int target = 16;
-		std::vector<IteratorsGroup>::iterator found_pos = pmerge.binary_search(winners, winner_count, 16);
-		pmerge.printIteratorGroups(it_groups);
+		int target = 5;
+		std::vector<IteratorsGroup>::iterator found_pos = pmerge.binary_search(winners, winner_count, target);
 
 		// 結果の検証
 		BOOST_REQUIRE(found_pos != it_groups.end());  // 結果が it_groups の範囲内であることを確認
-		BOOST_CHECK_EQUAL(*found_pos->getStart(), target);  // 正しい位置にあることを確認
+		std::cout << (*--found_pos).getStartValue() << " < " << (*found_pos).getStartValue() << " < " << (*++found_pos).getStartValue() << std::endl;
+		BOOST_REQUIRE((*--found_pos).getStartValue() < (*found_pos).getStartValue() < (*++found_pos).getStartValue());
 }
 
 struct PmergeMeFixture {

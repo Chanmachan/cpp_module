@@ -67,26 +67,32 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	std::vector<IteratorsGroup> it_groups;
 	// insertionソートの処理
 	size_t pos = 0;
-	for (; pos + pow < end; pos += pow) {
+	for (; pos < end; pos += 2 * pow) {
 		if (pos == 0) {
 			// 一番先頭のLoserはWinnerの前に挿入してしまう
-			IteratorsGroup lhs(data.begin(), data.begin() + pow / 2, true);
-			IteratorsGroup rhs(data.begin() + pow / 2, data.begin() + pow, true);
+			IteratorsGroup lhs(data.begin(), data.begin() + pow, true);
+			IteratorsGroup rhs(data.begin() + pow, data.begin() + pow * 2, true);
 			IteratorsGroup::swap(lhs, rhs);
 			it_groups.push_back(lhs);
 			it_groups.push_back(rhs);
+			if (data.size() / pow == 2) {
+#ifdef DEBUG
+				//// print
+				std::cout << "After:  ";
+				printDebug(data, recursive_count, end);
+#endif
+				return;
+			}
 		} else {
-			it_groups.push_back(IteratorsGroup(data.begin() + pos, data.begin() + pos + pow / 2, true));
-			if (pos + pow < end) { // ループの最後で2つ目のグループを追加
-				it_groups.push_back(IteratorsGroup(data.begin() + pos + pow / 2, data.begin() + pos + pow, false));
+			it_groups.push_back(IteratorsGroup(data.begin() + pos, data.begin() + pos + pow, true));
+			it_groups.push_back(IteratorsGroup(data.begin() + pos + pow, data.begin() + pos + pow * 2, false));
+			if ((pos + pow * 2) + 2 * pow > end) {
+				if ((pos + pow * 2) != data.size()) {
+					it_groups.push_back(IteratorsGroup(data.begin() + pos + pow * 2, data.begin() + pos + pow + pow * 2, false));
+				}
+				break;
 			}
 		}
-	}
-	if (data.size() / pow == 2 && data.size() % pow == 0) {
-		it_groups.push_back(IteratorsGroup(data.begin() + pos, data.begin() + pos + pow / 2, true));
-		it_groups.push_back(IteratorsGroup(data.begin() + pos + pow / 2, data.begin() + pos + pow, false));
-	} else if (pos < data.size()) {
-		it_groups.push_back(IteratorsGroup(data.begin() + pos, data.end(), false));
 	}
 	// Loserをバイナリリサーチで挿入していく
 	// it_groupsのisIndependentの全てがtrueになるまで挿入する
@@ -96,45 +102,26 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& data, size_t end, int recurs
 	for (std::vector<IteratorsGroup>::iterator it = it_groups.begin(); it != it_groups.end(); ++it) {
 		if ((*it).getIsIndependent()) {
 			winners.push_back(*it);
-		}
-	}
-	std::vector<size_t> vec_jd = calculateJacobsthalDoubles(it_groups.size() - winners.size());
-	size_t sum_js = 0;
-	size_t group_id = 1;
-	for (std::vector<IteratorsGroup>::iterator it = it_groups.begin(); it != it_groups.end(); ++it) {
-		if (!(*it).getIsIndependent()) {
-			losers.insert(losers.begin(), (*it));
-		size_t jacobsthal_double = vec_jd[group_id];
-		sum_js += jacobsthal_double;
-		if (it_groups.size() < sum_js) {
-			jacobsthal_double = it_groups.size();
-		}
-		if (losers.size() == jacobsthal_double) {
-			for (size_t i = vec_jd[group_id]; 0 < i; --i) {
-				size_t winner_count = getWinnerCount(it_groups, losers[i-1]);
-				std::vector<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, losers[i-1].getStartValue());
-				losers[i-1].setIsIndependent(true);
-				// ここに挿入の処理
-				if (found_pos == winners.end()) {
-					moveRange(data, losers[i-1].getStart(), losers[i-1].getEnd(), data.end());
-				} else {
-					moveRange(data, losers[i-1].getStart(), losers[i-1].getEnd(), (*found_pos).getStart());
-				}
-			}
-			losers.clear();
-			}
-		}
-	}
-	if (!losers.empty()) {
-		size_t winner_count = getWinnerCount(it_groups, losers[0]);
-		std::vector<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, losers[0].getStartValue());
-		it_groups[winner_count].setIsIndependent(true);
-		if (found_pos == winners.end()) {
-			moveRange(data, losers[0].getStart(), losers[0].getEnd(), data.end());
 		} else {
-			moveRange(data, losers[0].getStart(), losers[0].getEnd(), (*found_pos).getStart());
+			losers.push_back(*it);
 		}
 	}
+
+	std::vector<size_t> vec_jd = calculateJacobsthalDoubles(losers.size());
+	for (size_t i = 1; i < vec_jd.size(); ++i) {
+		size_t j = vec_jd[i];
+		if (i + 1 >= vec_jd.size()) {
+			j = losers.size();
+		}
+		for (; 0 < j; j--) {
+			size_t winner_count = getWinnerCount(data, winners, losers[j - 1], recursive_count);
+			std::vector<IteratorsGroup>::iterator found_pos = binary_search(winners, winner_count, losers[j-1].getStartValue());
+			losers[j-1].setIsIndependent(true);
+			winners.insert(found_pos, losers[j-1]);
+			losers.erase(losers.begin() + j-1);
+		}
+	}
+	Copy(winners, data);
 #ifdef DEBUG
 	//// print
 	std::cout << "After:  ";
