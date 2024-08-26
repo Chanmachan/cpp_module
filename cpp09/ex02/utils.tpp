@@ -52,26 +52,26 @@ Container inputToContainer(int ac, char **av) {
 		}
 		dst.push_back((int)l);
 	}
-	if (std::is_sorted(dst.begin(), dst.end())) {
+	if (isSorted(dst.begin(), dst.end())) {
 		throw std::invalid_argument("Arguments are already sorted");
 	}
 	return dst;
 }
 
-template<typename Container>
-bool isSorted(const Container& container) {
-	typename Container::const_iterator it = container.begin();
-	if (it == container.end()) return true; // 空のコンテナはソートされていると見なす
+template<typename Iterator>
+bool isSorted(Iterator begin, Iterator end) {
+	if (begin == end) return true; // 空の範囲はソートされていると見なす
 
-	typename Container::const_iterator prev = it;
-	it++;
+	Iterator prev = begin;
+	begin++;
 
-	while (it != container.end()) {
-		if (*prev > *it) {
+	while (begin != end) {
+		if (*prev > *begin) {
 			return false;
 		}
-		prev = it;
-		it++;
+		prev = begin;
+		begin++;
 	}
 	return true;
 }
+
