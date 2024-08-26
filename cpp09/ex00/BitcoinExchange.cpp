@@ -219,6 +219,6 @@ double BitcoinExchange::getRate(const std::string &date) {
 		--it;
 		return it->second;
 	} else {
-		throw std::runtime_error(NULL);
+		throw std::runtime_error("Error: date is out of range");
 	}
 }
