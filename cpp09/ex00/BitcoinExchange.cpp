@@ -213,6 +213,9 @@ bool BitcoinExchange::validateValue(const std::string &value_str, double& value)
 double BitcoinExchange::getRate(const std::string &date) {
 	std::map<std::string, double>::iterator it = rate_map_.upper_bound(date);
 	if (it != rate_map_.end()) {
+		if (it == rate_map_.begin()) {
+			throw std::runtime_error("Error: date is out of range");
+		}
 		--it;
 		return it->second;
 	} else {
