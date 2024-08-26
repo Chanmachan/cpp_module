@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 
 BitcoinExchange::BitcoinExchange() {
 	// data.csvを読み込む
@@ -92,7 +93,7 @@ bool BitcoinExchange::validateRate(const std::string& rate_str) {
 }
 
 void BitcoinExchange::processInputFile(const std::string &filename) {
-	std::ifstream inputFile(filename);
+	std::ifstream inputFile(filename.c_str());
 	if (!inputFile) {
 		throw std::runtime_error(filename + ": file cannot open");
 	}
