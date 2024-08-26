@@ -57,3 +57,21 @@ Container inputToContainer(int ac, char **av) {
 	}
 	return dst;
 }
+
+template<typename Container>
+bool isSorted(const Container& container) {
+	typename Container::const_iterator it = container.begin();
+	if (it == container.end()) return true; // 空のコンテナはソートされていると見なす
+
+	typename Container::const_iterator prev = it;
+	it++;
+
+	while (it != container.end()) {
+		if (*prev > *it) {
+			return false;
+		}
+		prev = it;
+		it++;
+	}
+	return true;
+}

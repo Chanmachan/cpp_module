@@ -14,6 +14,8 @@ template<typename Container>
 Container calculateJacobsthalDoubles(size_t max_sum);
 template<typename Container>
 Container inputToContainer(int ac, char **av);
+template<typename Container>
+bool isSorted(const Container& container);
 
 #include "utils.tpp"
 

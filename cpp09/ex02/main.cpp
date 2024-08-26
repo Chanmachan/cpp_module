@@ -45,7 +45,7 @@ int main(int ac, char **av) {
 
 		elapsedVec = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 #ifdef DEBUG
-		if (std::is_sorted(vec.begin(), vec.end())) {
+		if (isSorted(vec)) {
 		std::cout << "The vector is sorted." << std::endl;
 		} else {
 			std::cout << "The vector is not sorted." << std::endl;
@@ -66,7 +66,7 @@ int main(int ac, char **av) {
 
 		elapsedDeq = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 #ifdef DEBUG
-		if (std::is_sorted(deq.begin(), deq.end())) {
+		if (isSorted(deq)) {
 		std::cout << "The vector is sorted." << std::endl;
 		} else {
 			std::cout << "The vector is not sorted." << std::endl;
